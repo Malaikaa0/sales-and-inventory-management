@@ -14,6 +14,7 @@ Free to use under the MIT license. Runs with Docker or a plain Python virtualenv
 - [Installation](#installation)
   - [With Docker](#with-docker)
   - [Without Docker](#without-docker)
+- [Setup, seed and reset](#setup-seed-and-reset)
 - [Configuration](#configuration)
 - [Upgrading an existing database](#upgrading-an-existing-database)
 - [Running the tests](#running-the-tests)
@@ -230,6 +231,26 @@ python manage.py shell -c "from django.contrib.auth.models import User; u = User
 Saving the user as a superuser also activates their profile and gives them the Admin role.
 
 To stop public sign-ups entirely, set `ALLOW_REGISTRATION=False`. Admins then add staff themselves from the **Staff** page.
+
+## Setup, seed and reset
+
+Windows PowerShell, from the project folder. `DEBUG` stays set only in the current window.
+
+```powershell
+$env:DEBUG="True"
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py seed_demo
+python manage.py runserver
+```
+
+To reset the SQLite database to fresh demo data, stop the server, then run:
+
+```powershell
+Remove-Item db.sqlite3
+python manage.py migrate
+python manage.py seed_demo
+```
 
 ## Configuration
 
