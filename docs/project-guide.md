@@ -145,8 +145,10 @@ Our tests go in `tests/team/`. Upstream tests earn no marks.
 | `baseline-v0` tag and `upstream` remote | Done |
 | Folder structure and `pytest.ini` | Done |
 | Setup, seed and reset instructions | Done, checked on a fresh clone |
-| Unit tests for `parse_lines` and the sale services | Pushed: 38 tests pass, `transactions/services.py` at 100% statement and branch coverage |
-| Unit tests for models and permissions | Written by Member 1, not yet pushed |
+| Unit tests for `parse_lines` and the sale services | Done: `transactions/services.py` at 100% statement and branch coverage |
+| Unit tests for models and permissions | Done: `transactions/loyalty.py`, `accounts/permissions.py` and the `store` and `transactions` models at 100% |
+| All team unit tests | 92 pass |
+| Unit tests for the `accounts`, `bills` and `invoice` models | Partly covered: 80%, 95% and 74% |
 | Test plan, risk register, traceability, AI-use record | Empty files only |
 | `docs/scope.md` | Not written |
 
