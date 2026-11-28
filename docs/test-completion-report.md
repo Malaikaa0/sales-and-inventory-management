@@ -35,6 +35,74 @@
 | **G4: Performance & crash resilience** | Does the POS handle concurrent load and recover atomically after a crash? | `k6` p95 latency & error rate; post-crash orphan sales & stock accuracy | p95 < 1500ms, error < 2%; 0 orphan sales, 100% stock match | **p95 = 228.60ms**, error = **1.00%**; crash recovery **2.49s**, **0** orphan sales, **100%** stock match (`consistency_verified=true`) | **Met** |
 | **G5: Defect transparency & resolution** | Are all discovered defects triaged with no unresolved Critical bugs? | Critical open defects; Major/Minor triage rate | 0 open Critical; 100% Major triaged | **0** open Critical in M1/M3 scope; **2 Major API defects (`N2`, `N4`) open** in M2 scope (unfixed) | **Partial / Hold trigger** |
 
+
+### 2.1 Brief GQM metrics: defect density, requirements coverage, reopen rate
+
+> Computed by Member 2 (Rehan) on 28 Nov 2026 for Member 3's GQM framework, from repository and GitHub data only. Section 2 above is unchanged.
+
+**Goal G6:** know how defect-prone and how completely verified the two workflows are, and whether fixes stay fixed, so the release/hold decision rests on measured data.
+
+| Question | Metric | How it is measured | Value | Interpretation |
+| --- | --- | --- | --- | --- |
+| **Q1.** How defect-prone is the in-scope server-side logic? | **Defect density** | Confirmed defects located in in-scope server-side code ÷ KLOC of that code | **6 / 1.502 KLOC = 4.0 defects/KLOC** | All six (N1–N6) are input-validation or error-reporting problems at the API boundary, not calculation errors. The pricing, stock and points logic (100% statement/branch, mutation-tested by M1) had none. The density is driven by `services.py`, `views.py` and `models.py`, where N1, N4, N5 and N6 sit in the sale entry point. |
+| **Q2.** How completely are the requirements verified? | **Requirements coverage** | From [traceability.md](traceability.md), over scope.md FR1–FR10 and BR1–BR4 (14 items) | Tested: **14 / 14 = 100%**. Passing with no open defect: **9 / 14 = 64.3%** | Every requirement has unit, API and E2E evidence, so the gap is in quality, not in testing. FR2 (N4), BR1 (N1), BR2 (N5) and BR3 (N5, N7) fail, and FR3 passes with N6 open. |
+| **Q3.** Do fixed defects stay fixed? | **Reopen rate** | Issues with a `reopened` event ÷ closed defect issues, from GitHub issue events (#1–#19) | **0 / 4 = 0%** | No defect has been reopened. The 4 closed defects are #1 (N1, closed by PR #11) and #12–#14 (DEF-01–03, fixed in `6052421`). All were closed on 28 Nov, so the observation window is short. Recheck before submission. |
+
+**Supporting counts** (GitHub Issues labelled `defect`, 28 Nov 2026):
+
+| Measure | Value |
+| --- | --- |
+| Logged defects | 14 (N1–N8, DEF-01–DEF-06) |
+| By severity | Critical 0 · Major 3 (N2, N4, N7) · Minor 11 |
+| Open vs closed | Open 10 (including DEF-04 accepted) · Closed 4 (N1, DEF-01, DEF-02, DEF-03) |
+| Reopened | 0 |
+
+**How defect density was computed**
+
+- **Numerator:** defects whose root cause is in the in-scope Python files.
+  - N1: `services.py:61-62`.
+  - N2: `Purchase.quantity` in `transactions/models.py`.
+  - N3: the purchase `CreateView` in `transactions/views.py`.
+  - N4: `sale_create_view` and `create_sale`.
+  - N5: `services.py:74,77,80`.
+  - N6: `_int` and the `pk__in` query in `services.py`.
+- **Left out of the numerator:**
+  - N7 and N8 are in client JavaScript (`static/js/pos.js`).
+  - DEF-01–03, DEF-05 and DEF-06 are in templates and CSS.
+  - DEF-04 is SQLite locking, an environment limit.
+  - For reference only: all 14 logged defects over the same code would give 9.3/KLOC, but that mixes defects from outside the measured code.
+- **Denominator:** non-blank, non-comment, non-docstring Python lines in the in-scope files from `.coveragerc` (`transactions`, `store`, `accounts/permissions.py`, `accounts/models.py`, minus the omitted files). Counted with Python's `tokenize` and `ast`, not by hand.
+- **Not used:** SonarQube's scoped `ncloc` (4,208, `reports/sonar/measures.json`) also counts templates, CSS, JavaScript and tests, so it is not the server-side logic base.
+
+| File | Lines of code |
+| --- | --- |
+| `store/__init__.py` | 0 |
+| `store/admin.py` | 24 |
+| `store/apps.py` | 4 |
+| `store/forms.py` | 99 |
+| `store/mixins.py` | 44 |
+| `store/models.py` | 88 |
+| `store/tables.py` | 10 |
+| `store/urls.py` | 22 |
+| `store/views.py` | 195 |
+| `transactions/__init__.py` | 0 |
+| `transactions/admin.py` | 50 |
+| `transactions/apps.py` | 4 |
+| `transactions/forms.py` | 39 |
+| `transactions/loyalty.py` | 50 |
+| `transactions/models.py` | 173 |
+| `transactions/services.py` | 154 |
+| `transactions/urls.py` | 16 |
+| `transactions/views.py` | 253 |
+| `accounts/permissions.py` | 105 |
+| `accounts/models.py` | 172 |
+| **Total (20 files)** | **1502** |
+
+**Notes**
+
+- **N1:** issue #1 is closed because PR #11 was merged into `main` (Member 1). The fix is not yet on `area1-malaika`, so the traceability figure (64.3%) still counts BR1 as failing there. Once the fix reaches `area1-malaika`, the expected value is 10/14 = 71.4%. That is a projection until it is measured.
+- **Label mismatch:** issue #1 still carries the label `status:open` although it is closed. The lifecycle labels should be updated when an issue closes.
+
 ---
 
 ## 3. Exit Criteria Evaluation ([risk-register.md](risk-register.md))

@@ -23,6 +23,7 @@
 - **Accessibility:** Dashboard improved from Lighthouse **95** (`td-has-header`, `color-contrast` failing; `axe-core`: 20 failing nodes) to Lighthouse **100** and `axe-core`: **0** violations.
 - **Security:** 35 / 35 RBAC/CSRF/header/lockout tests passing; `pip-audit` = 0 known CVEs; OWASP ZAP 2.17.0 = 0 High, 1 Medium (`DEBUG=True` 404 CSP skip only).
 - **Performance:** `k6` 10-VU load test completed 898 requests (`p95 = 228.6ms`, `1.00%` error rate due to SQLite concurrent write lock contention on `POST /transactions/new-sale/`); crash recovery completed in `2.49s` with `0` orphan sales and `100%` stock consistency.
+- **GQM (computed by Member 2, 28 Nov):** defect density **4.0 defects/KLOC** (6 server-side defects, 1,502 lines of code); requirements coverage **100% tested**, **64.3% passing** with no open defect (9/14); reopen rate **0/4 = 0%**. See [test-completion-report.md §2.1](test-completion-report.md#21-brief-gqm-metrics-defect-density-requirements-coverage-reopen-rate).
 
 ---
 
