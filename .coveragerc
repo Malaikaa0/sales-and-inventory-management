@@ -2,16 +2,18 @@
 
 [run]
 branch = True
-# Measure every application package, including files no test imports.
-source =
-    accounts
-    bills
-    invoice
-    store
-    transactions
-    InventoryMS
+# Relative paths, so SonarQube can read the report from inside its container.
+relative_files = True
+# Measure from the repository root, including files no test imports.
+source = .
 # Never measured, in scope or whole project.
 omit =
+    # Third party packages in the virtual environment.
+    .venv/*
+    # Our own tests.
+    tests/*
+    # Django command line entry point.
+    manage.py
     # Generated schema and data migrations.
     */migrations/*
     # Upstream tests.
