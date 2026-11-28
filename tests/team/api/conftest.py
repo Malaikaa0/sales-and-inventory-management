@@ -174,6 +174,40 @@ def fill(value, ids):
     return value
 
 
+def sale_body(item, customer, quantity, amount_paid=1000000, **extra):
+    body = {'customer': customer['id'], 'items': [{'id': item['id'], 'quantity': quantity}],
+            'tax_percentage': 0, 'amount_paid': amount_paid, 'redeem_points': 0}
+    body.update(extra)
+    return body
+
+
+def make_sale(cashier, item, customer, quantity, **extra):
+    """Complete a sale and return its JSON; fails the test if it is rejected."""
+    response = post_sale(cashier, sale_body(item, customer, quantity, **extra))
+    assert response.status_code == 200, response.text[:300]
+    return response.json()
+
+
+VOID_TOKEN_PAGE = '/transactions/new-sale/'  # any page works; void pages are 403 for cashiers
+
+
+def void(session, pk, reason='Customer returned all items', include_reason=True):
+    data = {'reason': reason} if include_reason else {}
+    return post_form(session, f'/transactions/sale/{pk}/void/', data, token_path=VOID_TOKEN_PAGE)
+
+
+def sale_status(session, pk):
+    """'Completed' or 'Voided', read back from the sale detail page."""
+    html = session.get(url(f'/transactions/sale/{pk}/'), timeout=TIMEOUT).text
+    match = re.search(r'<span class="status (?:ok|bad)">(\w+)</span>', html)
+    assert match, f'No status on sale {pk}'
+    return match.group(1)
+
+
+def page_text(session, path):
+    return session.get(url(path), timeout=TIMEOUT).text
+
+
 # --------------------------------------------------------------- fixtures
 @pytest.fixture(scope='session')
 def manager():
