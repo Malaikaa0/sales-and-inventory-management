@@ -69,9 +69,7 @@ Everyone writes and automates two use cases, logs defects in the agreed format, 
 
 | Date | Work |
 | --- | --- |
-| Wed 25 Nov | Baseline, folder structure, setup guide (M1) |
-| Thu 26 Nov | Unit tests for services, models and permissions (M1) |
-| Fri 27 Nov | Defects N1–N3 first seen; member plans |
+| Fri 27 Nov | Baseline, folder structure, setup guide, unit tests for services, models and permissions (M1); defects N1–N3 first seen |
 | Sat 28 Nov | OpenAPI spec, generator, API tests, baseline run, N1–N5, regeneration demo, API coverage, this plan (M2). Scope document and risk register (M1, M3) |
 | Sun 29 Nov | Traceability matrix, RCA for N2 and N4, Pareto chart, E2E and security runs, exit decision, final package |
 
