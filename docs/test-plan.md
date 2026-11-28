@@ -181,7 +181,7 @@ Agreed on 28 Nov 2026. Tests that fail because of an **open, logged** defect are
 | `tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_exc3_tax_out_of_range_rejected` | N7 | [#8](https://github.com/Malaikaa0/sales-and-inventory-management/issues/8) |
 | `tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_exc5_session_expired` | N8 | [#9](https://github.com/Malaikaa0/sales-and-inventory-management/issues/9) |
 
-N1 is **not** marked: PR #11 fixes it. The final branch is `area1-malaika`, so the N1 test fails there until the PR #11 fix is in `area1-malaika` (#11 currently targets `main`).
+N1 is **not** marked: PR #11 fixes it. The final branch is `area1-malaika`, so the N1 test fails there until PR #11 (retargeted to `area1-malaika`) is merged. Merge order: #10 → #11 → #20.
 
 Why we use `xfail(strict=True)`:
 
