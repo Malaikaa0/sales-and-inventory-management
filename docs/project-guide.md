@@ -146,9 +146,11 @@ Our tests go in `tests/team/`. Upstream tests earn no marks.
 | `baseline-v0` tag and `upstream` remote | Done |
 | Folder structure and `pytest.ini` | Done |
 | Setup, seed and reset instructions | Done, checked on a fresh clone |
-| Unit tests | 147 pass |
-| In-scope coverage ([scope](scope.md#unit-coverage-scope)) | Statements 100%, branches 99.2% |
-| Whole-project coverage | 71.0% combined, not being raised |
+| Unit tests | 162 pass |
+| In-scope coverage ([scope](scope.md#unit-coverage-scope)) | Statements 100%, branches 100% |
+| Whole-project coverage | 71.6% combined |
+| SonarQube | [sonar-triage.md](sonar-triage.md); screenshots not taken |
+| Control flow graphs | [cfg-complexity.md](cfg-complexity.md), to be checked against the code |
 | MCC, MC/DC and decision tables | [mcc-mcdc.md](mcc-mcdc.md) |
 | `docs/scope.md` | Draft, not yet agreed by the team |
 | Candidate defects D1 to D4 | In the [test plan](test-plan.md), not yet logged as Issues |
@@ -164,9 +166,9 @@ Marks are the group marks from the rubric. The 20 viva marks are individual.
 
 - [x] Baseline and project setup
 - [ ] Scope document: two workflows, at least 8 requirements (3 or more per workflow), 4 business rules, 2 roles (drafted, to be agreed)
-- [x] Unit tests: in-scope statement coverage 100%, one partial branch justified
+- [x] Unit tests: in-scope statement and branch coverage 100%
 - [x] MCC table and MC/DC pairs for the critical module
-- [ ] SonarQube metrics, control flow graph and cyclomatic complexity
+- [x] SonarQube metrics, control flow graph and cyclomatic complexity (screenshots and own check pending)
 - [ ] Mutation testing: 2 custom operators, at least 15 surviving mutants analysed
 - [ ] CI quality gate, one fix pull request, one blocked pull request
 
