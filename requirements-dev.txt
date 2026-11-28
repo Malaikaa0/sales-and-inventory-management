@@ -1,0 +1,4 @@
+# Test tools used locally and in CI. Cosmic Ray is installed from tools/mutation.
+pytest==9.2.0
+pytest-django==4.14.0
+coverage==7.17.5
