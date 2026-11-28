@@ -1,0 +1,38 @@
+{
+  "target_item": {
+    "id": 19,
+    "name": "A4 paper ream"
+  },
+  "pre_crash": {
+    "integrity": "ok",
+    "stock": 500,
+    "sales_count": 115,
+    "orphan_sales": 0,
+    "sold_for_item": 16
+  },
+  "phase1_before_kill": {
+    "succeeded": 81,
+    "failed_during_kill": 50
+  },
+  "post_crash_snapshot": {
+    "integrity": "ok",
+    "stock": 419,
+    "sales_count": 196,
+    "orphan_sales": 0,
+    "sold_for_item": 97
+  },
+  "recovery_seconds": 2.49,
+  "post_recovery_checks": {
+    "dashboard_status": 200,
+    "pos_status": 200,
+    "post_recovery_sale_ok": true
+  },
+  "post_recovery_snapshot": {
+    "integrity": "ok",
+    "stock": 418,
+    "sales_count": 197,
+    "orphan_sales": 0,
+    "sold_for_item": 98
+  },
+  "consistency_verified": true
+}

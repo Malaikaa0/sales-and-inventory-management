@@ -1,0 +1,523 @@
+openapi: 3.0.3
+info:
+  title: Sales and Inventory Management - Sale and Void sale workflows
+  version: 1.0.0
+  description: |
+    Describes the endpoints under test for SE3002 Member 2 (Sale and Void sale).
+    Written from the code at baseline-v0; where the code and plain OpenAPI differ,
+    x- extensions record the real behaviour so tools/generator can read it.
+
+    Extensions used:
+      x-defaults-when-missing: the default is used when the field is missing, null or "".
+        Assumption A5 (agreed): a boolean is the wrong type and must be rejected.
+        The code (services.py:74,77,80, `value or 0`) also turns false into 0 (N5);
+        tests expect the requirement.
+      x-code-also-defaults: values the code defaults although A5 says reject (for traceability).
+      x-error-message-min / x-error-message-max: text the message must CONTAIN for a value
+        below the minimum / above the maximum (requirement, not copied from the code).
+      x-accepts-numeric-strings: the field also accepts a string of digits ("3").
+        On integer fields every JSON float is rejected, even 2.0, because _int
+        does int(str(2.0)) = int("2.0"); booleans and "" are rejected too
+        (services.py:40-46). Number fields accept floats and numeric strings.
+      x-must-cover-total: the value must be >= the server-computed grand total.
+      x-limited-by-balance: a value above the customer's points balance is rejected.
+      x-error-message: exact message returned in Error.message when the rule fails.
+      x-rule: requirement / business rule ID from docs/scope.md (FR1-FR10, BR1-BR4).
+      x-source: code line the rule comes from.
+  license:
+    name: MIT
+servers:
+  - url: http://127.0.0.1:8000
+    description: Local development server (DEBUG=True, seed_demo data)
+
+security:
+  - cookieAuth: []
+
+tags:
+  - name: sale
+  - name: void
+  - name: support
+
+paths:
+  /transactions/new-sale/:
+    post:
+      tags: [sale]
+      operationId: createSale
+      summary: Complete a sale (Operative or higher)
+      description: |
+        Prices, totals, tax, discount, change and points are computed on the server
+        inside one transaction with stock rows locked. On any 400 nothing is saved.
+        Checks run in this order and only the first failure is reported:
+        content type, JSON, object, items, tax, amount_paid, redeem_points,
+        customer, item existence, stock, redemption, payment.
+      x-source: transactions/views.py:195-238, transactions/services.py:67-167
+      security:
+        - cookieAuth: []
+          csrfToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaleRequest'
+            example:
+              customer: 1
+              items: [{id: 1, quantity: 2}]
+              tax_percentage: 16
+              amount_paid: 1000
+              redeem_points: 0
+      responses:
+        '200':
+          description: Sale completed. Stock reduced by each line's quantity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaleSuccess'
+        '302':
+          $ref: '#/components/responses/LoginRedirect'
+        '400':
+          description: |
+            Validation failure; nothing saved. Classes (x-error-message values):
+            - Content-Type not application/json: "Expected a JSON request." (views.py:204-205)
+            - Body not valid JSON: "Invalid JSON in request body." (views.py:206-209)
+            - Body not a JSON object: "Invalid request." (views.py:210-211)
+            - Any field rule in SaleRequest.
+            - Customer not found: "Select a valid customer." (services.py:86-88)
+            - Item not found: "One or more items no longer exist." (services.py:95-97)
+            - Stock below merged quantity: "Not enough stock for {name}: {n} available." (services.py:103-106)
+            - Redemption: "Loyalty points are not enabled." / "Redeem at least {min} points." /
+              "{customer} only has {n} points." / "Points redeemed cannot exceed the bill." (services.py:114-124)
+            - Underpayment: "Amount paid ({paid}) is less than the total ({total})." (services.py:130-133)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          description: Unexpected server error; "The sale could not be saved. Please try again." (views.py:223-225)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /transactions/sale/{pk}/void/:
+    parameters:
+      - $ref: '#/components/parameters/SalePk'
+    post:
+      tags: [void]
+      operationId: voidSale
+      summary: Void a completed sale (Executive or higher)
+      description: |
+        Restores stock for every line, gives back redeemed points and takes back
+        earned points (only what the customer still has, services.py:185-188),
+        then sets status to Voided. The sale row is kept.
+        Neither an invalid form nor an already-voided sale returns 4xx; tests must
+        read stock and status back to tell the outcomes apart.
+        Endpoint weakness (reported, accepted for FR7): a rejected void is signalled
+        only by a 302 + flash message or a 200 re-rendered form, never a 4xx status,
+        so API clients cannot detect the rejection from the status code.
+      x-source: transactions/views.py:254-277, transactions/services.py:170-200
+      security:
+        - cookieAuth: []
+          csrfToken: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VoidForm'
+      responses:
+        '200':
+          description: |
+            Form invalid (reason missing, blank or longer than 200): the confirm page
+            is rendered again with errors. Nothing changes. (views.py:268-269)
+          x-outcome: invalid-form
+          content:
+            text/html:
+              schema:
+                type: string
+        '302':
+          description: |
+            Redirect to /transactions/sale/{pk}/ in both cases:
+            - voided now (flash "Sale {receipt} voided. Stock restored."), or
+            - already voided (flash "This sale has already been voided."; stock NOT
+              added again) (services.py:177-178, views.py:272-277).
+            Anonymous users also get 302, to the login page.
+          x-outcome: voided-or-already-voided-or-login
+          headers:
+            Location:
+              schema:
+                type: string
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    get:
+      tags: [void]
+      operationId: voidConfirmPage
+      summary: Void confirmation page (Executive or higher)
+      responses:
+        '200':
+          $ref: '#/components/responses/Html'
+        '302':
+          $ref: '#/components/responses/LoginRedirect'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /transactions/sale/{pk}/:
+    parameters:
+      - $ref: '#/components/parameters/SalePk'
+    get:
+      tags: [support]
+      operationId: saleDetail
+      summary: Sale detail page, used to read status back (Operative or higher)
+      x-source: transactions/views.py:137-150
+      responses:
+        '200':
+          $ref: '#/components/responses/Html'
+        '302':
+          $ref: '#/components/responses/LoginRedirect'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /get-items/:
+    get:
+      tags: [support]
+      operationId: searchItems
+      summary: Item search for the till (Operative or higher, GET only)
+      description: Only items with stock > 0 are returned; at most 20, ordered by name.
+      x-source: store/views.py:261-268
+      parameters:
+        - name: term
+          in: query
+          required: false
+          description: Name filter (icontains), trimmed and cut to 50 characters.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Matching items
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 20
+                items:
+                  $ref: '#/components/schemas/ItemSearchResult'
+        '302':
+          $ref: '#/components/responses/LoginRedirect'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '405':
+          description: Method not allowed (require_GET)
+
+  /accounts/get_customers/:
+    get:
+      tags: [support]
+      operationId: searchCustomers
+      summary: Customer search for the till (Operative or higher, GET only)
+      x-source: accounts/views.py:389-399
+      parameters:
+        - name: term
+          in: query
+          required: false
+          description: Matches first name, last name or phone; cut to 50 characters.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Matching customers (at most 20)
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [results]
+                properties:
+                  results:
+                    type: array
+                    maxItems: 20
+                    items:
+                      $ref: '#/components/schemas/CustomerSearchResult'
+        '302':
+          $ref: '#/components/responses/LoginRedirect'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '405':
+          description: Method not allowed (require_GET)
+
+  /accounts/login/:
+    get:
+      tags: [support]
+      operationId: loginPage
+      summary: Login page; source of the csrfmiddlewaretoken
+      security: []
+      responses:
+        '200':
+          $ref: '#/components/responses/Html'
+    post:
+      tags: [support]
+      operationId: login
+      summary: Log in and receive the sessionid cookie
+      description: |
+        After LOGIN_MAX_ATTEMPTS (default 5) failures for the same username and IP,
+        the pair is locked for LOGIN_LOCKOUT_SECONDS (default 900).
+      x-source: accounts/forms.py:23-49, InventoryMS/settings.py:68-69
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [username, password, csrfmiddlewaretoken]
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  format: password
+                csrfmiddlewaretoken:
+                  type: string
+      responses:
+        '200':
+          description: Login failed or locked; the form is shown again with an error.
+          content:
+            text/html:
+              schema:
+                type: string
+        '302':
+          description: Logged in; redirect to the dashboard (/). Sets the sessionid cookie.
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    csrfToken:
+      type: apiKey
+      in: header
+      name: X-CSRFToken
+      description: |
+        Django CSRF token. CSRF_COOKIE_HTTPONLY=True (settings.py:264), so read it from
+        name="csrfmiddlewaretoken" in a page's HTML (e.g. GET /transactions/new-sale/).
+        Form posts may send it as the csrfmiddlewaretoken field instead.
+
+  parameters:
+    SalePk:
+      name: pk
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+
+  responses:
+    LoginRedirect:
+      description: Not logged in; redirect to /accounts/login/?next=... (permissions.py:122-123, LoginRequiredMixin)
+      headers:
+        Location:
+          schema:
+            type: string
+    Forbidden:
+      description: Logged in but role too low (PermissionDenied; permissions.py:99-125)
+    NotFound:
+      description: No sale with this pk
+    Html:
+      description: HTML page
+      content:
+        text/html:
+          schema:
+            type: string
+
+  schemas:
+    SaleRequest:
+      type: object
+      required: [customer, items]
+      x-source: transactions/views.py:213-220
+      properties:
+        customer:
+          type: integer
+          description: Customer id. No range check; any id that does not exist gives "Select a valid customer."
+          x-accepts-numeric-strings: true
+          x-error-message: Customer must be a whole number.
+          x-error-message-not-found: Select a valid customer.
+          x-rule: FR2
+          x-source: transactions/services.py:86-88
+        items:
+          type: array
+          minItems: 1
+          maxItems: 200
+          description: Lines with the same id are added together before the stock check.
+          x-error-message-empty: Add at least one item to the sale.
+          x-error-message-too-many: Too many lines in one sale.
+          x-merges-duplicate-ids: true
+          x-rule: BR1
+          x-source: transactions/services.py:22,51-54,63
+          items:
+            $ref: '#/components/schemas/SaleLine'
+        tax_percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+          default: 0
+          nullable: true
+          description: Inclusive 0..100. Model stores 2 decimal places (max_digits 5).
+          x-defaults-when-missing: 0
+          x-code-also-defaults: [false]
+          x-accepts-numeric-strings: true
+          x-rejects-non-finite: true
+          x-delta: 0.01
+          x-error-message: Tax must be between 0 and 100 percent.
+          x-error-message-type: Tax must be a number.
+          x-rule: BR3
+          x-source: transactions/services.py:74-76
+        amount_paid:
+          type: number
+          minimum: 0
+          default: 0
+          nullable: true
+          description: Must be >= grand_total, otherwise 400. No upper limit in code.
+          x-defaults-when-missing: 0
+          x-code-also-defaults: [false]
+          x-accepts-numeric-strings: true
+          x-rejects-non-finite: true
+          x-delta: 0.01
+          x-must-cover-total: true
+          x-error-message-total: Amount paid ({paid}) is less than the total ({total}).
+          x-error-message: Amount paid cannot be negative.
+          x-error-message-type: Amount paid must be a number.
+          x-rule: BR3
+          x-source: transactions/services.py:77-79,130-133
+        redeem_points:
+          type: integer
+          minimum: 0
+          default: 0
+          nullable: true
+          description: |
+            Must also be >= LOYALTY_MIN_REDEEM (default 0), <= the customer's balance
+            and <= the bill; loyalty must be enabled when > 0.
+          x-defaults-when-missing: 0
+          x-code-also-defaults: [false]
+          x-accepts-numeric-strings: true
+          x-limited-by-balance: true
+          x-error-message: Points to redeem cannot be negative.
+          x-error-message-type: Points to redeem must be a whole number.
+          x-rule: BR2
+          x-source: transactions/services.py:80-82,114-124
+      additionalProperties: true
+
+    SaleLine:
+      type: object
+      required: [id, quantity]
+      x-error-message-shape: Each item needs an id and a quantity.
+      x-source: transactions/services.py:57-62
+      properties:
+        id:
+          type: integer
+          x-accepts-numeric-strings: true
+          x-error-message: Item id must be a whole number.
+          x-error-message-not-found: One or more items no longer exist.
+        quantity:
+          type: integer
+          minimum: 1
+          maximum: 100000
+          x-accepts-numeric-strings: true
+          x-error-message: Quantities must be at least 1.
+          x-error-message-min: at least 1
+          x-error-message-max: '100000'
+          x-requirement: A4 - a quantity above the maximum gets a message naming the limit
+          x-error-message-type: Quantity must be a whole number.
+          x-known-defect: N1 (code returns "Quantities must be at least 1." for the upper bound)
+          x-rule: BR1
+          x-source: transactions/services.py:23,60-62
+
+    SaleSuccess:
+      type: object
+      required: [status, message, sale_id, receipt_number, grand_total, change, points_earned, redirect, receipt_url]
+      x-source: transactions/views.py:228-238
+      properties:
+        status:
+          type: string
+          enum: [success]
+        message:
+          type: string
+          example: Sale IMS00001 completed.
+        sale_id:
+          type: integer
+        receipt_number:
+          type: string
+        grand_total:
+          type: string
+          pattern: '^-?\d+\.\d{2}$'
+          description: Decimal as a string
+        change:
+          type: string
+          pattern: '^-?\d+\.\d{2}$'
+          description: Decimal as a string
+        points_earned:
+          type: integer
+          minimum: 0
+        redirect:
+          type: string
+          example: /transactions/sale/1/
+        receipt_url:
+          type: string
+          example: /transactions/sale/1/receipt.pdf
+
+    Error:
+      type: object
+      required: [status, message]
+      x-source: transactions/views.py:191-192
+      properties:
+        status:
+          type: string
+          enum: [error]
+        message:
+          type: string
+
+    VoidForm:
+      type: object
+      required: [reason, csrfmiddlewaretoken]
+      x-source: transactions/forms.py:43-50
+      properties:
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: Required; whitespace-only is treated as missing. Invalid gives 200 (form re-shown).
+          x-invalid-status: 200
+          x-rule: BR4
+        csrfmiddlewaretoken:
+          type: string
+
+    ItemSearchResult:
+      type: object
+      x-source: store/models.py:69-80
+      properties:
+        id: {type: integer}
+        text: {type: string}
+        name: {type: string}
+        category: {type: string}
+        price: {type: string}
+        stock: {type: integer, minimum: 1}
+        quantity: {type: integer, enum: [1]}
+        total_item: {type: string}
+
+    CustomerSearchResult:
+      type: object
+      x-source: accounts/models.py:209-217
+      properties:
+        id: {type: integer}
+        text: {type: string}
+        label: {type: string}
+        value: {type: integer}
+        phone: {type: string}
+        loyalty_points: {type: integer, minimum: 0}

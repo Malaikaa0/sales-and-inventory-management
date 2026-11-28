@@ -1,0 +1,5164 @@
+{
+  "base_sale": {
+    "amount_paid": 1000000,
+    "customer": "<customer_id>",
+    "items": [
+      {
+        "id": "<item_id>",
+        "quantity": 1
+      }
+    ],
+    "redeem_points": 0,
+    "tax_percentage": 0
+  },
+  "cases": [
+    {
+      "body": {
+        "amount_paid": 0.0,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "is less than the total",
+      "expected_outcome": "rejected:underpayment",
+      "expected_status": 400,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-BVA-min",
+      "partition": "min",
+      "rule": "BR3",
+      "technique": "BVA",
+      "valid": false,
+      "value": 0.0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 0.01,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "is less than the total",
+      "expected_outcome": "rejected:underpayment",
+      "expected_status": 400,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-BVA-min+d",
+      "partition": "min+d",
+      "rule": "BR3",
+      "technique": "BVA",
+      "valid": false,
+      "value": 0.01,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": -0.01,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Amount paid cannot be negative.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-BVA-min-d",
+      "partition": "min-d",
+      "rule": "BR3",
+      "technique": "BVA",
+      "valid": false,
+      "value": -0.01,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1.0,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-BVA-total",
+      "partition": "total",
+      "rule": "BR3",
+      "technique": "BVA",
+      "valid": true,
+      "value": 1.0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1.01,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-BVA-total+d",
+      "partition": "total+d",
+      "rule": "BR3",
+      "technique": "BVA",
+      "valid": true,
+      "value": 1.01,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 0.99,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "is less than the total",
+      "expected_outcome": "rejected:underpayment",
+      "expected_status": 400,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-BVA-total-d",
+      "partition": "total-d",
+      "rule": "BR3",
+      "technique": "BVA",
+      "valid": false,
+      "value": 0.99,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": "",
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "is less than the total",
+      "expected_outcome": "rejected:underpayment",
+      "expected_status": 400,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-EP-empty-string",
+      "partition": "empty-string",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": false,
+      "value": "",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 2.5,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-EP-float-half",
+      "partition": "float-half",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": true,
+      "value": 2.5,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 2.0,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-EP-float-whole",
+      "partition": "float-whole",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": true,
+      "value": 2.0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "is less than the total",
+      "expected_outcome": "rejected:underpayment",
+      "expected_status": 400,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-EP-missing",
+      "partition": "missing",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": false,
+      "value": null,
+      "value_missing": true
+    },
+    {
+      "body": {
+        "amount_paid": "NaN",
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Amount paid must be a number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-EP-non-finite",
+      "partition": "non-finite",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": false,
+      "value": "NaN",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": null,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "is less than the total",
+      "expected_outcome": "rejected:underpayment",
+      "expected_status": 400,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-EP-null",
+      "partition": "null",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": false,
+      "value": null,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": "12.5",
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-EP-numeric-string",
+      "partition": "numeric-string",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": true,
+      "value": "12.5",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": false,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Amount paid must be a number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-EP-wrong-type-bool-false",
+      "partition": "wrong-type-bool-false",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": false,
+      "value": false,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": true,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Amount paid must be a number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-EP-wrong-type-bool-true",
+      "partition": "wrong-type-bool-true",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": false,
+      "value": true,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": "abc",
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Amount paid must be a number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "amount_paid",
+      "id": "SALE-amount_paid-EP-wrong-type-string",
+      "partition": "wrong-type-string",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": false,
+      "value": "abc",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Customer must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "customer",
+      "id": "SALE-customer-EP-empty-string",
+      "partition": "empty-string",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": "",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": 2.5,
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Customer must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "customer",
+      "id": "SALE-customer-EP-float-half",
+      "partition": "float-half",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": 2.5,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": 2.0,
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Customer must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "customer",
+      "id": "SALE-customer-EP-float-whole",
+      "partition": "float-whole",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": 2.0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Customer must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "customer",
+      "id": "SALE-customer-EP-missing",
+      "partition": "missing",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": null,
+      "value_missing": true
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": -1,
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Select a valid customer.",
+      "expected_outcome": "rejected:not-found",
+      "expected_status": 400,
+      "field": "customer",
+      "id": "SALE-customer-EP-not-found-negative",
+      "partition": "not-found-negative",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": -1,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": 0,
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Select a valid customer.",
+      "expected_outcome": "rejected:not-found",
+      "expected_status": 400,
+      "field": "customer",
+      "id": "SALE-customer-EP-not-found-zero",
+      "partition": "not-found-zero",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": 0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": null,
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Customer must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "customer",
+      "id": "SALE-customer-EP-null",
+      "partition": "null",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": null,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id:str>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "customer",
+      "id": "SALE-customer-EP-numeric-string",
+      "partition": "numeric-string",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": true,
+      "value": "<customer_id:str>",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "customer",
+      "id": "SALE-customer-EP-valid",
+      "partition": "valid",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": true,
+      "value": "<customer_id>",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": false,
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Customer must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "customer",
+      "id": "SALE-customer-EP-wrong-type-bool-false",
+      "partition": "wrong-type-bool-false",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": false,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": true,
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Customer must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "customer",
+      "id": "SALE-customer-EP-wrong-type-bool-true",
+      "partition": "wrong-type-bool-true",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": true,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "abc",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Customer must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "customer",
+      "id": "SALE-customer-EP-wrong-type-string",
+      "partition": "wrong-type-string",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": "abc",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "items",
+      "id": "SALE-items-BVA-length-max",
+      "partition": "length-max",
+      "rule": "BR1",
+      "technique": "BVA",
+      "valid": true,
+      "value": "<200 lines of item_id x1>",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Too many lines in one sale.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items",
+      "id": "SALE-items-BVA-length-max+d",
+      "partition": "length-max+d",
+      "rule": "BR1",
+      "technique": "BVA",
+      "valid": false,
+      "value": "<201 lines of item_id x1>",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "items",
+      "id": "SALE-items-BVA-length-max-d",
+      "partition": "length-max-d",
+      "rule": "BR1",
+      "technique": "BVA",
+      "valid": true,
+      "value": "<199 lines of item_id x1>",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "items",
+      "id": "SALE-items-BVA-length-min",
+      "partition": "length-min",
+      "rule": "BR1",
+      "technique": "BVA",
+      "valid": true,
+      "value": "<1 lines of item_id x1>",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "items",
+      "id": "SALE-items-BVA-length-min+d",
+      "partition": "length-min+d",
+      "rule": "BR1",
+      "technique": "BVA",
+      "valid": true,
+      "value": "<2 lines of item_id x1>",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Add at least one item to the sale.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items",
+      "id": "SALE-items-BVA-length-min-d",
+      "partition": "length-min-d",
+      "rule": "BR1",
+      "technique": "BVA",
+      "valid": false,
+      "value": "<0 lines of item_id x1>",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          },
+          {
+            "id": "<item_id>",
+            "quantity": 2
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "items",
+      "id": "SALE-items-EP-duplicate-ids-merged",
+      "partition": "duplicate-ids-merged",
+      "rule": "BR1",
+      "technique": "EP",
+      "valid": true,
+      "value": [
+        {
+          "id": "<item_id>",
+          "quantity": 1
+        },
+        {
+          "id": "<item_id>",
+          "quantity": 2
+        }
+      ],
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          "abc"
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Each item needs an id and a quantity.",
+      "expected_outcome": "rejected:shape",
+      "expected_status": 400,
+      "field": "items",
+      "id": "SALE-items-EP-element-not-object",
+      "partition": "element-not-object",
+      "rule": "BR1",
+      "technique": "EP",
+      "valid": false,
+      "value": [
+        "abc"
+      ],
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Add at least one item to the sale.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items",
+      "id": "SALE-items-EP-missing",
+      "partition": "missing",
+      "rule": "BR1",
+      "technique": "EP",
+      "valid": false,
+      "value": null,
+      "value_missing": true
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": null,
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Add at least one item to the sale.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items",
+      "id": "SALE-items-EP-null",
+      "partition": "null",
+      "rule": "BR1",
+      "technique": "EP",
+      "valid": false,
+      "value": null,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": {},
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Add at least one item to the sale.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items",
+      "id": "SALE-items-EP-wrong-type-object",
+      "partition": "wrong-type-object",
+      "rule": "BR1",
+      "technique": "EP",
+      "valid": false,
+      "value": {},
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": "abc",
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Add at least one item to the sale.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items",
+      "id": "SALE-items-EP-wrong-type-string",
+      "partition": "wrong-type-string",
+      "rule": "BR1",
+      "technique": "EP",
+      "valid": false,
+      "value": "abc",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Item id must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].id",
+      "id": "SALE-items[].id-EP-empty-string",
+      "partition": "empty-string",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": "",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": 2.5,
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Item id must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].id",
+      "id": "SALE-items[].id-EP-float-half",
+      "partition": "float-half",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": 2.5,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": 2.0,
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Item id must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].id",
+      "id": "SALE-items[].id-EP-float-whole",
+      "partition": "float-whole",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": 2.0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Each item needs an id and a quantity.",
+      "expected_outcome": "rejected:shape",
+      "expected_status": 400,
+      "field": "items[].id",
+      "id": "SALE-items[].id-EP-missing",
+      "partition": "missing",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": null,
+      "value_missing": true
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": 0,
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "One or more items no longer exist.",
+      "expected_outcome": "rejected:not-found",
+      "expected_status": 400,
+      "field": "items[].id",
+      "id": "SALE-items[].id-EP-not-found-zero",
+      "partition": "not-found-zero",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": 0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": null,
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Item id must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].id",
+      "id": "SALE-items[].id-EP-null",
+      "partition": "null",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": null,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id:str>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "items[].id",
+      "id": "SALE-items[].id-EP-numeric-string",
+      "partition": "numeric-string",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": true,
+      "value": "<item_id:str>",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "items[].id",
+      "id": "SALE-items[].id-EP-valid",
+      "partition": "valid",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": true,
+      "value": "<item_id>",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": false,
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Item id must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].id",
+      "id": "SALE-items[].id-EP-wrong-type-bool-false",
+      "partition": "wrong-type-bool-false",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": false,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": true,
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Item id must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].id",
+      "id": "SALE-items[].id-EP-wrong-type-bool-true",
+      "partition": "wrong-type-bool-true",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": true,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "abc",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Item id must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].id",
+      "id": "SALE-items[].id-EP-wrong-type-string",
+      "partition": "wrong-type-string",
+      "rule": "FR2",
+      "technique": "EP",
+      "valid": false,
+      "value": "abc",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 100000
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-BVA-max",
+      "partition": "max",
+      "rule": "BR1",
+      "technique": "BVA",
+      "valid": true,
+      "value": 100000,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 100001
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "100000",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-BVA-max+d",
+      "partition": "max+d",
+      "rule": "BR1",
+      "technique": "BVA",
+      "valid": false,
+      "value": 100001,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 99999
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-BVA-max-d",
+      "partition": "max-d",
+      "rule": "BR1",
+      "technique": "BVA",
+      "valid": true,
+      "value": 99999,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-BVA-min",
+      "partition": "min",
+      "rule": "BR1",
+      "technique": "BVA",
+      "valid": true,
+      "value": 1,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 2
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-BVA-min+d",
+      "partition": "min+d",
+      "rule": "BR1",
+      "technique": "BVA",
+      "valid": true,
+      "value": 2,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 0
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "at least 1",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-BVA-min-d",
+      "partition": "min-d",
+      "rule": "BR1",
+      "technique": "BVA",
+      "valid": false,
+      "value": 0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 50000
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-BVA-nominal",
+      "partition": "nominal",
+      "rule": "BR1",
+      "technique": "BVA",
+      "valid": true,
+      "value": 50000,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": ""
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Quantity must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-EP-empty-string",
+      "partition": "empty-string",
+      "rule": "BR1",
+      "technique": "EP",
+      "valid": false,
+      "value": "",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 2.5
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Quantity must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-EP-float-half",
+      "partition": "float-half",
+      "rule": "BR1",
+      "technique": "EP",
+      "valid": false,
+      "value": 2.5,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 2.0
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Quantity must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-EP-float-whole",
+      "partition": "float-whole",
+      "rule": "BR1",
+      "technique": "EP",
+      "valid": false,
+      "value": 2.0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>"
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Each item needs an id and a quantity.",
+      "expected_outcome": "rejected:shape",
+      "expected_status": 400,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-EP-missing",
+      "partition": "missing",
+      "rule": "BR1",
+      "technique": "EP",
+      "valid": false,
+      "value": null,
+      "value_missing": true
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": null
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Quantity must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-EP-null",
+      "partition": "null",
+      "rule": "BR1",
+      "technique": "EP",
+      "valid": false,
+      "value": null,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": "1"
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-EP-numeric-string",
+      "partition": "numeric-string",
+      "rule": "BR1",
+      "technique": "EP",
+      "valid": true,
+      "value": "1",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": false
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Quantity must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-EP-wrong-type-bool-false",
+      "partition": "wrong-type-bool-false",
+      "rule": "BR1",
+      "technique": "EP",
+      "valid": false,
+      "value": false,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": true
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Quantity must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-EP-wrong-type-bool-true",
+      "partition": "wrong-type-bool-true",
+      "rule": "BR1",
+      "technique": "EP",
+      "valid": false,
+      "value": true,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": "abc"
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Quantity must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "items[].quantity",
+      "id": "SALE-items[].quantity-EP-wrong-type-string",
+      "partition": "wrong-type-string",
+      "rule": "BR1",
+      "technique": "EP",
+      "valid": false,
+      "value": "abc",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "redeem_points",
+      "id": "SALE-redeem_points-BVA-min",
+      "partition": "min",
+      "rule": "BR2",
+      "technique": "BVA",
+      "valid": true,
+      "value": 0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 1,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "only has 0 points.",
+      "expected_outcome": "rejected:balance",
+      "expected_status": 400,
+      "field": "redeem_points",
+      "id": "SALE-redeem_points-BVA-min+d",
+      "partition": "min+d",
+      "rule": "BR2",
+      "technique": "BVA",
+      "valid": false,
+      "value": 1,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": -1,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Points to redeem cannot be negative.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "redeem_points",
+      "id": "SALE-redeem_points-BVA-min-d",
+      "partition": "min-d",
+      "rule": "BR2",
+      "technique": "BVA",
+      "valid": false,
+      "value": -1,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": "",
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "redeem_points",
+      "id": "SALE-redeem_points-EP-empty-string",
+      "partition": "empty-string",
+      "rule": "BR2",
+      "technique": "EP",
+      "valid": true,
+      "value": "",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 2.5,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Points to redeem must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "redeem_points",
+      "id": "SALE-redeem_points-EP-float-half",
+      "partition": "float-half",
+      "rule": "BR2",
+      "technique": "EP",
+      "valid": false,
+      "value": 2.5,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 2.0,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Points to redeem must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "redeem_points",
+      "id": "SALE-redeem_points-EP-float-whole",
+      "partition": "float-whole",
+      "rule": "BR2",
+      "technique": "EP",
+      "valid": false,
+      "value": 2.0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "redeem_points",
+      "id": "SALE-redeem_points-EP-missing",
+      "partition": "missing",
+      "rule": "BR2",
+      "technique": "EP",
+      "valid": true,
+      "value": null,
+      "value_missing": true
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": null,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "redeem_points",
+      "id": "SALE-redeem_points-EP-null",
+      "partition": "null",
+      "rule": "BR2",
+      "technique": "EP",
+      "valid": true,
+      "value": null,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": "0",
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "redeem_points",
+      "id": "SALE-redeem_points-EP-numeric-string",
+      "partition": "numeric-string",
+      "rule": "BR2",
+      "technique": "EP",
+      "valid": true,
+      "value": "0",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": false,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Points to redeem must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "redeem_points",
+      "id": "SALE-redeem_points-EP-wrong-type-bool-false",
+      "partition": "wrong-type-bool-false",
+      "rule": "BR2",
+      "technique": "EP",
+      "valid": false,
+      "value": false,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": true,
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Points to redeem must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "redeem_points",
+      "id": "SALE-redeem_points-EP-wrong-type-bool-true",
+      "partition": "wrong-type-bool-true",
+      "rule": "BR2",
+      "technique": "EP",
+      "valid": false,
+      "value": true,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": "abc",
+        "tax_percentage": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Points to redeem must be a whole number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "redeem_points",
+      "id": "SALE-redeem_points-EP-wrong-type-string",
+      "partition": "wrong-type-string",
+      "rule": "BR2",
+      "technique": "EP",
+      "valid": false,
+      "value": "abc",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 100.0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-BVA-max",
+      "partition": "max",
+      "rule": "BR3",
+      "technique": "BVA",
+      "valid": true,
+      "value": 100.0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 100.01
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Tax must be between 0 and 100 percent.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-BVA-max+d",
+      "partition": "max+d",
+      "rule": "BR3",
+      "technique": "BVA",
+      "valid": false,
+      "value": 100.01,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 99.99
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-BVA-max-d",
+      "partition": "max-d",
+      "rule": "BR3",
+      "technique": "BVA",
+      "valid": true,
+      "value": 99.99,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0.0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-BVA-min",
+      "partition": "min",
+      "rule": "BR3",
+      "technique": "BVA",
+      "valid": true,
+      "value": 0.0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 0.01
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-BVA-min+d",
+      "partition": "min+d",
+      "rule": "BR3",
+      "technique": "BVA",
+      "valid": true,
+      "value": 0.01,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": -0.01
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Tax must be between 0 and 100 percent.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-BVA-min-d",
+      "partition": "min-d",
+      "rule": "BR3",
+      "technique": "BVA",
+      "valid": false,
+      "value": -0.01,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 50.0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-BVA-nominal",
+      "partition": "nominal",
+      "rule": "BR3",
+      "technique": "BVA",
+      "valid": true,
+      "value": 50.0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": ""
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-EP-empty-string",
+      "partition": "empty-string",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": true,
+      "value": "",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 2.5
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-EP-float-half",
+      "partition": "float-half",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": true,
+      "value": 2.5,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": 2.0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-EP-float-whole",
+      "partition": "float-whole",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": true,
+      "value": 2.0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-EP-missing",
+      "partition": "missing",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": true,
+      "value": null,
+      "value_missing": true
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": "NaN"
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Tax must be a number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-EP-non-finite",
+      "partition": "non-finite",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": false,
+      "value": "NaN",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": null
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-EP-null",
+      "partition": "null",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": true,
+      "value": null,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": "12.5"
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": null,
+      "expected_outcome": "accepted",
+      "expected_status": 200,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-EP-numeric-string",
+      "partition": "numeric-string",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": true,
+      "value": "12.5",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": false
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Tax must be a number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-EP-wrong-type-bool-false",
+      "partition": "wrong-type-bool-false",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": false,
+      "value": false,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": true
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Tax must be a number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-EP-wrong-type-bool-true",
+      "partition": "wrong-type-bool-true",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": false,
+      "value": true,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "amount_paid": 1000000,
+        "customer": "<customer_id>",
+        "items": [
+          {
+            "id": "<item_id>",
+            "quantity": 1
+          }
+        ],
+        "redeem_points": 0,
+        "tax_percentage": "abc"
+      },
+      "endpoint": "POST /transactions/new-sale/",
+      "expected_message": "Tax must be a number.",
+      "expected_outcome": "rejected:field",
+      "expected_status": 400,
+      "field": "tax_percentage",
+      "id": "SALE-tax_percentage-EP-wrong-type-string",
+      "partition": "wrong-type-string",
+      "rule": "BR3",
+      "technique": "EP",
+      "valid": false,
+      "value": "abc",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "pk": 0,
+        "reason": "Customer returned all items"
+      },
+      "endpoint": "POST /transactions/sale/{pk}/void/",
+      "expected_message": null,
+      "expected_outcome": "not-found",
+      "expected_status": 404,
+      "field": "pk",
+      "id": "VOID-pk-BVA-min-d",
+      "partition": "min-d",
+      "rule": "FR6",
+      "technique": "BVA",
+      "valid": false,
+      "value": 0,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "pk": -1,
+        "reason": "Customer returned all items"
+      },
+      "endpoint": "POST /transactions/sale/{pk}/void/",
+      "expected_message": null,
+      "expected_outcome": "not-found",
+      "expected_status": 404,
+      "field": "pk",
+      "id": "VOID-pk-EP-negative",
+      "partition": "negative",
+      "rule": "FR6",
+      "technique": "EP",
+      "valid": false,
+      "value": -1,
+      "value_missing": false
+    },
+    {
+      "body": {
+        "pk": "<missing_sale_id>",
+        "reason": "Customer returned all items"
+      },
+      "endpoint": "POST /transactions/sale/{pk}/void/",
+      "expected_message": null,
+      "expected_outcome": "not-found",
+      "expected_status": 404,
+      "field": "pk",
+      "id": "VOID-pk-EP-not-found",
+      "partition": "not-found",
+      "rule": "FR6",
+      "technique": "EP",
+      "valid": false,
+      "value": "<missing_sale_id>",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "pk": "<sale_id>",
+        "reason": "Customer returned all items"
+      },
+      "endpoint": "POST /transactions/sale/{pk}/void/",
+      "expected_message": null,
+      "expected_outcome": "voided",
+      "expected_status": 302,
+      "field": "pk",
+      "id": "VOID-pk-EP-valid",
+      "partition": "valid",
+      "rule": "FR6",
+      "technique": "EP",
+      "valid": true,
+      "value": "<sale_id>",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "pk": "abc",
+        "reason": "Customer returned all items"
+      },
+      "endpoint": "POST /transactions/sale/{pk}/void/",
+      "expected_message": null,
+      "expected_outcome": "not-found",
+      "expected_status": 404,
+      "field": "pk",
+      "id": "VOID-pk-EP-wrong-type-string",
+      "partition": "wrong-type-string",
+      "rule": "FR6",
+      "technique": "EP",
+      "valid": false,
+      "value": "abc",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "pk": "<sale_id>",
+        "reason": "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"
+      },
+      "endpoint": "POST /transactions/sale/{pk}/void/",
+      "expected_message": null,
+      "expected_outcome": "voided",
+      "expected_status": 302,
+      "field": "reason",
+      "id": "VOID-reason-BVA-length-max",
+      "partition": "length-max",
+      "rule": "BR4",
+      "technique": "BVA",
+      "valid": true,
+      "value": "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "pk": "<sale_id>",
+        "reason": "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"
+      },
+      "endpoint": "POST /transactions/sale/{pk}/void/",
+      "expected_message": null,
+      "expected_outcome": "invalid-form",
+      "expected_status": 200,
+      "field": "reason",
+      "id": "VOID-reason-BVA-length-max+d",
+      "partition": "length-max+d",
+      "rule": "BR4",
+      "technique": "BVA",
+      "valid": false,
+      "value": "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "pk": "<sale_id>",
+        "reason": "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"
+      },
+      "endpoint": "POST /transactions/sale/{pk}/void/",
+      "expected_message": null,
+      "expected_outcome": "voided",
+      "expected_status": 302,
+      "field": "reason",
+      "id": "VOID-reason-BVA-length-max-d",
+      "partition": "length-max-d",
+      "rule": "BR4",
+      "technique": "BVA",
+      "valid": true,
+      "value": "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "pk": "<sale_id>",
+        "reason": "r"
+      },
+      "endpoint": "POST /transactions/sale/{pk}/void/",
+      "expected_message": null,
+      "expected_outcome": "voided",
+      "expected_status": 302,
+      "field": "reason",
+      "id": "VOID-reason-BVA-length-min",
+      "partition": "length-min",
+      "rule": "BR4",
+      "technique": "BVA",
+      "valid": true,
+      "value": "r",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "pk": "<sale_id>",
+        "reason": "rr"
+      },
+      "endpoint": "POST /transactions/sale/{pk}/void/",
+      "expected_message": null,
+      "expected_outcome": "voided",
+      "expected_status": 302,
+      "field": "reason",
+      "id": "VOID-reason-BVA-length-min+d",
+      "partition": "length-min+d",
+      "rule": "BR4",
+      "technique": "BVA",
+      "valid": true,
+      "value": "rr",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "pk": "<sale_id>",
+        "reason": ""
+      },
+      "endpoint": "POST /transactions/sale/{pk}/void/",
+      "expected_message": null,
+      "expected_outcome": "invalid-form",
+      "expected_status": 200,
+      "field": "reason",
+      "id": "VOID-reason-BVA-length-min-d",
+      "partition": "length-min-d",
+      "rule": "BR4",
+      "technique": "BVA",
+      "valid": false,
+      "value": "",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "pk": "<sale_id>",
+        "reason": "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"
+      },
+      "endpoint": "POST /transactions/sale/{pk}/void/",
+      "expected_message": null,
+      "expected_outcome": "voided",
+      "expected_status": 302,
+      "field": "reason",
+      "id": "VOID-reason-BVA-length-nominal",
+      "partition": "length-nominal",
+      "rule": "BR4",
+      "technique": "BVA",
+      "valid": true,
+      "value": "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "pk": "<voided_sale_id>",
+        "reason": "Second void"
+      },
+      "endpoint": "POST /transactions/sale/{pk}/void/",
+      "expected_message": null,
+      "expected_outcome": "already-voided",
+      "expected_status": 302,
+      "field": "reason",
+      "id": "VOID-reason-EP-already-voided",
+      "partition": "already-voided",
+      "rule": "FR9",
+      "technique": "EP",
+      "valid": true,
+      "value": "Second void",
+      "value_missing": false
+    },
+    {
+      "body": {
+        "pk": "<sale_id>",
+        "reason": null
+      },
+      "endpoint": "POST /transactions/sale/{pk}/void/",
+      "expected_message": null,
+      "expected_outcome": "invalid-form",
+      "expected_status": 200,
+      "field": "reason",
+      "id": "VOID-reason-EP-missing",
+      "partition": "missing",
+      "rule": "BR4",
+      "technique": "EP",
+      "valid": false,
+      "value": null,
+      "value_missing": true
+    },
+    {
+      "body": {
+        "pk": "<sale_id>",
+        "reason": "   "
+      },
+      "endpoint": "POST /transactions/sale/{pk}/void/",
+      "expected_message": null,
+      "expected_outcome": "invalid-form",
+      "expected_status": 200,
+      "field": "reason",
+      "id": "VOID-reason-EP-whitespace-only",
+      "partition": "whitespace-only",
+      "rule": "BR4",
+      "technique": "EP",
+      "valid": false,
+      "value": "   ",
+      "value_missing": false
+    }
+  ],
+  "context": {
+    "baseline_amount_paid": "1000000.00",
+    "customer_points": 0,
+    "item_price": "1.00",
+    "item_stock": 100000,
+    "note": "Each case varies one field of the baseline; everything else stays valid."
+  },
+  "count": 111,
+  "spec": "openapi/openapi.yaml",
+  "spec_version": "1.0.0"
+}
