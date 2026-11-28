@@ -146,18 +146,24 @@ Our tests go in `tests/team/`. Upstream tests earn no marks.
 | `baseline-v0` tag and `upstream` remote | Done |
 | Folder structure and `pytest.ini` | Done |
 | Setup, seed and reset instructions | Done, checked on a fresh clone |
-| Unit tests | 162 pass |
+| Unit tests | 162 pass (`tests/team/unit`) |
 | In-scope coverage ([scope](scope.md#unit-coverage-scope)) | Statements 100%, branches 100% |
 | Whole-project coverage | 71.6% combined |
 | SonarQube | [sonar-triage.md](sonar-triage.md); screenshots not taken |
 | Control flow graphs | [cfg-complexity.md](cfg-complexity.md), to be checked against the code |
 | MCC, MC/DC and decision tables | [mcc-mcdc.md](mcc-mcdc.md) |
 | `docs/scope.md` | Draft, not yet agreed by the team |
-| Candidate defects D1 to D4 | In the [test plan](test-plan.md), not yet logged as Issues |
-| AI-use record | Started |
-| Risk register, traceability | [risk-register.md](risk-register.md) complete (M3); `traceability.md` populated on `area2-Rehan` (M2) |
-| Member 3 E2E, a11y, security, perf & reports | Complete on `area1-malaika` ([member-3.md](member-3.md), [test-completion-report.md](test-completion-report.md)) |
-| Test plan | Coverage and candidate defects only |
+| OpenAPI spec and EP/BVA generator | Done: [openapi.yaml](../openapi/openapi.yaml) validates; [generate.py](../tools/generator/generate.py) gives 111 deterministic cases |
+| Regeneration demo (quantity max 500, tax max 50) | Done on branch `area2-Rehan-regen`: `reports/api/regen-diff.txt`, `run-regen.txt` |
+| API and integration tests | Done: 143 tests in [tests/team/api](../tests/team/api), 137 pass, 6 fail on defects ([run](../reports/api/run-baseline.txt)) |
+| API coverage | Done: [api-coverage.md](api-coverage.md), 24/27 status codes (all reachable), 25/25 response properties |
+| Defects | N1–N6 logged ([docs/defects](defects), GitHub Issues #1–#6); D1–D4 in [test-plan.md](test-plan.md); DEF-01–DEF-07 in [defects.md](defects.md) (`DEF-01`–`DEF-03` fixed) |
+| RCA and Pareto | Done: [rca-N2.md](defects/rca-N2.md), [rca-N4.md](defects/rca-N4.md), [pareto.md](defects/pareto.md) |
+| Test plan and three-point estimates | Done: [test-plan.md](test-plan.md) (M2 actual hours pending) |
+| Traceability | Done: [traceability.md](traceability.md), 12/12 requirements covered |
+| Risk register & exit criteria | Done: [risk-register.md](risk-register.md) (M3) |
+| Member 3 E2E, a11y, security, perf & reports | Done: [member-3.md](member-3.md), [accessibility-report.md](accessibility-report.md), [security-report.md](security-report.md), [performance-report.md](performance-report.md), [weekly-progress.md](weekly-progress.md), [test-completion-report.md](test-completion-report.md) |
+| AI-use record | Updated by Member 1, Member 2, and Member 3: [ai-use-record.md](ai-use-record.md) |
 
 ## 5. Work division
 
@@ -175,12 +181,12 @@ Marks are the group marks from the rubric. The 20 viva marks are individual.
 
 ### Member 2: API testing and data generation (31 marks)
 
-- [ ] OpenAPI specification for the workflow endpoints
-- [ ] Generator for equivalence classes and 3-point boundary values
-- [ ] Change two constraints, regenerate and show the effect
-- [ ] API and integration tests: rejections, invalid transitions, repeated requests, record read-back
-- [ ] Lead: test plan, three-point estimates, traceability matrix
-- [ ] Lead: defects, root cause analysis for 2 major defects, Pareto chart
+- [x] OpenAPI specification for the workflow endpoints
+- [x] Generator for equivalence classes and 3-point boundary values
+- [x] Change two constraints, regenerate and show the effect
+- [x] API and integration tests: rejections, invalid transitions, repeated requests, record read-back
+- [ ] Lead: test plan, three-point estimates, traceability matrix (done; actual hours pending)
+- [x] Lead: defects, root cause analysis for 2 major defects, Pareto chart
 
 ### Member 3: use cases, usability, security, performance (35 marks)
 

@@ -1,0 +1,160 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.4, pytest-9.2.0, pluggy-1.7.0 -- /home/mbappe/SQE_Project/.venv/bin/python
+django: version: 5.2.19, settings: InventoryMS.settings (from ini)
+rootdir: /home/mbappe/SQE_Project
+configfile: pytest.ini
+plugins: playwright-0.10.0, django-4.14.0
+collecting ... collected 20 items
+
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_main_complete_sale PASSED [  5%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_alt1_redeem_points PASSED [ 10%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_alt2_same_item_added_twice_is_merged PASSED [ 15%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_alt3_exact_payment_change_zero PASSED [ 20%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_exc1_not_enough_stock PASSED [ 25%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_exc2_amount_paid_below_total PASSED [ 30%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_exc3_tax_out_of_range_rejected FAILED [ 35%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_exc4_points_spent_elsewhere_rejected PASSED [ 40%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_exc5_session_expired FAILED [ 45%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_exc6_double_click_records_one_sale PASSED [ 50%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_1_main_void_sale PASSED [ 55%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_1_alt1_earned_points_already_spent PASSED [ 60%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_1_alt2_void_sale_with_redemption PASSED [ 65%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_1_alt3_manager_cancels PASSED [ 70%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_1_exc1_already_voided PASSED [ 75%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_1_exc2_not_a_manager PASSED [ 80%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_1_exc3_reason_blank_or_too_long PASSED [ 85%]
+tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_1_exc4_sale_does_not_exist PASSED [ 90%]
+tests/team/e2e/test_e2e_workflows.py::test_e2e_make_sale_keyboard_and_rejected_values PASSED [ 95%]
+tests/team/e2e/test_e2e_workflows.py::test_e2e_void_sale_permissions_rejection_and_recovery PASSED [100%]
+
+=================================== FAILURES ===================================
+_________________ test_uc_m2_2_exc3_tax_out_of_range_rejected __________________
+tests/team/e2e/test_e2e_m2_use_cases.py:324: in test_uc_m2_2_exc3_tax_out_of_range_rejected
+    expect(form_error(cashier)).to_be_visible()
+E   AssertionError: Locator expected to be visible
+E   Actual value: hidden 
+E   Call log:
+E     - Expect "to_be_visible" locator("#form-error") with timeout 5000ms
+E     - waiting for locator("#form-error")
+E       13 × locator resolved to <div hidden="" role="alert" id="form-error" aria-live="polite" class="alert alert-danger py-2 small"></div>
+E          - unexpected value "hidden"
+E   
+E   Aria snapshot:
+E   - complementary "Main navigation":
+E     - link " InventoryMS":
+E       - /url: /
+E     - navigation:
+E       - link " Dashboard":
+E         - /url: /
+E       - text: Sales
+E       - link " New sale":
+E         - /url: /transactions/new-sale/
+E       - link " Sales":
+E         - /url: /transactions/sales/
+E       - link " Customers":
+E         - /url: /accounts/customers/
+E       - link " Invoices":
+E         - /url: /invoice/invoices/
+E       - link " Deliveries":
+E         - /url: /deliveries/
+E       - text: Inventory
+E       - link " Products":
+E         - /url: /products/
+E       - link " Categories":
+E         - /url: /categories/
+E     - link "Mary Wanjiku":
+E       - /url: /accounts/profile/
+E     - text: Operative
+E     - button "Sign out": 
+E   - main:
+E     - alert:
+E       - text: Customer e2ecust-ae91d-14 added.
+E       - button "Close"
+E     - text: Point of sale
+E     - heading "New sale" [level=1]
+E     - paragraph: Build the cart, select a customer, then take payment.
+E     - text:  Find a product Search by product name or scan a barcode /
+E     - combobox "Type a product name":
+E       - textbox "Type a product name"
+E     - text:  Only products with stock available are shown. 
+E     - strong: Current sale
+E     - text: 1 item
+E     - button "Clear cart"
+E     - table:
+E       - rowgroup:
+E         - row "Item Price Qty Amount":
+E           - columnheader "Item"
+E           - columnheader "Price"
+E           - columnheader "Qty"
+E           - columnheader "Amount"
+E           - columnheader
+E       - rowgroup:
+E         - row "e2e-item-ae91d-13 5 in stock Ksh 10.00 1 Ksh 10.00 Remove e2e-item-ae91d-13":
+E           - cell "e2e-item-ae91d-13 5 in stock"
+E           - cell "Ksh 10.00"
+E           - cell "1":
+E             - spinbutton "Quantity of e2e-item-ae91d-13": "1"
+E           - cell "Ksh 10.00"
+E           - cell "Remove e2e-item-ae91d-13":
+E             - button "Remove e2e-item-ae91d-13": 
+E     - text: 
+E     - heading "Checkout" [level=2]
+E     - paragraph: Customer and payment details
+E     - text: Customer
+E     - combobox "e2ecust-ae91d-14 Test":
+E       - button "Remove all items"
+E       - textbox "e2ecust-ae91d-14 Test"
+E     - text: 
+E     - link "Add a new customer":
+E       - /url: /accounts/customers/create/
+E     - text: Tax rate (%)
+E     - spinbutton "Tax rate (%)": "150"
+E     - text: "% Applied to the sale subtotal."
+E     - table:
+E       - rowgroup:
+E         - row "Subtotal Ksh 10.00":
+E           - cell "Subtotal"
+E           - cell "Ksh 10.00"
+E         - row "Tax Ksh 10.00":
+E           - cell "Tax"
+E           - cell "Ksh 10.00"
+E         - row "Total Ksh 20.00":
+E           - cell "Total"
+E           - cell "Ksh 20.00"
+E     - text: Amount paid Ksh
+E     - spinbutton "Amount paid in Ksh": "100"
+E     - button "Exact"
+E     - text: Change due
+E     - strong: Ksh 80.00
+E     - button "Complete sale"
+E     - text:  Prices and totals are verified securely.
+E     - dialog "Sale completed":
+E       - text:  Payment recorded
+E       - heading "Sale completed" [level=2]
+E       - paragraph: Your transaction has been saved successfully.
+E       - text: Receipt
+E       - strong: IMS000122
+E       - text: Sale total
+E       - strong: Ksh 20.00
+E       - text: Change returned
+E       - strong: Ksh 80.00
+E       - link " Print receipt":
+E         - /url: /transactions/sale/122/receipt.pdf
+E       - link "View sale":
+E         - /url: /transactions/sale/122/
+E       - button "New sale"
+______________________ test_uc_m2_2_exc5_session_expired _______________________
+tests/team/e2e/test_e2e_m2_use_cases.py:376: in test_uc_m2_2_exc5_session_expired
+    assert on_login_page or told_to_sign_in.search(form_error(cashier).inner_text()), (
+E   AssertionError: Cashier sees: 'Unexpected server response.' on http://127.0.0.1:38535/transactions/new-sale/
+E   assert (False or None)
+E    +  where None = <built-in method search of re.Pattern object at 0x7cd60b945c40>('Unexpected server response.')
+E    +    where <built-in method search of re.Pattern object at 0x7cd60b945c40> = re.compile('sign in|log in|session', re.IGNORECASE).search
+E    +    and   'Unexpected server response.' = inner_text()
+E    +      where inner_text = <Locator frame=<Frame name= url='http://127.0.0.1:38535/transactions/new-sale/'> selector='#form-error'>.inner_text
+E    +        where <Locator frame=<Frame name= url='http://127.0.0.1:38535/transactions/new-sale/'> selector='#form-error'> = form_error(<Page url='http://127.0.0.1:38535/transactions/new-sale/'>)
+--- generated xml file: /home/mbappe/SQE_Project/reports/e2e/results-m2.xml ----
+=========================== short test summary info ============================
+FAILED tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_exc3_tax_out_of_range_rejected
+FAILED tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_exc5_session_expired
+=================== 2 failed, 18 passed in 129.76s (0:02:09) ===================
