@@ -149,7 +149,16 @@ Our tests go in `tests/team/`. Upstream tests earn no marks.
 | Unit tests for models and permissions | Done: `transactions/loyalty.py`, `accounts/permissions.py` and the `store` and `transactions` models at 100% |
 | All team unit tests | 92 pass |
 | Unit tests for the `accounts`, `bills` and `invoice` models | Partly covered: 80%, 95% and 74% |
-| Test plan, risk register, traceability, AI-use record | Empty files only |
+| Risk register | Empty file (Member 3) |
+| OpenAPI spec and EP/BVA generator | Done: [openapi.yaml](../openapi/openapi.yaml) validates; [generate.py](../tools/generator/generate.py) gives 111 deterministic cases |
+| Regeneration demo (quantity max 500, tax max 50) | Done on branch `area2-Rehan-regen`: `reports/api/regen-diff.txt`, `run-regen.txt` |
+| API and integration tests | Done: 143 tests in [tests/team/api](../tests/team/api), 137 pass, 6 fail on defects ([run](../reports/api/run-baseline.txt)) |
+| API coverage | Done: [api-coverage.md](api-coverage.md), 24/27 status codes (all reachable), 25/25 response properties |
+| Defects | N1–N6 logged: [docs/defects](defects), GitHub Issues #1–#6 |
+| RCA and Pareto | Done: [rca-N2.md](defects/rca-N2.md), [rca-N4.md](defects/rca-N4.md), [pareto.md](defects/pareto.md) |
+| Test plan and three-point estimates | Done: [test-plan.md](test-plan.md) (actual hours still blank) |
+| Traceability | Done: [traceability.md](traceability.md), 12/12 requirements covered, E2E pending |
+| AI-use record | Member 2 rows added: [ai-use-record.md](ai-use-record.md) |
 | `docs/scope.md` | Not written |
 
 Unit testing is not finished: the rest of the server-side business logic still needs tests or a written justification.
@@ -170,12 +179,12 @@ Marks are the group marks from the rubric. The 20 viva marks are individual.
 
 ### Member 2: API testing and data generation (31 marks)
 
-- [ ] OpenAPI specification for the workflow endpoints
-- [ ] Generator for equivalence classes and 3-point boundary values
-- [ ] Change two constraints, regenerate and show the effect
-- [ ] API and integration tests: rejections, invalid transitions, repeated requests, record read-back
-- [ ] Lead: test plan, three-point estimates, traceability matrix
-- [ ] Lead: defects, root cause analysis for 2 major defects, Pareto chart
+- [x] OpenAPI specification for the workflow endpoints
+- [x] Generator for equivalence classes and 3-point boundary values
+- [x] Change two constraints, regenerate and show the effect
+- [x] API and integration tests: rejections, invalid transitions, repeated requests, record read-back
+- [x] Lead: test plan, three-point estimates, traceability matrix
+- [x] Lead: defects, root cause analysis for 2 major defects, Pareto chart
 
 ### Member 3: use cases, usability, security, performance (35 marks)
 
