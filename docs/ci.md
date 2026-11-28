@@ -100,6 +100,7 @@ Turn protection on after the first pull request has run, so that the check names
 | Gate on a new server, clean clone, after them | Passed: 0 bugs, 0 vulnerabilities, coverage 100% | [fresh-server-gate.json](../reports/sonar/gate-proof/fresh-server-gate.json) |
 | Test and mutation steps on Linux | Passed; `loyalty.py` 114 of 119 killed, as on Windows | Run in a `python:3.12` container |
 | Mutation gate on the blocked change | Failed: 77.5% against 95% | [blocked-pr.summary.txt](../reports/mutation/blocked-pr.summary.txt) |
+| Mutation gate on the D1 fix | Passed: 97.8% (313 of 320) | [fix-D1.summary.txt](../reports/mutation/fix-D1.summary.txt) |
 
 Pull request descriptions are in [pull-requests/](pull-requests/).
 

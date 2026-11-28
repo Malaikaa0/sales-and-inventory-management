@@ -18,6 +18,11 @@ First commit (test only): the case for 100001 fails, because the message is "Qua
 
 Second commit: one condition and message per limit. Above the maximum the message is "Quantities cannot be more than 100000.". The same quantities are accepted and rejected as before.
 
+## Checked locally
+
+- Unit tests pass; in-scope coverage 100% of statements and branches.
+- Mutation on `services.py`: 313 of 320 killed (97.8%), minimum 95%.
+
 ## Note
 
 The fix adds two lines to `services.py`. Line numbers after line 61 in `cfg-complexity.md` and `mutation.md` refer to the code before this change.
