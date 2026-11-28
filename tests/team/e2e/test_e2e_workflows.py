@@ -259,7 +259,10 @@ def test_e2e_void_sale_permissions_rejection_and_recovery(e2e_server, browser_ct
 
         # Step 4: Rejected value — whitespace/empty reason fails validation
         page.locator("#id_reason").fill("   ")
-        page.locator("button[type='submit']:has-text('Void sale')").click()
+        # The form posts and the server re-renders the page at the same URL: wait for
+        # that reload, or step 5 can type into the old page (race seen in CI).
+        with page.expect_navigation():
+            page.locator("button[type='submit']:has-text('Void sale')").click()
         assert page.url == void_url
         expect(page.locator("h1")).to_contain_text("Void sale")
 
