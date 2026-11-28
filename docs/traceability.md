@@ -7,7 +7,7 @@ Results come from two runs on 28 Nov 2026:
 - **API:** `reports/api/run-baseline.txt`, 143 tests: 137 passed, 6 failed.
 - **Unit:** `python -m pytest tests/team/unit`: 120 passed, 1 failed.
 
-The failing unit test, `test_views.py::test_sale_bad_requests[-application/json-at least one item]`, gets "Expected a JSON request." for an empty body. It looks like a problem in the test, not the app, and has been reported to Member 1.
+The failing unit test, `test_views.py::test_sale_bad_requests[-application/json-at least one item]`, gets "Expected a JSON request." for an empty body. It looks like a problem in the test, not the app; Member 2 still has to report it to Member 1.
 
 E2E tests are Member 3's (Playwright) and are still pending.
 
