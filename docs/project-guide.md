@@ -183,7 +183,7 @@ Marks are the group marks from the rubric. The 20 viva marks are individual.
 - [x] Generator for equivalence classes and 3-point boundary values
 - [x] Change two constraints, regenerate and show the effect
 - [x] API and integration tests: rejections, invalid transitions, repeated requests, record read-back
-- [x] Lead: test plan, three-point estimates, traceability matrix
+- [ ] Lead: test plan, three-point estimates, traceability matrix (done; actual hours and M3's E2E column pending)
 - [x] Lead: defects, root cause analysis for 2 major defects, Pareto chart
 
 ### Member 3: use cases, usability, security, performance (35 marks)
