@@ -102,11 +102,15 @@ Turn protection on after the first pull request has run, so that the check names
 | Mutation gate on the blocked change | Failed: 77.5% against 95% | [blocked-pr.summary.txt](../reports/mutation/blocked-pr.summary.txt) |
 | Mutation gate on the D1 fix | Passed: 97.8% (313 of 320) | [fix-D1.summary.txt](../reports/mutation/fix-D1.summary.txt) |
 | First run on GitHub, [pull request #10](https://github.com/Malaikaa0/sales-and-inventory-management/pull/10), commit `3694124` | All four checks passed | [reports/ci/](../reports/ci/) |
+| Fix [pull request #11](https://github.com/Malaikaa0/sales-and-inventory-management/pull/11): failing test only (`e2d1f1d`) | Red: 1 test failed, 223 passed | [red](../reports/ci/pr11-red-failing-test.png) |
+| Fix pull request #11: with the fix (`bccb9fe`) | All four passed; mutation 313 of 320 (97.8%) | [green](../reports/ci/pr11-green-after-fix.png) |
+| Blocked [pull request #17](https://github.com/Malaikaa0/sales-and-inventory-management/pull/17), not to be merged | Red: coverage 99.81% / 98.39%, mutation 77.5% | [blocked](../reports/ci/pr17-blocked.png) |
+| Use cases [pull request #18](https://github.com/Malaikaa0/sales-and-inventory-management/pull/18) | All four passed; 233 tests | [use cases](../reports/ci/pr18-use-cases.png) |
 
 Pull request descriptions are in [pull-requests/](pull-requests/).
 
 ## Limits
 
-- Mutation is slow: 426 mutants took 32 minutes here, and 119 took 16 minutes in a container. The job is allowed 180 minutes.
+- Mutation time varies with the machine: 426 mutants took 32 minutes locally and about 6 minutes on GitHub. The job is allowed 180 minutes.
 - The SonarQube images are not pinned to a version, so a new release can change results.
 - Coverage counts the unit tests. API tests run against a separate server process and add no coverage.
