@@ -39,5 +39,8 @@ Tool: Claude Code (Anthropic), model Claude Sonnet 5.5.
 | 2026-11-28 | Playwright in CI | `ci.yml`, `requirements-dev.txt` | Test job run on Linux with `area2-Rehan` merged in a throwaway clone | |
 | 2026-11-28 | Fix branch changed to D1 | Failing test, then the fix in `parse_lines`; replaces the unused DEF-01 branch | Test failed then passed; in-scope coverage 100%; mutation run on `services.py` | |
 | 2026-11-28 | Member 1 use cases and browser tests | `docs/use-cases/UC-M1-*.md`, `test_m1_use_cases.py` | 11 browser tests passed locally | |
+| 2026-11-28 | SonarQube screenshots and pushing branches | `reports/sonar/screenshots/`; branches pushed at the user's request | Overview, gate and complexity images viewed | |
+| 2026-11-28 | Opening the CI pull request | Pull request #10, `reports/ci/` screenshots; opened at the user's request | All four checks passed on GitHub | |
+| 2026-11-28 | Fix, blocked and use case pull requests | Pull requests #11, #17, #18 and screenshots in `reports/ci/`; opened at the user's request | Check results and logs read from GitHub; nothing merged | |
 
 This record covers help from this tool in our working sessions. Add any other AI use, including any used for the earlier unit tests and view tests.
