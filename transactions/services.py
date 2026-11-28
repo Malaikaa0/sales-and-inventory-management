@@ -58,8 +58,10 @@ def parse_lines(raw_items):
             raise ValidationError('Each item needs an id and a quantity.')
         item_id = _int(raw['id'], 'Item id')
         qty = _int(raw['quantity'], 'Quantity')
-        if qty < 1 or qty > MAX_QTY_PER_LINE:
+        if qty < 1:
             raise ValidationError('Quantities must be at least 1.')
+        if qty > MAX_QTY_PER_LINE:
+            raise ValidationError(f'Quantities cannot be more than {MAX_QTY_PER_LINE}.')
         lines[item_id] = lines.get(item_id, 0) + qty
     return lines
 
