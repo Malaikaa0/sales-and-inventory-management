@@ -1,0 +1,39 @@
+{
+  "status": "ERROR",
+  "conditions": [
+    {
+      "status": "OK",
+      "metricKey": "coverage",
+      "comparator": "LT",
+      "errorThreshold": "90",
+      "actualValue": "100.0"
+    },
+    {
+      "status": "OK",
+      "metricKey": "duplicated_lines_density",
+      "comparator": "GT",
+      "errorThreshold": "3",
+      "actualValue": "0.0"
+    },
+    {
+      "status": "ERROR",
+      "metricKey": "bugs",
+      "comparator": "GT",
+      "errorThreshold": "0",
+      "actualValue": "6"
+    },
+    {
+      "status": "ERROR",
+      "metricKey": "vulnerabilities",
+      "comparator": "GT",
+      "errorThreshold": "0",
+      "actualValue": "13"
+    }
+  ],
+  "ignoredConditions": false,
+  "period": {
+    "mode": "PREVIOUS_VERSION",
+    "date": "2026-11-28T10:12:59+0000"
+  },
+  "caycStatus": "non-compliant"
+}

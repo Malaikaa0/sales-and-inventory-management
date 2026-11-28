@@ -12,14 +12,17 @@ def loyalty(settings):
     settings.LOYALTY = {"enabled": True, "earn_per": "100", "point_value": "1.00", "min_redeem": 10}
     return settings
 
+
 @pytest.fixture
 def item(db):
     cat = Category.objects.create(name="Test")
     return Item.objects.create(name="Keyboard", category=cat, quantity=10, price=Decimal("100.00"))
 
+
 @pytest.fixture
 def customer(db):
     return Customer.objects.create(first_name="Ali", loyalty_points=0)
+
 
 def sell(customer, item, qty, **kw):
     kw.setdefault("amount_paid", 1000000)
@@ -32,6 +35,7 @@ def sell(customer, item, qty, **kw):
 def test_non_whole_quantity_rejected(bad):
     with pytest.raises(ValidationError):
         parse_lines([{"id": 1, "quantity": bad}])
+
 
 def test_whole_number_float_is_rejected_current_behaviour():
     # Documents current behaviour: JSON 2.0 is rejected. Candidate defect.
@@ -54,6 +58,7 @@ def test_stock_boundary(loyalty, item, customer, qty, ok):
         assert item.quantity == 10
         assert Sale.objects.count() == 0
 
+
 @pytest.mark.django_db
 def test_sale_reduces_stock_and_totals(loyalty, item, customer):
     s = sell(customer, item, 4)
@@ -61,6 +66,7 @@ def test_sale_reduces_stock_and_totals(loyalty, item, customer):
     assert item.quantity == 6
     assert s.grand_total == Decimal("400.00")
     assert s.status == Sale.STATUS_COMPLETED
+
 
 @pytest.mark.django_db
 def test_unknown_customer_and_item(loyalty, item, customer):
@@ -82,6 +88,7 @@ def test_tax_limits(loyalty, item, customer, tax, ok):
         with pytest.raises(ValidationError):
             sell(customer, item, 1, tax_percentage=tax)
 
+
 @pytest.mark.django_db
 @pytest.mark.parametrize("paid,ok", [("99.99", False), ("100.00", True), ("100.01", True), (-1, False)])
 def test_amount_paid_limit(loyalty, item, customer, paid, ok):
@@ -98,11 +105,13 @@ def test_redeem_negative_rejected(loyalty, item, customer):
     with pytest.raises(ValidationError):
         sell(customer, item, 1, redeem_points=-1)
 
+
 @pytest.mark.django_db
 def test_redeem_when_disabled_rejected(settings, item, customer):
     settings.LOYALTY = {"enabled": False}
     with pytest.raises(ValidationError, match="not enabled"):
         sell(customer, item, 1, redeem_points=10)
+
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("points,ok", [
@@ -119,6 +128,7 @@ def test_redeem_conditions(loyalty, item, customer, points, ok):
     else:
         with pytest.raises(ValidationError):
             sell(customer, item, 1, redeem_points=points)
+
 
 @pytest.mark.django_db
 def test_redeem_more_than_bill_rejected(loyalty, item, customer):
@@ -142,6 +152,7 @@ def test_void_restores_stock_and_cannot_repeat(loyalty, item, customer):
         void_sale(s, user=None)
     item.refresh_from_db()
     assert item.quantity == 10
+
 
 @pytest.mark.django_db
 def test_void_when_earned_points_already_spent(loyalty, item, customer):

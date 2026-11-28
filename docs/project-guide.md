@@ -146,7 +146,7 @@ Our tests go in `tests/team/`. Upstream tests earn no marks.
 | `baseline-v0` tag and `upstream` remote | Done |
 | Folder structure and `pytest.ini` | Done |
 | Setup, seed and reset instructions | Done, checked on a fresh clone |
-| Unit tests | 162 pass (`tests/team/unit`) |
+| Unit tests | 222 pass |
 | In-scope coverage ([scope](scope.md#unit-coverage-scope)) | Statements 100%, branches 100% |
 | Whole-project coverage | 71.6% combined |
 | SonarQube | [sonar-triage.md](sonar-triage.md); screenshots not taken |
@@ -176,8 +176,8 @@ Marks are the group marks from the rubric. The 20 viva marks are individual.
 - [x] Unit tests: in-scope statement and branch coverage 100%
 - [x] MCC table and MC/DC pairs for the critical module
 - [x] SonarQube metrics, control flow graph and cyclomatic complexity (screenshots and own check pending)
-- [ ] Mutation testing: 2 custom operators, at least 15 surviving mutants analysed
-- [ ] CI quality gate, one fix pull request, one blocked pull request
+- [x] Mutation testing: 2 custom operators, surviving mutants analysed ([mutation.md](mutation.md))
+- [ ] CI quality gate, one fix pull request, one blocked pull request (opened and checked; merging and branch protection pending)
 
 ### Member 2: API testing and data generation (31 marks)
 

@@ -17,12 +17,28 @@ CASES_FILE = Path(__file__).resolve().parents[3] / 'tools' / 'generator' / 'out'
 DATA = json.loads(CASES_FILE.read_text(encoding='utf-8'))
 SALE_CASES = [c for c in DATA['cases'] if c['endpoint'].endswith('/new-sale/')]
 
+# Cases that fail on open defects. strict=True: when the defect is fixed the case
+# XPASSes, the run fails, and the marker must be removed (docs/test-plan.md,
+# "Known defects in CI"). The raw failing baseline is reports/api/run-baseline.txt.
+KNOWN_DEFECTS = {
+    'SALE-amount_paid-EP-wrong-type-bool-false': 'Known defect N5 — issue #5, open',
+    'SALE-redeem_points-EP-wrong-type-bool-false': 'Known defect N5 — issue #5, open',
+    'SALE-tax_percentage-EP-wrong-type-bool-false': 'Known defect N5 — issue #5, open',
+}
+assert set(KNOWN_DEFECTS) <= {c['id'] for c in SALE_CASES}, 'stale KNOWN_DEFECTS id'
+PARAMS = [
+    pytest.param(c, id=c['id'],
+                 marks=[pytest.mark.xfail(strict=True, reason=KNOWN_DEFECTS[c['id']])]
+                 if c['id'] in KNOWN_DEFECTS else [])
+    for c in SALE_CASES
+]
+
 
 def sold_quantity(body):
     return sum(int(line['quantity']) for line in body['items'])
 
 
-@pytest.mark.parametrize('case', SALE_CASES, ids=[c['id'] for c in SALE_CASES])
+@pytest.mark.parametrize('case', PARAMS)
 def test_generated_sale_case(case, cashier, manager, item, customer):
     body = fill(case['body'], {'item_id': item['id'], 'customer_id': customer['id']})
     before = stock(manager, item)

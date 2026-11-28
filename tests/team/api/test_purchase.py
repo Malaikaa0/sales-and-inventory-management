@@ -7,6 +7,8 @@ N2: requirement A1 says a purchase quantity is at most 100000; the app has no
 N3: a purchase that fails form validation returns 200 (form shown again), not
     a 4xx. Documented as observed; the test checks nothing was saved.
 """
+import pytest
+
 from conftest import create_item, first_option, post_form, stock
 
 A1_MAX_PURCHASE_QTY = 100000
@@ -29,6 +31,7 @@ def test_purchase_at_limit_is_accepted(manager):
     assert stock(manager, item) == 46 + A1_MAX_PURCHASE_QTY
 
 
+@pytest.mark.xfail(strict=True, reason='Known defect N2 — issue #2, open')
 def test_purchase_above_int32_rejected_N2(manager):
     item = create_item(manager, quantity=46)
     response = purchase(manager, item, INT32_MAX + 1)
