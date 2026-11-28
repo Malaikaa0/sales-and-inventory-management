@@ -2,3 +2,7 @@
 pytest==9.2.0
 pytest-django==4.14.0
 coverage==7.17.5
+# Browser tests in tests/team/e2e. Browsers: playwright install --with-deps chromium
+playwright==1.65.2
+# HTTP client used by the API and recovery tests.
+requests==2.34.2

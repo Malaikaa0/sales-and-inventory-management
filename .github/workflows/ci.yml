@@ -57,10 +57,15 @@ jobs:
       - name: Install API test tools
         if: hashFiles('tools/generator/requirements.txt') != ''
         run: pip install -r tools/generator/requirements.txt
+      # Browser and system libraries for the end to end tests.
+      - name: Install Chromium for Playwright
+        run: playwright install --with-deps chromium
+
       - run: python manage.py check
       - run: python manage.py makemigrations --check --dry-run
 
-      # The API tests talk to a running application over HTTP.
+      # The API tests talk to this running application over HTTP. The end to end
+      # and recovery tests start their own servers on temporary databases.
       - name: Seed a fresh database and start the application
         shell: bash
         run: |
