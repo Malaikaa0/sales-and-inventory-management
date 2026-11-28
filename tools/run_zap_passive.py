@@ -208,10 +208,14 @@ def main():
         unique = {}
         for a in alerts_data.get("alerts", []):
             key = (a.get("risk"), a.get("alert"))
-            unique.setdefault(key, {"risk": a.get("risk"), "alert": a.get("alert"), "cweid": a.get("cweid"), "count": 0, "url_sample": a.get("url")})
+            unique.setdefault(key, {
+                "risk": a.get("risk"), "alert": a.get("alert"), "cweid": a.get("cweid"),
+                "count": 0, "url_sample": a.get("url"),
+            })
             unique[key]["count"] += 1
 
-        summary = sorted(unique.values(), key=lambda x: {"High": 0, "Medium": 1, "Low": 2, "Informational": 3}.get(x["risk"], 9))
+        risk_order = {"High": 0, "Medium": 1, "Low": 2, "Informational": 3}
+        summary = sorted(unique.values(), key=lambda x: risk_order.get(x["risk"], 9))
         (REPORTS_DIR / "zap-passive-summary.json").write_text(
             json.dumps({"total_alert_instances": len(alerts_data.get("alerts", [])), "unique_alerts": summary}, indent=2),
             encoding="utf-8",

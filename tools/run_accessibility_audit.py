@@ -207,7 +207,8 @@ def main():
         lh_res = run_lighthouse(base_url, sessionid, phase)
         summary = {"phase": phase, "axe": axe_res, "lighthouse": lh_res}
         (REPORTS_DIR / f"summary-{phase}.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
-        print(json.dumps({"phase": phase, "lighthouse": lh_res, "axe_counts": {k: v["violations_count"] for k, v in axe_res.items()}}, indent=2))
+        axe_counts = {k: v["violations_count"] for k, v in axe_res.items()}
+        print(json.dumps({"phase": phase, "lighthouse": lh_res, "axe_counts": axe_counts}, indent=2))
     finally:
         proc.terminate()
         try:
