@@ -69,7 +69,19 @@ A check name appears in the list only after it has run once. Also enable workflo
 
 **Order matters.** Merge the CI pull request before turning protection on. It cannot pass the Sonar check while the issues above exist.
 
+## Evidence from before the first run on GitHub
+
+| What | Result | Where |
+| --- | --- | --- |
+| Gate on a clean probe project, then with one added bug | Passed, then failed with `bugs: 1` | [reports/sonar/gate-proof/](../reports/sonar/gate-proof/) |
+| Gate on the current code | Failed: 6 bugs, 13 vulnerabilities | [current-code-gate.json](../reports/sonar/gate-proof/current-code-gate.json) |
+| Test and mutation steps on Linux | Passed; `loyalty.py` 114 of 119 killed, as on Windows | Run in a `python:3.12` container |
+| Mutation gate on the blocked change | Failed: 77.5% against 95% | [blocked-pr.summary.txt](../reports/mutation/blocked-pr.summary.txt) |
+
+Pull request descriptions are in [pull-requests/](pull-requests/).
+
 ## Limits
 
+- Mutation is slow: 426 mutants took 32 minutes here, and 119 took 16 minutes in a container. The job is allowed 180 minutes.
 - The SonarQube images are not pinned to a version, so a new release can change results.
 - Coverage counts the unit tests. API tests run against a separate server process and add no coverage.

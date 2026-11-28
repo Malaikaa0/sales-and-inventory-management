@@ -30,5 +30,10 @@ Tool: Claude Code (Anthropic), model Claude Sonnet 5.5.
 | 2026-11-28 | Mutation sessions | Raw results in `reports/mutation/` | Three full sessions; two earlier attempts failed on errors in the run script and produced no results | |
 | 2026-11-28 | Tests for surviving mutants | `test_mutation_gaps.py`, `tests/team/conftest.py`, lint formatting of older unit tests | Unit tests pass; flake8 passes; confirmed by the final session | |
 | 2026-11-28 | Survivor analysis | [mutation.md](mutation.md) | Final survivors match the listed equivalent mutants; equivalence arguments not independently reviewed | |
+| 2026-11-28 | CI quality gate | `ci.yml`, `tools/ci/`, `requirements-dev.txt`, [ci.md](ci.md) | Test and mutation steps run in a Linux container; the workflow has not run on GitHub | |
+| 2026-11-28 | Sonar gate on overall code | `SQE-gate`, `reports/sonar/gate-proof/` | Probe passed clean and failed with an added bug; run on the current code | |
+| 2026-11-28 | Fix branch for DEF-01 | Failing test, then the template fix | Test failed then passed; SonarQube bugs on the template went from 2 to 1; not viewed in a browser | |
+| 2026-11-28 | Blocked branch | Untested bulk discount rule | Coverage and mutation checks failed locally | |
+| 2026-11-28 | Pull request descriptions | `docs/pull-requests/` | Figures taken from the local runs | |
 
 This record covers help from this tool in our working sessions. Add any other AI use, including any used for the earlier unit tests and view tests.
