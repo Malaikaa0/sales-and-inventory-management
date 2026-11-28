@@ -21,6 +21,10 @@ from .models import Sale, SaleDetail, LoyaltyTransaction
 CENT = Decimal('0.01')
 MAX_LINES = 200
 MAX_QTY_PER_LINE = 100000
+# Bulk discount: 5% off a large mixed basket, 2.5% off a very large one.
+BULK_UNITS = 50
+BULK_TOTAL = Decimal('10000.00')
+BULK_RATE = Decimal('0.05')
 
 
 def _money(value):
@@ -44,6 +48,15 @@ def _int(value, field):
         return int(str(value))
     except (TypeError, ValueError):
         raise ValidationError(f'{field} must be a whole number.')
+
+
+def bulk_discount(line_count, units, sub_total):
+    """Discount for large baskets."""
+    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+        return _money(sub_total * BULK_RATE)
+    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+        return _money(sub_total * BULK_RATE / 2)
+    return Decimal('0.00')
 
 
 def parse_lines(raw_items):
@@ -125,6 +138,7 @@ def create_sale(*, user, customer_id, items, tax_percentage=0, amount_paid=0,
             if redeem > loyalty.max_redeemable(customer.loyalty_points, sub_total):
                 raise ValidationError('Points redeemed cannot exceed the bill.')
         discount = loyalty.value_of_points(redeem) if redeem else Decimal('0.00')
+        discount += bulk_discount(len(lines), sum(lines.values()), sub_total)
         taxable = sub_total - discount
         tax_amount = _money(taxable * tax_pct / Decimal('100'))
         grand_total = _money(taxable + tax_amount)
