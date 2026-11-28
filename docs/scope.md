@@ -35,6 +35,27 @@ Module: sales (`transactions`).
 
 W1 creates the sale and its lines, and W2 uses them.
 
+## Unit coverage scope
+
+Coverage is required for `transactions` (including `loyalty.py`), `store` and `accounts/permissions.py`. The exclusions are listed one by one in [.coveragerc](../.coveragerc).
+
+Reason: the two workflows are in the sales module. `transactions` holds their logic, `store` holds the stock they change, and `accounts/permissions.py` decides who may run them. Our test effort goes to these.
+
+| Excluded | Why |
+| --- | --- |
+| `bills`, `invoice` | Separate modules, used by neither workflow |
+| The rest of `accounts` | Staff, customer, vendor and sign-in management |
+| `InventoryMS` | Project settings, middleware, PDF rendering and entry points |
+| `store/management`, `store/templatetags` | Demo data loader and display formatting |
+| `store/filters.py`, `transactions/filters.py`, `transactions/tables.py` | Declarations that nothing imports |
+| Migrations, upstream tests | Generated code and code that earns no marks |
+
+Limits of this choice, to carry into the risk register:
+
+- `accounts/models.py` holds the `Customer` record and its loyalty balance, which both workflows use. `accounts/middleware.py` blocks inactive staff. Neither counts towards the coverage figure.
+- Receipt PDF rendering (`InventoryMS/pdf.py`) is outside the figure.
+- The assignment asks for all server-side business logic with uncovered code justified. Whole-project coverage is therefore reported next to the in-scope figure in the [test plan](test-plan.md).
+
 ## Functional requirements
 
 | ID | Workflow | Requirement |

@@ -6,21 +6,30 @@ Still to write: approach by risk level, roles, environment, test data, schedule,
 
 ## Unit coverage
 
+Settings are in [.coveragerc](../.coveragerc). The reason for the scope is in [scope.md](scope.md#unit-coverage-scope).
+
 ```powershell
 $env:DEBUG="True"
-coverage run --branch -m pytest tests/team/unit -q
-coverage report -m --include="transactions/*.py,store/*.py,accounts/permissions.py"
+coverage run -m pytest tests/team/unit -q
+coverage report                              # in scope
+coverage report --omit="*/migrations/*"      # whole project
 ```
 
-### Uncovered code in this report
+Measured on 2026-11-28 with 147 tests passing:
+
+| | In scope | Whole project |
+| --- | --- | --- |
+| Statements | 929 of 929 (100%) | 1554 of 2080 (74.7%) |
+| Branches | 117 of 118 (99.2%) | 138 of 304 (45.4%) |
+| Combined, as `coverage.py` reports it | 99.9% | 71.0% |
+
+Whole project means `accounts`, `bills`, `invoice`, `store`, `transactions` and `InventoryMS`, without migrations and upstream tests. It includes files that no test imports.
+
+### Uncovered code in scope
 
 | File and branch | Justification |
 | --- | --- |
 | `transactions/forms.py` 14->exit | `BootstrapMixin` skips item setup only for a form without an `item` field, and its only subclass, `PurchaseForm`, has one. |
-
-### Not measured by this report
-
-The report covers `transactions`, `store` and `accounts/permissions.py`. The rest of `accounts`, `bills`, `invoice` and `InventoryMS` still needs tests or justification before the 100% target for all server-side business logic can be claimed. Migrations are not included.
 
 ## Candidate defects
 
