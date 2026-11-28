@@ -10,9 +10,12 @@ info:
     Extensions used:
       x-defaults-when-missing: value used when the field is missing, null, "" or 0
         (services.py:74,77,80 use `value or 0`).
-      x-accepts-numeric-strings: the field also accepts a string of digits ("3")
-        and a whole float (2.0); non-whole floats and booleans are rejected
-        (services.py:40-46 `_int`).
+      x-accepts-numeric-strings: the field also accepts a string of digits ("3").
+        On integer fields every JSON float is rejected, even 2.0, because _int
+        does int(str(2.0)) = int("2.0"); booleans and "" are rejected too
+        (services.py:40-46). Number fields accept floats and numeric strings.
+      x-must-cover-total: the value must be >= the server-computed grand total.
+      x-limited-by-balance: a value above the customer's points balance is rejected.
       x-error-message: exact message returned in Error.message when the rule fails.
       x-rule: requirement / business rule ID from the draft scope.
       x-source: code line the rule comes from.
@@ -377,6 +380,8 @@ components:
           x-accepts-numeric-strings: true
           x-rejects-non-finite: true
           x-delta: 0.01
+          x-must-cover-total: true
+          x-error-message-total: Amount paid ({paid}) is less than the total ({total}).
           x-error-message: Amount paid cannot be negative.
           x-error-message-type: Amount paid must be a number.
           x-rule: FR4
@@ -391,6 +396,7 @@ components:
             and <= the bill; loyalty must be enabled when > 0.
           x-defaults-when-missing: 0
           x-accepts-numeric-strings: true
+          x-limited-by-balance: true
           x-error-message: Points to redeem cannot be negative.
           x-error-message-type: Points to redeem must be a whole number.
           x-rule: FR5
