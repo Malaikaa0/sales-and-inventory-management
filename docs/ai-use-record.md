@@ -26,5 +26,9 @@ Tool: Claude Code (Anthropic), model Claude Sonnet 5.5.
 | 2026-11-28 | Removing personal fields | Author and email fields removed from `reports/sonar/`, including from unpushed commits | Searched the saved JSON for email addresses | |
 | 2026-11-28 | Quality gate and two scans | `SQE-gate` on the server, scoped and whole repository results in `reports/sonar/`, [sonar-triage.md](sonar-triage.md) | Read gate conditions and results back from the API | |
 | 2026-11-28 | Accepted issue reasons and defect drafts | [sonar-triage.md](sonar-triage.md), [defects.md](defects.md) (DEF-01, DEF-02) | Read the flagged templates and styles; rendered the dashboard to confirm both defects; no screen reader check | |
+| 2026-11-28 | Mutation setup and custom operators | `tools/mutation/` | Operators checked against examples and compiled on the target files | |
+| 2026-11-28 | Mutation sessions | Raw results in `reports/mutation/` | Three full sessions; two earlier attempts failed on errors in the run script and produced no results | |
+| 2026-11-28 | Tests for surviving mutants | `test_mutation_gaps.py`, `tests/team/conftest.py`, lint formatting of older unit tests | Unit tests pass; flake8 passes; confirmed by the final session | |
+| 2026-11-28 | Survivor analysis | [mutation.md](mutation.md) | Final survivors match the listed equivalent mutants; equivalence arguments not independently reviewed | |
 
 This record covers help from this tool in our working sessions. Add any other AI use, including any used for the earlier unit tests and view tests.
