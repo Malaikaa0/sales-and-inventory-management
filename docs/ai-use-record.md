@@ -42,5 +42,9 @@ Tool: Claude Code (Anthropic), model Claude Sonnet 5.5.
 | 2026-11-28 | SonarQube screenshots and pushing branches | `reports/sonar/screenshots/`; branches pushed at the user's request | Overview, gate and complexity images viewed | |
 | 2026-11-28 | Opening the CI pull request | Pull request #10, `reports/ci/` screenshots; opened at the user's request | All four checks passed on GitHub | |
 | 2026-11-28 | Fix, blocked and use case pull requests | Pull requests #11, #17, #18 and screenshots in `reports/ci/`; opened at the user's request | Check results and logs read from GitHub; nothing merged | |
+| 2026-11-28 | CI evidence pull request | Six screenshots taken by Member 1 copied to `reports/ci/`; evidence section in [ci.md](ci.md#evidence); [area1-checklist.md](area1-checklist.md) | Copies compared with the originals by SHA-256; run URLs, commits and conclusions read with `gh`; each image viewed | |
+| 2026-11-28 | Branch rule change | [ci.md](ci.md#how-the-gate-blocks-a-merge) and [area1-checklist.md](area1-checklist.md) updated after approvals were removed | Rule read back with the GitHub API | |
+| 2026-11-28 | Blocked merge evidence | `reports/ci/blocked-merge.png`, taken by Member 1; [ci.md](ci.md#evidence) and [area1-checklist.md](area1-checklist.md) updated | Copy compared by SHA-256; image viewed; run `46162699895` read with `gh` | |
+| 2026-11-28 | Two further screenshots | `pr17-blocked-full.png` and `rule-no-approvals.png` added to `reports/ci/` | Viewed and compared by SHA-256: the first duplicates `blocked-merge.png`; the second shows approvals still ticked, so the item stays Missing | |
 
 This record covers help from this tool in our working sessions. Add any other AI use, including any used for the earlier unit tests and view tests.

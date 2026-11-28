@@ -77,11 +77,13 @@ That branch (open pull request #7) holds the API, browser, security and performa
 
 ## How the gate blocks a merge
 
-A red check only informs. The merge is blocked by branch protection on `main`, which must require the four checks.
+A red check only informs. The merge is blocked by the branch protection rule on `main`, which requires the four checks.
 
-In GitHub: **Settings > Branches > Add branch ruleset** (or classic protection rule) for `main`:
+The rule as read through the GitHub API on 2026-11-28: pull request required; the four checks required; branch must be up to date; no bypass, including for administrators; no force pushes or deletion; **no approvals required**. An approval requirement of 1 was set first and then removed.
 
-1. Require a pull request before merging.
+To set it up: **Settings > Branches > Add branch ruleset** (or classic protection rule) for `main`:
+
+1. Require a pull request before merging. Leave **Require approvals** off.
 2. Require status checks to pass, and add: `Lint`, `Tests and coverage`, `SonarQube quality gate`, `Mutation testing`.
 3. Require branches to be up to date before merging.
 4. Do not allow bypassing (classic rule: "Do not allow bypassing the above settings"; ruleset: leave the bypass list empty).
@@ -92,6 +94,51 @@ A check name appears in the list only after it has run once. Also enable workflo
 Turn protection on after the first pull request has run, so that the check names can be selected.
 
 ## Evidence
+
+### Runs on GitHub
+
+As reported by `gh` on 2026-11-28.
+
+| What | Commit | Conclusion | Run |
+| --- | --- | --- | --- |
+| #11, test only: the red run | `e2d1f1d` | failure. Tests and coverage, SonarQube failed; Lint, Mutation passed | [46158578375](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46158578375) |
+| #11, with the fix: the green run | `bccb9fe` | success, all four | [46158779876](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46158779876) |
+| #17, blocked change | `c482ada` | failure. Tests and coverage, Mutation failed; Lint, SonarQube passed | [46158780829](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46158780829) |
+| #17 after **Update branch** onto the new `main` | `343adbd` | failure. Tests and coverage (99.81% statements, 98.41% branches), Mutation (330 of 426, 77.5%) failed; Lint, SonarQube passed | [46162699895](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46162699895) |
+| #10, last head before merging | `acbfefc` | success, all four | [46159501791](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46159501791) |
+| #18, last head before merging | `78ea31a` | success, all four | [46159730536](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46159730536) |
+| `main` after merging #10 | `49128aa` | success; full mutation 591 of 608 (97.2%) | [46160780007](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46160780007) |
+| `main` after merging #11 | `6755743` | success; full mutation 591 of 608 | [46160805452](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46160805452) |
+| `main` after merging #18 | `086d916` | success; full mutation 591 of 608 | [46160834242](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46160834242) |
+
+The SonarQube failure on `e2d1f1d` comes from the unit tests that job runs before the analysis, not from the quality gate.
+
+### Screenshots taken by Member 1
+
+Files in `reports/ci/`, copied unchanged. Those listed by time are named `Screenshot 2026-11-28 <time>.png`.
+
+| File | What it shows | Matching run |
+| --- | --- | --- |
+| [203600](../reports/ci/Screenshot%202026-11-28%20203600.png) | Open pull requests: #10, #11 and #18 with 4 of 4 checks, #17 with 2 of 4. Also #20 from another member | #11 [46158779876](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46158779876), #17 [46158780829](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46158780829), #18 [46159730536](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46159730536). #10: its head at that moment was `acbfefc`, [46159501791](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46159501791) |
+| [203856](../reports/ci/Screenshot%202026-11-28%20203856.png) | Open pull requests after the merges: #17 still open with 2 of 4 checks, and #20 | #17 [46158780829](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46158780829) |
+| [203950](../reports/ci/Screenshot%202026-11-28%20203950.png) | Closed pull requests: #10, #11 and #18 merged with 4 of 4 checks; #7 merged; #21 closed | #10 [46159501791](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46159501791), #11 [46158779876](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46158779876), #18 [46159730536](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46159730536) |
+| [204305](../reports/ci/Screenshot%202026-11-28%20204305.png) | Branch rule form: bypassing not allowed; force pushes and deletions not allowed | None: a settings page |
+| [204547](../reports/ci/Screenshot%202026-11-28%20204547.png) | Branch protection rules list with one rule, `main` | None: a settings page |
+| [204711](../reports/ci/Screenshot%202026-11-28%20204711.png) | Rule for `main` as first set: pull request with 1 approval; branches up to date; four required checks. The approval requirement was removed afterwards | None: a settings page |
+
+None of the files above shows a run page.
+
+| File | What it shows | Matching run |
+| --- | --- | --- |
+| [blocked-merge.png](../reports/ci/blocked-merge.png) | Merge box of a pull request: Mutation testing and Tests and coverage failing, Lint and SonarQube passing, all four marked **Required**, and the **Merge pull request** button disabled. The image itself shows no pull request number; the results match [#17](https://github.com/Malaikaa0/sales-and-inventory-management/pull/17), which GitHub reported as `BLOCKED` at head `343adbd` | [46162699895](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46162699895) |
+| [pr17-blocked-full.png](../reports/ci/pr17-blocked-full.png) | The same image as `blocked-merge.png`, byte for byte. Despite its name, it shows no pull request title | [46162699895](https://github.com/Malaikaa0/sales-and-inventory-management/actions/runs/46162699895) |
+| [rule-with-approvals-earlier.png](../reports/ci/rule-with-approvals-earlier.png) | The rule with **Require approvals ticked** (1 approval), as it was before the change. It is not evidence of the current rule | None: a settings page |
+
+### Automated captures
+
+The `pr*.png` files in `reports/ci/` were taken by an automated browser script during AI-assisted work, not by a team member. They show the run pages: [red](../reports/ci/pr11-red-failing-test.png), [green](../reports/ci/pr11-green-after-fix.png), [blocked](../reports/ci/pr17-blocked.png).
+
+### Earlier local checks
 
 | What | Result | Where |
 | --- | --- | --- |
