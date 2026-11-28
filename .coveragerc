@@ -24,7 +24,8 @@ omit =
 [report]
 show_missing = True
 # Left out of the in-scope figure. The scope is transactions (with loyalty),
-# store and accounts/permissions.py.
+# store, accounts/permissions.py and accounts/models.py (Customer holds the
+# points balance that both workflows change; Vendor is used by purchasing).
 omit =
     # accounts: staff, customer and vendor management is outside both workflows.
     accounts/__init__.py
@@ -40,8 +41,6 @@ omit =
     accounts/forms.py
     # accounts: signs out inactive staff. Both workflows pass through it.
     accounts/middleware.py
-    # accounts: Customer, Vendor and Profile models. Both workflows use Customer.
-    accounts/models.py
     # accounts: creates a profile for each new user.
     accounts/signals.py
     # accounts: table declarations.
