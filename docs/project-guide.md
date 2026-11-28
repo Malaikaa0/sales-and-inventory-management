@@ -94,8 +94,9 @@ python -m pytest
 With branch coverage:
 
 ```powershell
-python -m coverage run --branch -m pytest
-python -m coverage report --include="transactions/services.py"
+python -m coverage run -m pytest
+python -m coverage report                              # in scope
+python -m coverage report --omit="*/migrations/*"      # whole project
 ```
 
 Our tests go in `tests/team/`. Upstream tests earn no marks.
@@ -145,14 +146,15 @@ Our tests go in `tests/team/`. Upstream tests earn no marks.
 | `baseline-v0` tag and `upstream` remote | Done |
 | Folder structure and `pytest.ini` | Done |
 | Setup, seed and reset instructions | Done, checked on a fresh clone |
-| Unit tests for `parse_lines` and the sale services | Done: `transactions/services.py` at 100% statement and branch coverage |
-| Unit tests for models and permissions | Done: `transactions/loyalty.py`, `accounts/permissions.py` and the `store` and `transactions` models at 100% |
-| All team unit tests | 92 pass |
-| Unit tests for the `accounts`, `bills` and `invoice` models | Partly covered: 80%, 95% and 74% |
-| Test plan, risk register, traceability, AI-use record | Empty files only |
-| `docs/scope.md` | Not written |
-
-Unit testing is not finished: the rest of the server-side business logic still needs tests or a written justification.
+| Unit tests | 147 pass |
+| In-scope coverage ([scope](scope.md#unit-coverage-scope)) | Statements 100%, branches 99.2% |
+| Whole-project coverage | 71.0% combined, not being raised |
+| MCC, MC/DC and decision tables | [mcc-mcdc.md](mcc-mcdc.md) |
+| `docs/scope.md` | Draft, not yet agreed by the team |
+| Candidate defects D1 to D4 | In the [test plan](test-plan.md), not yet logged as Issues |
+| AI-use record | Started |
+| Risk register, traceability | Empty files only |
+| Test plan | Coverage and candidate defects only |
 
 ## 5. Work division
 
@@ -161,9 +163,9 @@ Marks are the group marks from the rubric. The 20 viva marks are individual.
 ### Member 1 (Malaika): static analysis, white-box, mutation, CI (34 marks)
 
 - [x] Baseline and project setup
-- [ ] Scope document: two workflows, at least 8 requirements (3 or more per workflow), 4 business rules, 2 roles
-- [ ] Unit tests: 100% statement and branch coverage of server-side business logic (partly done)
-- [ ] MCC table and MC/DC pairs for the critical module
+- [ ] Scope document: two workflows, at least 8 requirements (3 or more per workflow), 4 business rules, 2 roles (drafted, to be agreed)
+- [x] Unit tests: in-scope statement coverage 100%, one partial branch justified
+- [x] MCC table and MC/DC pairs for the critical module
 - [ ] SonarQube metrics, control flow graph and cyclomatic complexity
 - [ ] Mutation testing: 2 custom operators, at least 15 surviving mutants analysed
 - [ ] CI quality gate, one fix pull request, one blocked pull request
@@ -198,7 +200,7 @@ Marks are the group marks from the rubric. The 20 viva marks are individual.
 ## 6. Order of work
 
 1. Agree the two workflows and register the repository in the shared sheet. The deadline is 5 days from the announcement.
-2. Write `docs/scope.md`. Sale and void sale are the suggested pair, still to be agreed.
+2. Agree the draft [scope.md](scope.md): make a sale and void a sale.
 3. Write the risk register and estimates. Risk level decides test technique and depth.
 4. Start each area: unit, API, browser tests.
 5. Mutation and the CI gate, once the tests are stable.
