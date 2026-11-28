@@ -27,6 +27,7 @@ DEFECTS = {
     'DEF-03': 'Accessibility',
     'DEF-04': 'Performance / concurrency',
     'DEF-05': 'Accessibility',
+    'DEF-06': 'Accessibility',
 }
 
 
@@ -49,7 +50,7 @@ def main():
     ax.set_ylabel('Defects')
     ax.set_ylim(0, max(values) + 1)
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-    ax.set_title(f'Defects by category, N1–N8 + DEF-01–05 (n = {total})')
+    ax.set_title(f'Defects by category, N1–N8 + DEF-01–06 (n = {total})')
     ax.spines[['top']].set_visible(False)
 
     ax2 = ax.twinx()

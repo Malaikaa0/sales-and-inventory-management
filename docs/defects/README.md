@@ -31,27 +31,32 @@ Updated 28 Nov 2026.
 | DEF-03 | [#14](https://github.com/Malaikaa0/sales-and-inventory-management/issues/14) | Dashboard muted table text fails WCAG 2.1 AA contrast | Minor | P2 | **Fixed, closed** (`6052421`) | Fixed and verified (axe 0 violations, Lighthouse 100) | PR-05 | – (accessibility) | M3 axe/Lighthouse |
 | DEF-04 | [#15](https://github.com/Malaikaa0/sales-and-inventory-management/issues/15) | Concurrent sale writes hit SQLite lock contention under 10-VU load | Minor | P3 | Accepted | Accepted for SQLite (dev/test); production uses PostgreSQL | PR-06 | – (performance) | M3 k6 |
 | DEF-05 | [#16](https://github.com/Malaikaa0/sales-and-inventory-management/issues/16) | Login page has no `<main>` landmark | Minor | P3 | Open | Fix: add `<main>`; outside the fixed screen | PR-05 | – (accessibility) | M3 axe |
+| DEF-06 | [#19](https://github.com/Malaikaa0/sales-and-inventory-management/issues/19) | Point of sale placeholders and secure note fail WCAG 2.1 AA contrast (3.16:1, 3.28:1) | Minor | P2 | Open | Fix: darken to ≥ 4.5:1, rerun axe/Lighthouse on the till | PR-05 | WCAG 2.1 AA 1.4.3 (team target) | M3 axe |
 
 ## Summary
 
 | Measure | Value |
 | --- | --- |
-| Logged defects | 13 (8 N + 5 DEF) |
-| By severity | Major 3 (N2, N4, N7), Minor 10, Critical 0 |
-| By status | Open 9, Fixed and closed 3 (DEF-01–03), Accepted 1 (DEF-04) |
+| Logged defects | 14 (8 N + 6 DEF) |
+| By severity | Major 3 (N2, N4, N7), Minor 11, Critical 0 |
+| By status | Open 10, Fixed and closed 3 (DEF-01–03), Accepted 1 (DEF-04) |
 | Open with a fix in review | 1 (N1 in PR #11) |
 | Reopened | 0 |
 
-## Candidates not yet logged (need triage)
+## Triage of the other candidates (28 Nov 2026)
 
-| ID | Source | Finding | Proposed decision |
-| --- | --- | --- | --- |
-| DEF-06 | [defects.md](../defects.md) (M3) | `/transactions/new-sale/` Select2 placeholder and `.pos-secure-note` contrast below 4.5:1 | Log as Minor/P3 (PR-05) |
-| DEF-07 | [defects.md](../defects.md) (M3) | `/transactions/sales/` table has an empty action `<th>` | Log as Minor/P3 (PR-05) |
-| D1 | [test-plan.md](../test-plan.md) §11 (M1) | Wrong message above 100,000 | **Duplicate of N1 (#1)**; fixed in PR #11 |
-| D2 | test-plan §11 (M1) | Two lines of 100,000 for the same item accepted (200,000 units) | Decide whether the limit is per line (as coded and as scope BR1 says) or per item. If per line, not a defect |
-| D3 | test-plan §11 (M1) | Sales search for a phone number made only of digits finds no sale | Log as Minor/P3 (outside the two workflows' requirements) |
-| D4 | test-plan §11 (M1) | Quantity `2.0` rejected | Not a defect under A5 and the spec: integer fields reject all floats (`_int`), as agreed. Close |
+Checked against the evidence in the repository. A candidate becomes an Issue only if it can be reproduced and breaks a requirement (scope.md FR/BR, an agreed assumption, or the team's WCAG 2.1 AA target in PR-05).
+
+| ID | Source | Finding | Decision | Reason |
+| --- | --- | --- | --- | --- |
+| D1 | [test-plan.md](../test-plan.md) §11 (M1) | Wrong message above 100,000 | **Duplicate of N1 ([#1](https://github.com/Malaikaa0/sales-and-inventory-management/issues/1))**, no new Issue | Same input, same message. Noted on #1; PR #11 "Fix D1" fixes #1 |
+| D2 | test-plan §11 (M1) | Two lines of 100,000 for the same item accepted (200,000 units, stock 300,000) | **Rejected: not a defect** | scope.md BR1 sets the limit **per line** ("Each line quantity is 1 to 100,000"). The merged total is still checked against stock (`services.py:63,103`; API test `test_merged_duplicate_lines_exceeding_stock_rejected`). If the group wants a per-item limit, BR1 must change first |
+| D3 | test-plan §11 (M1) | Sales list search for a phone made only of digits (`0712345678`, `345`) finds no sale | **Not filed: outside the requirements** | Reproducible from the code: `transactions/views.py:129-131` treats any all-digit search as a receipt number and drops the phone search. But the sales list search is not part of FR1–FR10/BR1–BR4 or the two workflows. Recorded as an out-of-scope observation for upstream |
+| D4 | test-plan §11 (M1) | Quantity `2.0` rejected | **Rejected: not a defect** | The agreed rule (spec `x-accepts-numeric-strings`, A5 discussion) is that integer fields reject every JSON float, because `_int` does `int(str(2.0))`. The current behaviour matches it. `test_whole_number_float_is_rejected_current_behaviour` stays as is |
+| DEF-06 | [defects.md](../defects.md) (M3) | Till placeholders and secure note below 4.5:1 contrast | **Filed: [#19](https://github.com/Malaikaa0/sales-and-inventory-management/issues/19)** | axe `color-contrast` (serious) on 3 nodes in `axe-before.json` and `axe-after.json` (`/transactions/new-sale/`). Breaks WCAG 2.1 AA 1.4.3 on the key screen of the Sale workflow |
+| DEF-07 | [defects.md](../defects.md) (M3) | `/transactions/sales/` has an empty action `<th>` | **Not filed: best practice, not a requirement** | Reproducible (`axe-after.json`, rule `empty-table-header`, 1 node, impact minor). It is an axe best-practice rule, not a WCAG A/AA success criterion, and the sales list is not a key use-case screen. Kept as an improvement note |
+
+Note: DEF-05 (`landmark-one-main`) is also an axe best-practice rule. It was filed before this triage rule was set, and stays open as P3.
 
 ## Related
 
