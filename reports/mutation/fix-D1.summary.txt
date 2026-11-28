@@ -1,0 +1,6 @@
+mutants: 320 {'killed': 313, 'survived': 7}
+kill rate: 313/320 = 97.8%
+module transactions/services.py: killed 313/320 = 97.8%, survived 7
+custom operator sqe/break-stock-rule: killed 8/10 = 80.0%, survived 2
+custom operator sqe/shift-business-limit: killed 10/10 = 100.0%, survived 0
+infrastructure problems: 0
