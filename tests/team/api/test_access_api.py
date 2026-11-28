@@ -1,5 +1,5 @@
 """
-Access to the sale API (BR4): an anonymous client is sent to the login page
+Access to the sale API (scope.md roles): an anonymous client is sent to the login page
 and no sale is recorded.
 """
 import json

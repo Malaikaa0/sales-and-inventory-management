@@ -55,7 +55,7 @@ AI output I did not accept as given:
 
 - Claude Code first copied the code's messages as expected results. I made expectations follow the requirements (A4, A5).
 - I decided that `""` keeps the default and that only booleans are rejected.
-- I decided that void's 302 and 200 responses pass FR7 and are reported as a weakness.
+- I decided that void's 302 and 200 responses pass FR9 (scope.md; FR7 in the draft IDs) and are reported as a weakness.
 
 ## Member 3
 

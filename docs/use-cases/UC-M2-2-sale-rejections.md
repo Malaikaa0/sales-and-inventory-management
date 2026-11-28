@@ -5,7 +5,7 @@
 | Owner | Member 2 (Rehan) |
 | Primary actor | Cashier (Operative role) |
 | Secondary actors | Customer (pays, earns or redeems loyalty points) |
-| Linked requirements | FR1, FR2, FR3, FR4, FR5, BR1, BR2, BR4 |
+| Linked requirements (scope.md) | FR1, FR2, FR3, FR4, FR5, BR1, BR2, BR3; roles (scope §User roles) |
 | Shared record | `Item.quantity` (stock), `Customer.loyalty_points` |
 | Automation | Not automated yet. Planned: Playwright (`tests/team/e2e`), including a rejected value and keyboard navigation; API side in `tests/team/api/test_sale_rules.py` and `test_sale_generated.py` |
 
@@ -34,15 +34,15 @@ A customer brings items to the till to pay.
 
 ## Alternative flows
 
-- **A1. Customer redeems points (FR5).** At step 4, the cashier enters points to redeem. The number must be no more than the customer's balance and no more than the bill. The system applies the discount before tax, deducts the points, and continues at step 6.
+- **A1. Customer redeems points (FR4, BR2).** At step 4, the cashier enters points to redeem. The number must be no more than the customer's balance and no more than the bill. The system applies the discount before tax, deducts the points, and continues at step 6.
 - **A2. Same item added twice.** At step 3, the cashier adds the same item on two lines. The system merges them into one quantity before the stock check. The sale continues if the total is within stock.
 - **A3. Exact payment.** At step 4, the amount paid equals the grand total. The sale completes with change 0.00.
 
 ## Exception flows
 
-- **E1. Not enough stock (FR3, BR2).** At step 6, a line's merged quantity is greater than the stock (for example stock 4, quantity 5). The system rejects the sale with "Not enough stock for <item>: N available." Nothing is saved and stock is unchanged. The cashier returns to step 3.
-- **E2. Amount paid below the total (FR4, BR2).** At step 6, the amount paid is less than the grand total, even by 0.01. The system rejects the sale with "Amount paid (…) is less than the total (…)". Nothing is saved. The cashier returns to step 4.
-- **E3. Value outside its limits (BR1).** At step 3 or 4, the cashier enters:
+- **E1. Not enough stock (FR3, BR1).** At step 6, a line's merged quantity is greater than the stock (for example stock 4, quantity 5). The system rejects the sale with "Not enough stock for <item>: N available." Nothing is saved and stock is unchanged. The cashier returns to step 3.
+- **E2. Amount paid below the total (BR3).** At step 6, the amount paid is less than the grand total, even by 0.01. The system rejects the sale with "Amount paid (…) is less than the total (…)". Nothing is saved. The cashier returns to step 4.
+- **E3. Value outside its limits (BR1, BR3).** At step 3 or 4, the cashier enters:
   - a quantity below 1 or above 100000;
   - more than 200 lines;
   - tax below 0 or above 100;
@@ -50,8 +50,8 @@ A customer brings items to the till to pay.
   - a non-number.
 
   The system rejects the sale (400) with a field message and nothing is saved. The cashier returns to step 3 or 4. Open defects in this flow: N1 (wrong message above 100000), N5 (`false` accepted as 0) and N6 (a very large item id gives 500).
-- **E4. Invalid redemption (FR5).** At step 6, the points are more than the balance or more than the bill, or loyalty is disabled. The system rejects the sale with the matching message. Nothing is saved, and points and stock are unchanged.
-- **E5. Session expired or not logged in (BR4).** At step 5, the user is not logged in. The system redirects to the login page (302) and no sale is saved.
+- **E4. Invalid redemption (BR2).** At step 6, the points are more than the balance or more than the bill, or loyalty is disabled. The system rejects the sale with the matching message. Nothing is saved, and points and stock are unchanged.
+- **E5. Session expired or not logged in (roles, scope §User roles).** At step 5, the user is not logged in. The system redirects to the login page (302) and no sale is saved.
 - **E6. Repeated submission.** At step 5, the request is sent twice (double click or retry). Required by A3: one sale is recorded. Actual: two sales are recorded and stock is reduced twice (defect N4, GitHub Issue #4).
 
 ## Postconditions

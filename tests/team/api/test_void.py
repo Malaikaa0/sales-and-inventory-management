@@ -2,8 +2,8 @@
 POST /transactions/sale/{pk}/void/ (Executive or higher).
 
 Generated cases (reason length BVA, reason EP, pk EP) plus the state and
-access rules: FR6 restore stock and points, FR7/BR3 no second void,
-FR8/BR4 a cashier gets 403.
+access rules (scope.md IDs): FR6/FR7 restore stock and points, FR9/BR4 no
+second void, FR10/BR4 a cashier gets 403.
 """
 import json
 from pathlib import Path

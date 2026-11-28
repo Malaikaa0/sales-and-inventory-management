@@ -99,7 +99,7 @@ Rerun each one yourself before logging it. Issue labels: `severity:critical/majo
 - **Traceability** (`docs/traceability.md`): FR/BR ID → unit test (M1) → API test (me) → E2E test (M3) → result → defect ID. Requirements coverage % = covered / total. Ask M1 and M3 for their test names.
 - **Defects + RCA + Pareto:** all members log Issues; I run triage. RCA (5 Whys + fishbone) on 2 major defects (likely N2 and N4). Pareto chart by category.
 
-## 7. Draft scope (only if `docs/scope.md` is still empty; agree it with Member 1)
+## 7. Draft scope (superseded by docs/scope.md; see the ID mapping in docs/traceability.md) (only if `docs/scope.md` is still empty; agree it with Member 1)
 
 - FR1 Cashier completes a sale; stock decreases by each line's quantity · FR2 the server computes totals, tax, change and points · FR3 a sale is rejected if any line exceeds stock, and nothing is saved · FR4 payment below the total is rejected · FR5 loyalty points earned/redeemed within limits
 - FR6 Manager voids a sale; stock and points are restored · FR7 voiding an already voided sale is rejected · FR8 a cashier cannot void (403)

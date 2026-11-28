@@ -8,10 +8,10 @@ SE3002 Software Quality Engineering final project. Test plan lead: Member 2 (Reh
 
 | Workflow | Endpoint | Role | Requirements |
 | --- | --- | --- | --- |
-| Sale | `POST /transactions/new-sale/` | Operative (cashier) or higher | FR1–FR5, BR1, BR2, BR4 |
-| Void sale | `POST /transactions/sale/{pk}/void/` | Executive (manager) or higher | FR6–FR8, BR3, BR4 |
+| Sale | `POST /transactions/new-sale/` | Operative (cashier) or higher | FR1–FR5, BR1–BR3 |
+| Void sale | `POST /transactions/sale/{pk}/void/` | Executive (manager) or higher | FR6–FR10, BR4 |
 
-Requirement and rule IDs come from the draft scope in [member-2.md](member-2.md) §7 until [scope.md](scope.md) (draft by Member 1) is agreed. Agreed assumptions:
+Requirement and rule IDs come from [scope.md](scope.md) (Member 1), the group authority. The draft IDs in [member-2.md](member-2.md) §7 are replaced; the mapping is in [traceability.md](traceability.md#id-mapping-draft--scopemd). Agreed assumptions:
 
 - **A1:** a purchase quantity is at most 100000.
 - **A3:** a repeated identical sale request records one sale.
@@ -104,7 +104,7 @@ Everyone writes and automates two use cases, logs defects in the agreed format, 
 | --- | --- |
 | Short timeline (deadline Sun 29 Nov) | Risk-based depth, generated test data, and a daily check of these estimates |
 | Environment differences between members (Windows and Linux, Python versions) | Pinned tool versions, setup steps checked on a fresh clone, server URL set by environment variable |
-| `scope.md` not yet agreed | Use the draft IDs; map in the traceability matrix when scope is agreed |
+| Requirement IDs differ between documents | All Member 2 documents re-mapped to the scope.md IDs on 28 Nov (mapping in the traceability matrix) |
 | Tests passing because expectations copy the code | Expectations come from the requirements, and every difference is recorded as an assumption or defect |
 
 Product risks are in the [risk register](risk-register.md) (Member 3).

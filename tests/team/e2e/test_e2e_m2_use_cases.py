@@ -307,7 +307,7 @@ def test_uc_m2_2_exc2_amount_paid_below_total(e2e_server, cashier, manager):
 
 @pytest.mark.e2e
 def test_uc_m2_2_exc3_tax_out_of_range_rejected(e2e_server, cashier, manager):
-    """BR1: tax must be 0..100. UC-M2-2 E3 requires the sale to be rejected with a
+    """BR3: tax must be 0..100. UC-M2-2 E3 requires the sale to be rejected with a
     message and nothing saved when the cashier enters an out-of-range tax."""
     base = e2e_server
     item = create_item(manager, base, quantity=5, price='10.00')
@@ -351,7 +351,7 @@ def test_uc_m2_2_exc4_points_spent_elsewhere_rejected(e2e_server, cashier, manag
 
 @pytest.mark.e2e
 def test_uc_m2_2_exc5_session_expired(e2e_server, cashier, manager):
-    """BR4: a logged-out till cannot save a sale, and the cashier is told to sign in again."""
+    """Roles (scope.md): a logged-out till cannot save a sale, and the cashier is told to sign in again."""
     base = e2e_server
     item = create_item(manager, base, quantity=5)
     customer = create_customer(cashier, base)

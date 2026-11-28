@@ -22,7 +22,7 @@ info:
       x-must-cover-total: the value must be >= the server-computed grand total.
       x-limited-by-balance: a value above the customer's points balance is rejected.
       x-error-message: exact message returned in Error.message when the rule fails.
-      x-rule: requirement / business rule ID from the draft scope.
+      x-rule: requirement / business rule ID from docs/scope.md (FR1-FR10, BR1-BR4).
       x-source: code line the rule comes from.
   license:
     name: MIT
@@ -349,7 +349,7 @@ components:
           x-accepts-numeric-strings: true
           x-error-message: Customer must be a whole number.
           x-error-message-not-found: Select a valid customer.
-          x-rule: FR1
+          x-rule: FR2
           x-source: transactions/services.py:86-88
         items:
           type: array
@@ -377,7 +377,7 @@ components:
           x-delta: 0.01
           x-error-message: Tax must be between 0 and 100 percent.
           x-error-message-type: Tax must be a number.
-          x-rule: BR1
+          x-rule: BR3
           x-source: transactions/services.py:74-76
         amount_paid:
           type: number
@@ -394,7 +394,7 @@ components:
           x-error-message-total: Amount paid ({paid}) is less than the total ({total}).
           x-error-message: Amount paid cannot be negative.
           x-error-message-type: Amount paid must be a number.
-          x-rule: FR4
+          x-rule: BR3
           x-source: transactions/services.py:77-79,130-133
         redeem_points:
           type: integer
@@ -410,7 +410,7 @@ components:
           x-limited-by-balance: true
           x-error-message: Points to redeem cannot be negative.
           x-error-message-type: Points to redeem must be a whole number.
-          x-rule: FR5
+          x-rule: BR2
           x-source: transactions/services.py:80-82,114-124
       additionalProperties: true
 
@@ -494,7 +494,7 @@ components:
           maxLength: 200
           description: Required; whitespace-only is treated as missing. Invalid gives 200 (form re-shown).
           x-invalid-status: 200
-          x-rule: FR6
+          x-rule: BR4
         csrfmiddlewaretoken:
           type: string
 

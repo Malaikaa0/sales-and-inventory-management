@@ -1,5 +1,5 @@
 """
-Business rules of POST /transactions/new-sale/ (FR3, FR4, FR5, BR2).
+Business rules of POST /transactions/new-sale/ (scope.md FR3, FR4, BR1, BR2, BR3).
 Every rejection also checks that stock is unchanged (nothing saved).
 """
 from conftest import create_item, make_sale, points, post_sale, sale_body, stock

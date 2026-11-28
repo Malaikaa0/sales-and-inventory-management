@@ -175,7 +175,7 @@ class Builder:
             outcome = 'rejected:field'
             if ok and name == 'id' and value not in ('<item_id>', '<item_id:str>'):
                 ok, msg, outcome = False, schema['x-error-message-not-found'], 'rejected:not-found'
-        rule = schema.get('x-rule') or 'FR1'
+        rule = schema.get('x-rule') or 'FR2'
         self.sale_case(f'items[].{name}', technique, partition, value, body, ok, outcome, msg, rule)
 
     def scalar_bva(self, schema, emit):
@@ -293,7 +293,7 @@ class Builder:
         add('reason', 'EP', 'missing', MISSING, '<sale_id>', False, bad, 'invalid-form', reason.get('x-rule'))
         add('reason', 'EP', 'whitespace-only', '   ', '<sale_id>', False, bad, 'invalid-form', reason.get('x-rule'))
         add('reason', 'EP', 'already-voided', 'Second void', '<voided_sale_id>', True, 302,
-            'already-voided', 'BR3')
+            'already-voided', 'FR9')
         add('pk', 'EP', 'valid', '<sale_id>', None, True, 302, 'voided', 'FR6')
         add('pk', 'EP', 'not-found', '<missing_sale_id>', None, False, 404, 'not-found', 'FR6')
         add('pk', 'BVA', 'min-d', 0, None, False, 404, 'not-found', 'FR6')
