@@ -20,6 +20,8 @@ DEFECTS = {
     'N4': 'Idempotency / repeats',
     'N5': 'Input validation',
     'N6': 'Input validation',
+    'N7': 'Input validation',
+    'N8': 'Error reporting',
 }
 
 
@@ -42,7 +44,7 @@ def main():
     ax.set_ylabel('Defects')
     ax.set_ylim(0, max(values) + 1)
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-    ax.set_title(f'Defects by category (Sale + Void sale, n = {total})')
+    ax.set_title(f'Defects by category, N1–N8 (Sale + Void sale, n = {total})')
     ax.spines[['top']].set_visible(False)
 
     ax2 = ax.twinx()
