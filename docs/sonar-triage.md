@@ -6,6 +6,8 @@ The metric, rating and issue sections describe the **scoped** analysis of `accou
 
 The triage below is a proposal for the team to confirm.
 
+The latest `analysis.json` files record revision `5d3fa34`. Before pushing, that commit was rewritten as `484cd2a` to remove author emails from saved results; the application code is the same.
+
 ## Metrics in plain words
 
 | Metric | Value | What it means | What it shows here |
