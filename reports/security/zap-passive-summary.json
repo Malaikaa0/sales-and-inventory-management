@@ -1,0 +1,54 @@
+{
+  "total_alert_instances": 60,
+  "unique_alerts": [
+    {
+      "risk": "Medium",
+      "alert": "Content Security Policy (CSP) Header Not Set",
+      "cweid": "693",
+      "count": 4,
+      "url_sample": "http://127.0.0.1:52857/sitemap.xml"
+    },
+    {
+      "risk": "Low",
+      "alert": "Server Leaks Version Information via \"Server\" HTTP Response Header Field",
+      "cweid": "497",
+      "count": 24,
+      "url_sample": "http://127.0.0.1:52857/accounts/login/"
+    },
+    {
+      "risk": "Low",
+      "alert": "X-Content-Type-Options Header Missing",
+      "cweid": "693",
+      "count": 3,
+      "url_sample": "http://127.0.0.1:52857/static/images/logo/favicon.png"
+    },
+    {
+      "risk": "Informational",
+      "alert": "Session Management Response Identified",
+      "cweid": "-1",
+      "count": 17,
+      "url_sample": "http://127.0.0.1:52857/accounts/login/"
+    },
+    {
+      "risk": "Informational",
+      "alert": "Authentication Request Identified",
+      "cweid": "-1",
+      "count": 2,
+      "url_sample": "http://127.0.0.1:52857/accounts/login/"
+    },
+    {
+      "risk": "Informational",
+      "alert": "Modern Web Application",
+      "cweid": "-1",
+      "count": 1,
+      "url_sample": "http://127.0.0.1:52857/transactions/new-sale/"
+    },
+    {
+      "risk": "Informational",
+      "alert": "User Controllable HTML Element Attribute (Potential XSS)",
+      "cweid": "20",
+      "count": 9,
+      "url_sample": "http://127.0.0.1:52857/accounts/register/"
+    }
+  ]
+}
