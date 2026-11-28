@@ -155,7 +155,8 @@ Our tests go in `tests/team/`. Upstream tests earn no marks.
 | `docs/scope.md` | Draft, not yet agreed by the team |
 | Candidate defects D1 to D4 | In the [test plan](test-plan.md), not yet logged as Issues |
 | AI-use record | Started |
-| Risk register, traceability | Empty files only |
+| Risk register, traceability | [risk-register.md](risk-register.md) complete (M3); `traceability.md` populated on `area2-Rehan` (M2) |
+| Member 3 E2E, a11y, security, perf & reports | Complete on `area1-malaika` ([member-3.md](member-3.md), [test-completion-report.md](test-completion-report.md)) |
 | Test plan | Coverage and candidate defects only |
 
 ## 5. Work division
@@ -183,13 +184,13 @@ Marks are the group marks from the rubric. The 20 viva marks are individual.
 
 ### Member 3: use cases, usability, security, performance (35 marks)
 
-- [ ] Use case specifications and Playwright automation
-- [ ] Two browser tests (one per workflow), including a rejected value and keyboard navigation
-- [ ] Lighthouse and axe-core, fix one screen, before and after reports
-- [ ] Access matrix, 4 or more automated access checks, ZAP passive scan, dependency audit
-- [ ] k6 load runs and one failure-and-recovery test
-- [ ] Lead: risk register (8 product and 2 project risks), exit criteria
-- [ ] Lead: weekly progress reports, GQM metrics, test completion report
+- [x] Use case specifications and Playwright automation ([UC-M3-1](use-cases/UC-M3-1-make-sale-pos.md), [UC-M3-2](use-cases/UC-M3-2-void-sale-recovery.md), `tests/team/e2e/`)
+- [x] Two browser tests (one per workflow), including a rejected value and keyboard navigation
+- [x] Lighthouse and axe-core, fix one screen, before and after reports ([accessibility-report.md](accessibility-report.md))
+- [x] Access matrix, 4 or more automated access checks, ZAP passive scan, dependency audit ([access-matrix.md](access-matrix.md), [security-report.md](security-report.md))
+- [x] k6 load runs and one failure-and-recovery test ([performance-report.md](performance-report.md), `tests/team/perf/`)
+- [x] Lead: risk register (8 product and 2 project risks), exit criteria ([risk-register.md](risk-register.md))
+- [x] Lead: weekly progress reports, GQM metrics, test completion report ([weekly-progress.md](weekly-progress.md), [test-completion-report.md](test-completion-report.md))
 
 ### Everyone
 
