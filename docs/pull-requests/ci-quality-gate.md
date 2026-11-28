@@ -12,4 +12,4 @@ All four are expected to pass. `Mutation testing` has no mutants to run, because
 
 - The Sonar job's script passed on a new SonarQube server from a clean clone. The same script failed a probe project with one added bug.
 - The test and mutation steps were run on Linux in a `python:3.12` container.
-- The workflow itself has not yet run on GitHub.
+- First run on GitHub (commit `3694124`): all four checks passed. Screenshots are in `reports/ci/`.

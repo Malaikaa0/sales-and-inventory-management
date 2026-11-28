@@ -170,7 +170,7 @@ Marks are the group marks from the rubric. The 20 viva marks are individual.
 - [x] MCC table and MC/DC pairs for the critical module
 - [x] SonarQube metrics, control flow graph and cyclomatic complexity (screenshots and own check pending)
 - [x] Mutation testing: 2 custom operators, surviving mutants analysed ([mutation.md](mutation.md))
-- [ ] CI quality gate, one fix pull request, one blocked pull request (prepared locally, not yet pushed)
+- [ ] CI quality gate, one fix pull request, one blocked pull request (opened and checked; merging and branch protection pending)
 
 ### Member 2: API testing and data generation (31 marks)
 
