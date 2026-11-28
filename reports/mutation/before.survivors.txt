@@ -1,0 +1,1938 @@
+[job-id] 202a93c711274155b9699816b94361d4
+transactions\loyalty.py core/ReplaceBinaryOperator_Mul_Div 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -32,7 +32,7 @@
+ 
+ 
+ def value_of_points(points):
+-    return (Decimal(points) * config()['point_value']).quantize(Decimal('0.01'))
++    return (Decimal(points) / config()['point_value']).quantize(Decimal('0.01'))
+ 
+ 
+ def max_redeemable(balance, sub_total):
+============
+[job-id] c52b2c1710934dfaa98875f986ff7524
+transactions\loyalty.py core/ReplaceBinaryOperator_Mul_Div 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -44,7 +44,7 @@
+     return max(0, min(balance, by_bill))
+ 
+ 
+-def apply_points(customer_id, points, kind, *, sale=None, user=None, note=''):
++def apply_points(customer_id, points, kind, /, sale=None, user=None, note=''):
+     """Change a customer's balance by ``points`` and record it in the ledger."""
+     from .models import LoyaltyTransaction
+ 
+============
+[job-id] 748130e1184e43888aa790ee722b9a71
+transactions\loyalty.py core/ReplaceBinaryOperator_Mul_FloorDiv 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -32,7 +32,7 @@
+ 
+ 
+ def value_of_points(points):
+-    return (Decimal(points) * config()['point_value']).quantize(Decimal('0.01'))
++    return (Decimal(points) // config()['point_value']).quantize(Decimal('0.01'))
+ 
+ 
+ def max_redeemable(balance, sub_total):
+============
+[job-id] e9cf922e7cd344699652c4d35862e211
+transactions\loyalty.py core/ReplaceBinaryOperator_Mul_Pow 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -32,7 +32,7 @@
+ 
+ 
+ def value_of_points(points):
+-    return (Decimal(points) * config()['point_value']).quantize(Decimal('0.01'))
++    return (Decimal(points) ** config()['point_value']).quantize(Decimal('0.01'))
+ 
+ 
+ def max_redeemable(balance, sub_total):
+============
+[job-id] 9042ad6962fc4c448b549b297e18de40
+transactions\loyalty.py core/ReplaceBinaryOperator_Div_Mul 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -40,7 +40,7 @@
+     cfg = config()
+     if not cfg['enabled'] or cfg['point_value'] <= 0:
+         return 0
+-    by_bill = int((Decimal(sub_total) / cfg['point_value']).to_integral_value(rounding=ROUND_FLOOR))
++    by_bill = int((Decimal(sub_total) * cfg['point_value']).to_integral_value(rounding=ROUND_FLOOR))
+     return max(0, min(balance, by_bill))
+ 
+ 
+============
+[job-id] 206f358c29604770a0f8ee98c86859b7
+transactions\loyalty.py core/ReplaceBinaryOperator_Div_FloorDiv 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -28,7 +28,7 @@
+     cfg = config()
+     if not cfg['enabled'] or cfg['earn_per'] <= 0 or amount <= 0:
+         return 0
+-    return int((Decimal(amount) / cfg['earn_per']).to_integral_value(rounding=ROUND_FLOOR))
++    return int((Decimal(amount) // cfg['earn_per']).to_integral_value(rounding=ROUND_FLOOR))
+ 
+ 
+ def value_of_points(points):
+============
+[job-id] 428eb9abafce4c62823d3b8b0d9b39c9
+transactions\loyalty.py core/ReplaceBinaryOperator_Div_FloorDiv 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -40,7 +40,7 @@
+     cfg = config()
+     if not cfg['enabled'] or cfg['point_value'] <= 0:
+         return 0
+-    by_bill = int((Decimal(sub_total) / cfg['point_value']).to_integral_value(rounding=ROUND_FLOOR))
++    by_bill = int((Decimal(sub_total) // cfg['point_value']).to_integral_value(rounding=ROUND_FLOOR))
+     return max(0, min(balance, by_bill))
+ 
+ 
+============
+[job-id] 7f31d2e04b4540969a0a01a1fb3c4019
+transactions\loyalty.py core/ReplaceBinaryOperator_Div_Pow 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -40,7 +40,7 @@
+     cfg = config()
+     if not cfg['enabled'] or cfg['point_value'] <= 0:
+         return 0
+-    by_bill = int((Decimal(sub_total) / cfg['point_value']).to_integral_value(rounding=ROUND_FLOOR))
++    by_bill = int((Decimal(sub_total) ** cfg['point_value']).to_integral_value(rounding=ROUND_FLOOR))
+     return max(0, min(balance, by_bill))
+ 
+ 
+============
+[job-id] 04a217969efb48b388696de9d918048d
+transactions\loyalty.py core/ReplaceComparisonOperator_LtE_Eq 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -26,7 +26,7 @@
+ def points_for_amount(amount):
+     """Points earned for a spend amount (after discounts, before tax)."""
+     cfg = config()
+-    if not cfg['enabled'] or cfg['earn_per'] <= 0 or amount <= 0:
++    if not cfg['enabled'] or cfg['earn_per'] == 0 or amount <= 0:
+         return 0
+     return int((Decimal(amount) / cfg['earn_per']).to_integral_value(rounding=ROUND_FLOOR))
+ 
+============
+[job-id] a7c7609f7a444e1891a6a4d6d58ba543
+transactions\loyalty.py core/ReplaceComparisonOperator_LtE_Eq 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -26,7 +26,7 @@
+ def points_for_amount(amount):
+     """Points earned for a spend amount (after discounts, before tax)."""
+     cfg = config()
+-    if not cfg['enabled'] or cfg['earn_per'] <= 0 or amount <= 0:
++    if not cfg['enabled'] or cfg['earn_per'] <= 0 or amount == 0:
+         return 0
+     return int((Decimal(amount) / cfg['earn_per']).to_integral_value(rounding=ROUND_FLOOR))
+ 
+============
+[job-id] 102d51957d24411996410a9e5fdf6ece
+transactions\loyalty.py core/ReplaceComparisonOperator_LtE_Eq 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -38,7 +38,7 @@
+ def max_redeemable(balance, sub_total):
+     """Most points usable on a sale: limited by balance and by the bill."""
+     cfg = config()
+-    if not cfg['enabled'] or cfg['point_value'] <= 0:
++    if not cfg['enabled'] or cfg['point_value'] == 0:
+         return 0
+     by_bill = int((Decimal(sub_total) / cfg['point_value']).to_integral_value(rounding=ROUND_FLOOR))
+     return max(0, min(balance, by_bill))
+============
+[job-id] be0b745803d04508b214d5d0a6a3ac69
+transactions\loyalty.py core/ReplaceComparisonOperator_LtE_Lt 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -26,7 +26,7 @@
+ def points_for_amount(amount):
+     """Points earned for a spend amount (after discounts, before tax)."""
+     cfg = config()
+-    if not cfg['enabled'] or cfg['earn_per'] <= 0 or amount <= 0:
++    if not cfg['enabled'] or cfg['earn_per'] <= 0 or amount < 0:
+         return 0
+     return int((Decimal(amount) / cfg['earn_per']).to_integral_value(rounding=ROUND_FLOOR))
+ 
+============
+[job-id] 219a06d2c91243dc80e3740811a66f8c
+transactions\loyalty.py core/ReplaceUnaryOperator_USub_UAdd 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -57,7 +57,7 @@
+         if new_balance < 0:
+             raise ValidationError(
+                 f'{customer} has {customer.loyalty_points} points; '
+-                f'cannot remove {-points}.'
++                f'cannot remove {+points}.'
+             )
+         customer.loyalty_points = new_balance
+         customer.save(update_fields=['loyalty_points'])
+============
+[job-id] 1e2c58cb21134e108402e136b0230b0b
+transactions\loyalty.py core/ReplaceUnaryOperator_USub_Invert 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -57,7 +57,7 @@
+         if new_balance < 0:
+             raise ValidationError(
+                 f'{customer} has {customer.loyalty_points} points; '
+-                f'cannot remove {-points}.'
++                f'cannot remove {~points}.'
+             )
+         customer.loyalty_points = new_balance
+         customer.save(update_fields=['loyalty_points'])
+============
+[job-id] bfb7ba124a624feb919bcfb03ac59f8b
+transactions\loyalty.py core/ReplaceUnaryOperator_USub_Not 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -57,7 +57,7 @@
+         if new_balance < 0:
+             raise ValidationError(
+                 f'{customer} has {customer.loyalty_points} points; '
+-                f'cannot remove {-points}.'
++                f'cannot remove {not points}.'
+             )
+         customer.loyalty_points = new_balance
+         customer.save(update_fields=['loyalty_points'])
+============
+[job-id] 6e1d462d812e4075987686a3e2a1681d
+transactions\loyalty.py core/ReplaceUnaryOperator_Delete_USub 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -57,7 +57,7 @@
+         if new_balance < 0:
+             raise ValidationError(
+                 f'{customer} has {customer.loyalty_points} points; '
+-                f'cannot remove {-points}.'
++                f'cannot remove {points}.'
+             )
+         customer.loyalty_points = new_balance
+         customer.save(update_fields=['loyalty_points'])
+============
+[job-id] 317dc811358c4ea6b7a2ad6677125506
+transactions\loyalty.py core/ReplaceTrueWithFalse 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -16,7 +16,7 @@
+ def config():
+     cfg = settings.LOYALTY
+     return {
+-        'enabled': cfg.get('enabled', True),
++        'enabled': cfg.get('enabled', False),
+         'earn_per': Decimal(str(cfg.get('earn_per', '100'))),
+         'point_value': Decimal(str(cfg.get('point_value', '1.00'))),
+         'min_redeem': int(cfg.get('min_redeem', 0)),
+============
+[job-id] 07a1c3cec9934fc699aea04ffc0553da
+transactions\loyalty.py core/NumberReplacer 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -19,7 +19,7 @@
+         'enabled': cfg.get('enabled', True),
+         'earn_per': Decimal(str(cfg.get('earn_per', '100'))),
+         'point_value': Decimal(str(cfg.get('point_value', '1.00'))),
+-        'min_redeem': int(cfg.get('min_redeem', 0)),
++        'min_redeem': int(cfg.get('min_redeem', 1)),
+     }
+ 
+ 
+============
+[job-id] f32e9d847dce4aa3a4f8a810744c174c
+transactions\loyalty.py core/NumberReplacer 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -19,7 +19,7 @@
+         'enabled': cfg.get('enabled', True),
+         'earn_per': Decimal(str(cfg.get('earn_per', '100'))),
+         'point_value': Decimal(str(cfg.get('point_value', '1.00'))),
+-        'min_redeem': int(cfg.get('min_redeem', 0)),
++        'min_redeem': int(cfg.get('min_redeem', -1)),
+     }
+ 
+ 
+============
+[job-id] 893fd606534e4867aea83dcb8031770d
+transactions\loyalty.py core/NumberReplacer 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -26,7 +26,7 @@
+ def points_for_amount(amount):
+     """Points earned for a spend amount (after discounts, before tax)."""
+     cfg = config()
+-    if not cfg['enabled'] or cfg['earn_per'] <= 0 or amount <= 0:
++    if not cfg['enabled'] or cfg['earn_per'] <= 1 or amount <= 0:
+         return 0
+     return int((Decimal(amount) / cfg['earn_per']).to_integral_value(rounding=ROUND_FLOOR))
+ 
+============
+[job-id] cd1e82547f764721b3a81b4348f25337
+transactions\loyalty.py core/NumberReplacer 4
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -26,7 +26,7 @@
+ def points_for_amount(amount):
+     """Points earned for a spend amount (after discounts, before tax)."""
+     cfg = config()
+-    if not cfg['enabled'] or cfg['earn_per'] <= 0 or amount <= 0:
++    if not cfg['enabled'] or cfg['earn_per'] <= 0 or amount <= 1:
+         return 0
+     return int((Decimal(amount) / cfg['earn_per']).to_integral_value(rounding=ROUND_FLOOR))
+ 
+============
+[job-id] a2643317a4ab48d582f87ddcaca61eca
+transactions\loyalty.py core/NumberReplacer 5
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -26,7 +26,7 @@
+ def points_for_amount(amount):
+     """Points earned for a spend amount (after discounts, before tax)."""
+     cfg = config()
+-    if not cfg['enabled'] or cfg['earn_per'] <= 0 or amount <= 0:
++    if not cfg['enabled'] or cfg['earn_per'] <= 0 or amount <= -1:
+         return 0
+     return int((Decimal(amount) / cfg['earn_per']).to_integral_value(rounding=ROUND_FLOOR))
+ 
+============
+[job-id] 3b8f3677195041dea5df8101ddaadcef
+transactions\loyalty.py core/NumberReplacer 12
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -41,7 +41,7 @@
+     if not cfg['enabled'] or cfg['point_value'] <= 0:
+         return 0
+     by_bill = int((Decimal(sub_total) / cfg['point_value']).to_integral_value(rounding=ROUND_FLOOR))
+-    return max(0, min(balance, by_bill))
++    return max( 1, min(balance, by_bill))
+ 
+ 
+ def apply_points(customer_id, points, kind, *, sale=None, user=None, note=''):
+============
+[job-id] 97dd53c21a0f4bc394026606834f2ac9
+transactions\loyalty.py core/NumberReplacer 13
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -41,7 +41,7 @@
+     if not cfg['enabled'] or cfg['point_value'] <= 0:
+         return 0
+     by_bill = int((Decimal(sub_total) / cfg['point_value']).to_integral_value(rounding=ROUND_FLOOR))
+-    return max(0, min(balance, by_bill))
++    return max( -1, min(balance, by_bill))
+ 
+ 
+ def apply_points(customer_id, points, kind, *, sale=None, user=None, note=''):
+============
+[job-id] 405aa20f3df8442ca71a04dd3edeabac
+transactions\loyalty.py core/NumberReplacer 18
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -67,7 +67,7 @@
+             kind=kind,
+             points=points,
+             balance_after=new_balance,
+-            note=note[:200],
++            note=note[: 201],
+             created_by=user if user is not None and user.is_authenticated else None,
+         )
+ 
+============
+[job-id] ac2b835bf5c74baea1de408459030c32
+transactions\loyalty.py core/NumberReplacer 19
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -67,7 +67,7 @@
+             kind=kind,
+             points=points,
+             balance_after=new_balance,
+-            note=note[:200],
++            note=note[: 199],
+             created_by=user if user is not None and user.is_authenticated else None,
+         )
+ 
+============
+[job-id] d28978dba91c4b7bb7f67dc39bbc275e
+transactions\loyalty.py sqe/break-stock-rule 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\loyalty.py
++++ b/transactions\loyalty.py
+@@ -68,6 +68,6 @@
+             points=points,
+             balance_after=new_balance,
+             note=note[:200],
+-            created_by=user if user is not None and user.is_authenticated else None,
++            created_by=user if user is not None else None,
+         )
+ 
+============
+[job-id] 65055d0fce8f414fab35a5f04dabdfe6
+store\models.py core/ReplaceComparisonOperator_Gt_NotEq 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -64,7 +64,7 @@
+ 
+     @property
+     def in_stock(self):
+-        return self.quantity > 0
++        return self.quantity != 0
+ 
+     def to_json(self):
+         """Shape used by the point of sale item search."""
+============
+[job-id] 4a7c08da9c2145028543c3517e75348e
+store\models.py core/ReplaceUnaryOperator_USub_UAdd 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -93,7 +93,7 @@
+             if item.quantity + delta < 0:
+                 raise InsufficientStock(
+                     f'Not enough stock for {item.name}: '
+-                    f'{item.quantity} available, {-delta} needed.'
++                    f'{item.quantity} available, {+delta} needed.'
+                 )
+             cls.objects.filter(pk=item_id).update(quantity=F('quantity') + delta)
+ 
+============
+[job-id] 93f9eb93a65b45ae9f81b0bd6f34020b
+store\models.py core/ReplaceUnaryOperator_USub_Invert 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -93,7 +93,7 @@
+             if item.quantity + delta < 0:
+                 raise InsufficientStock(
+                     f'Not enough stock for {item.name}: '
+-                    f'{item.quantity} available, {-delta} needed.'
++                    f'{item.quantity} available, {~delta} needed.'
+                 )
+             cls.objects.filter(pk=item_id).update(quantity=F('quantity') + delta)
+ 
+============
+[job-id] 6e30a47addcf4d928e3cb8c0c4c482e5
+store\models.py core/ReplaceUnaryOperator_USub_Not 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -93,7 +93,7 @@
+             if item.quantity + delta < 0:
+                 raise InsufficientStock(
+                     f'Not enough stock for {item.name}: '
+-                    f'{item.quantity} available, {-delta} needed.'
++                    f'{item.quantity} available, {not delta} needed.'
+                 )
+             cls.objects.filter(pk=item_id).update(quantity=F('quantity') + delta)
+ 
+============
+[job-id] eae83df68bd0438fa1c756384fa578cd
+store\models.py core/ReplaceUnaryOperator_Delete_USub 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -93,7 +93,7 @@
+             if item.quantity + delta < 0:
+                 raise InsufficientStock(
+                     f'Not enough stock for {item.name}: '
+-                    f'{item.quantity} available, {-delta} needed.'
++                    f'{item.quantity} available, {delta} needed.'
+                 )
+             cls.objects.filter(pk=item_id).update(quantity=F('quantity') + delta)
+ 
+============
+[job-id] 1cad9811e3c84bcfb68f4f2874f6def9
+store\models.py core/ReplaceTrueWithFalse 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -26,7 +26,7 @@
+     Represents a category for items.
+     """
+     name = models.CharField(max_length=50)
+-    slug = AutoSlugField(unique=True, populate_from='name')
++    slug = AutoSlugField(unique=False, populate_from='name')
+ 
+     def __str__(self):
+         return self.name
+============
+[job-id] d6b91086d9ea48c5a2b47999c74a37f0
+store\models.py core/ReplaceTrueWithFalse 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -40,7 +40,7 @@
+     """
+     Represents an item in the inventory.
+     """
+-    slug = AutoSlugField(unique=True, populate_from='name')
++    slug = AutoSlugField(unique=False, populate_from='name')
+     name = models.CharField(max_length=50)
+     description = models.TextField(max_length=256, blank=True)
+     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+============
+[job-id] d11fd93c762943e9a9897e0d583dbb8f
+store\models.py core/ReplaceTrueWithFalse 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -42,7 +42,7 @@
+     """
+     slug = AutoSlugField(unique=True, populate_from='name')
+     name = models.CharField(max_length=50)
+-    description = models.TextField(max_length=256, blank=True)
++    description = models.TextField(max_length=256, blank=False)
+     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+     quantity = models.PositiveIntegerField(default=0)
+     price = models.DecimalField(
+============
+[job-id] eae81463f3d044c89a27ab099d8ead11
+store\models.py core/ReplaceTrueWithFalse 4
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -51,7 +51,7 @@
+         default=Decimal('0.00'),
+         validators=[MinValueValidator(Decimal('0.00'))],
+     )
+-    expiring_date = models.DateTimeField(null=True, blank=True)
++    expiring_date = models.DateTimeField(null=True, blank=False)
+     vendor = models.ForeignKey(
+         Vendor, on_delete=models.SET_NULL, null=True, blank=True
+     )
+============
+[job-id] a3a2ba7033544fe0b31a3ff6c4e1bd67
+store\models.py core/ReplaceTrueWithFalse 6
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -53,7 +53,7 @@
+     )
+     expiring_date = models.DateTimeField(null=True, blank=True)
+     vendor = models.ForeignKey(
+-        Vendor, on_delete=models.SET_NULL, null=True, blank=True
++        Vendor, on_delete=models.SET_NULL, null=True, blank=False
+     )
+ 
+     def __str__(self):
+============
+[job-id] fa012f0911984952b3f12317d4e9668a
+store\models.py core/ReplaceTrueWithFalse 7
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -107,7 +107,7 @@
+     Represents a delivery of an item to a customer.
+     """
+     item = models.ForeignKey(
+-        Item, blank=True, null=True, on_delete=models.SET_NULL
++        Item, blank=False, null=True, on_delete=models.SET_NULL
+     )
+     customer_name = models.CharField(max_length=30, blank=True, null=True)
+     phone_number = PhoneNumberField(blank=True, null=True)
+============
+[job-id] 4ec81412fae44074ab50a03dd6d0b96d
+store\models.py core/ReplaceTrueWithFalse 8
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -107,7 +107,7 @@
+     Represents a delivery of an item to a customer.
+     """
+     item = models.ForeignKey(
+-        Item, blank=True, null=True, on_delete=models.SET_NULL
++        Item, blank=True, null=False, on_delete=models.SET_NULL
+     )
+     customer_name = models.CharField(max_length=30, blank=True, null=True)
+     phone_number = PhoneNumberField(blank=True, null=True)
+============
+[job-id] 62d660025a874805a320db6ec2e3c3b9
+store\models.py core/ReplaceTrueWithFalse 9
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -109,7 +109,7 @@
+     item = models.ForeignKey(
+         Item, blank=True, null=True, on_delete=models.SET_NULL
+     )
+-    customer_name = models.CharField(max_length=30, blank=True, null=True)
++    customer_name = models.CharField(max_length=30, blank=False, null=True)
+     phone_number = PhoneNumberField(blank=True, null=True)
+     location = models.CharField(max_length=20, blank=True, null=True)
+     date = models.DateTimeField()
+============
+[job-id] 27597cf8f9364f06b620ef4e9e2eca9d
+store\models.py core/ReplaceTrueWithFalse 10
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -109,7 +109,7 @@
+     item = models.ForeignKey(
+         Item, blank=True, null=True, on_delete=models.SET_NULL
+     )
+-    customer_name = models.CharField(max_length=30, blank=True, null=True)
++    customer_name = models.CharField(max_length=30, blank=True, null=False)
+     phone_number = PhoneNumberField(blank=True, null=True)
+     location = models.CharField(max_length=20, blank=True, null=True)
+     date = models.DateTimeField()
+============
+[job-id] 4dc2b81d846149f580f75400d0aaa78a
+store\models.py core/ReplaceTrueWithFalse 11
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -110,7 +110,7 @@
+         Item, blank=True, null=True, on_delete=models.SET_NULL
+     )
+     customer_name = models.CharField(max_length=30, blank=True, null=True)
+-    phone_number = PhoneNumberField(blank=True, null=True)
++    phone_number = PhoneNumberField(blank=False, null=True)
+     location = models.CharField(max_length=20, blank=True, null=True)
+     date = models.DateTimeField()
+     is_delivered = models.BooleanField(
+============
+[job-id] 0d3f34f39b6b462b8c71bfd818ae9012
+store\models.py core/ReplaceTrueWithFalse 12
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -110,7 +110,7 @@
+         Item, blank=True, null=True, on_delete=models.SET_NULL
+     )
+     customer_name = models.CharField(max_length=30, blank=True, null=True)
+-    phone_number = PhoneNumberField(blank=True, null=True)
++    phone_number = PhoneNumberField(blank=True, null=False)
+     location = models.CharField(max_length=20, blank=True, null=True)
+     date = models.DateTimeField()
+     is_delivered = models.BooleanField(
+============
+[job-id] f8342c601b614b63afd573f0734cf768
+store\models.py core/ReplaceTrueWithFalse 13
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -111,7 +111,7 @@
+     )
+     customer_name = models.CharField(max_length=30, blank=True, null=True)
+     phone_number = PhoneNumberField(blank=True, null=True)
+-    location = models.CharField(max_length=20, blank=True, null=True)
++    location = models.CharField(max_length=20, blank=False, null=True)
+     date = models.DateTimeField()
+     is_delivered = models.BooleanField(
+         default=False, verbose_name='Is Delivered'
+============
+[job-id] ef88a742b10a403a9db5dbed565eab05
+store\models.py core/ReplaceTrueWithFalse 14
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -111,7 +111,7 @@
+     )
+     customer_name = models.CharField(max_length=30, blank=True, null=True)
+     phone_number = PhoneNumberField(blank=True, null=True)
+-    location = models.CharField(max_length=20, blank=True, null=True)
++    location = models.CharField(max_length=20, blank=True, null=False)
+     date = models.DateTimeField()
+     is_delivered = models.BooleanField(
+         default=False, verbose_name='Is Delivered'
+============
+[job-id] 621d617810454c54b6b0d45bc0847736
+store\models.py core/ReplaceFalseWithTrue 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -114,7 +114,7 @@
+     location = models.CharField(max_length=20, blank=True, null=True)
+     date = models.DateTimeField()
+     is_delivered = models.BooleanField(
+-        default=False, verbose_name='Is Delivered'
++        default=True, verbose_name='Is Delivered'
+     )
+ 
+     class Meta:
+============
+[job-id] 1cf918489cd24c04a19c850ae6d548ab
+store\models.py core/NumberReplacer 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -25,7 +25,7 @@
+     """
+     Represents a category for items.
+     """
+-    name = models.CharField(max_length=50)
++    name = models.CharField(max_length= 51)
+     slug = AutoSlugField(unique=True, populate_from='name')
+ 
+     def __str__(self):
+============
+[job-id] a41511caa73e4c03874b9e336f8c7369
+store\models.py core/NumberReplacer 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -25,7 +25,7 @@
+     """
+     Represents a category for items.
+     """
+-    name = models.CharField(max_length=50)
++    name = models.CharField(max_length= 49)
+     slug = AutoSlugField(unique=True, populate_from='name')
+ 
+     def __str__(self):
+============
+[job-id] e221225e3946497ba0a80d7a92bfca0e
+store\models.py core/NumberReplacer 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -41,7 +41,7 @@
+     Represents an item in the inventory.
+     """
+     slug = AutoSlugField(unique=True, populate_from='name')
+-    name = models.CharField(max_length=50)
++    name = models.CharField(max_length= 51)
+     description = models.TextField(max_length=256, blank=True)
+     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+     quantity = models.PositiveIntegerField(default=0)
+============
+[job-id] 37841cd601f34b69aa073a303f83c632
+store\models.py core/NumberReplacer 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -41,7 +41,7 @@
+     Represents an item in the inventory.
+     """
+     slug = AutoSlugField(unique=True, populate_from='name')
+-    name = models.CharField(max_length=50)
++    name = models.CharField(max_length= 49)
+     description = models.TextField(max_length=256, blank=True)
+     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+     quantity = models.PositiveIntegerField(default=0)
+============
+[job-id] 07bab07816c84487baee89da451cebbd
+store\models.py core/NumberReplacer 4
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -42,7 +42,7 @@
+     """
+     slug = AutoSlugField(unique=True, populate_from='name')
+     name = models.CharField(max_length=50)
+-    description = models.TextField(max_length=256, blank=True)
++    description = models.TextField(max_length= 257, blank=True)
+     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+     quantity = models.PositiveIntegerField(default=0)
+     price = models.DecimalField(
+============
+[job-id] 312756dd6c884952ae76661201df0a2a
+store\models.py core/NumberReplacer 5
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -42,7 +42,7 @@
+     """
+     slug = AutoSlugField(unique=True, populate_from='name')
+     name = models.CharField(max_length=50)
+-    description = models.TextField(max_length=256, blank=True)
++    description = models.TextField(max_length= 255, blank=True)
+     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+     quantity = models.PositiveIntegerField(default=0)
+     price = models.DecimalField(
+============
+[job-id] 70df238d240343c28337f95493c223ec
+store\models.py core/NumberReplacer 6
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -44,7 +44,7 @@
+     name = models.CharField(max_length=50)
+     description = models.TextField(max_length=256, blank=True)
+     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+-    quantity = models.PositiveIntegerField(default=0)
++    quantity = models.PositiveIntegerField(default= 1)
+     price = models.DecimalField(
+         max_digits=12,
+         decimal_places=2,
+============
+[job-id] 8921bf9c727b455ab12418943bd696cb
+store\models.py core/NumberReplacer 7
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -44,7 +44,7 @@
+     name = models.CharField(max_length=50)
+     description = models.TextField(max_length=256, blank=True)
+     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+-    quantity = models.PositiveIntegerField(default=0)
++    quantity = models.PositiveIntegerField(default= -1)
+     price = models.DecimalField(
+         max_digits=12,
+         decimal_places=2,
+============
+[job-id] 117a658a910e41b49b9047d3027d5c82
+store\models.py core/NumberReplacer 8
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -46,7 +46,7 @@
+     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+     quantity = models.PositiveIntegerField(default=0)
+     price = models.DecimalField(
+-        max_digits=12,
++        max_digits= 13,
+         decimal_places=2,
+         default=Decimal('0.00'),
+         validators=[MinValueValidator(Decimal('0.00'))],
+============
+[job-id] a913990d183b4879b22cec051a37346c
+store\models.py core/NumberReplacer 9
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -46,7 +46,7 @@
+     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+     quantity = models.PositiveIntegerField(default=0)
+     price = models.DecimalField(
+-        max_digits=12,
++        max_digits= 11,
+         decimal_places=2,
+         default=Decimal('0.00'),
+         validators=[MinValueValidator(Decimal('0.00'))],
+============
+[job-id] 7cf4c56d6b6c425198fa44aca8a10284
+store\models.py core/NumberReplacer 10
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -47,7 +47,7 @@
+     quantity = models.PositiveIntegerField(default=0)
+     price = models.DecimalField(
+         max_digits=12,
+-        decimal_places=2,
++        decimal_places= 3,
+         default=Decimal('0.00'),
+         validators=[MinValueValidator(Decimal('0.00'))],
+     )
+============
+[job-id] e974927572ed495eb242564f7b66b529
+store\models.py core/NumberReplacer 11
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -47,7 +47,7 @@
+     quantity = models.PositiveIntegerField(default=0)
+     price = models.DecimalField(
+         max_digits=12,
+-        decimal_places=2,
++        decimal_places= 1,
+         default=Decimal('0.00'),
+         validators=[MinValueValidator(Decimal('0.00'))],
+     )
+============
+[job-id] 253e6172512648fabb1e351a338d1309
+store\models.py core/NumberReplacer 12
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -64,7 +64,7 @@
+ 
+     @property
+     def in_stock(self):
+-        return self.quantity > 0
++        return self.quantity > 1
+ 
+     def to_json(self):
+         """Shape used by the point of sale item search."""
+============
+[job-id] eb67c12ce442460abd84f8ace36b2ecb
+store\models.py core/NumberReplacer 14
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -75,7 +75,7 @@
+             'category': self.category.name if self.category_id else '',
+             'price': str(self.price),
+             'stock': self.quantity,
+-            'quantity': 1,
++            'quantity': 2,
+             'total_item': str(self.price),
+         }
+ 
+============
+[job-id] c6a23f582ab842f9a1b125d2627ace4d
+store\models.py core/NumberReplacer 15
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -75,7 +75,7 @@
+             'category': self.category.name if self.category_id else '',
+             'price': str(self.price),
+             'stock': self.quantity,
+-            'quantity': 1,
++            'quantity': 0,
+             'total_item': str(self.price),
+         }
+ 
+============
+[job-id] 6aa82bf30f35421a9719da5174045d3b
+store\models.py core/NumberReplacer 20
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -109,7 +109,7 @@
+     item = models.ForeignKey(
+         Item, blank=True, null=True, on_delete=models.SET_NULL
+     )
+-    customer_name = models.CharField(max_length=30, blank=True, null=True)
++    customer_name = models.CharField(max_length= 31, blank=True, null=True)
+     phone_number = PhoneNumberField(blank=True, null=True)
+     location = models.CharField(max_length=20, blank=True, null=True)
+     date = models.DateTimeField()
+============
+[job-id] c9053b2bcccd4d3d9397e102007c171d
+store\models.py core/NumberReplacer 21
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -109,7 +109,7 @@
+     item = models.ForeignKey(
+         Item, blank=True, null=True, on_delete=models.SET_NULL
+     )
+-    customer_name = models.CharField(max_length=30, blank=True, null=True)
++    customer_name = models.CharField(max_length= 29, blank=True, null=True)
+     phone_number = PhoneNumberField(blank=True, null=True)
+     location = models.CharField(max_length=20, blank=True, null=True)
+     date = models.DateTimeField()
+============
+[job-id] 08a6c8d720884f24a1f6fc998db0720d
+store\models.py core/NumberReplacer 22
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -111,7 +111,7 @@
+     )
+     customer_name = models.CharField(max_length=30, blank=True, null=True)
+     phone_number = PhoneNumberField(blank=True, null=True)
+-    location = models.CharField(max_length=20, blank=True, null=True)
++    location = models.CharField(max_length= 21, blank=True, null=True)
+     date = models.DateTimeField()
+     is_delivered = models.BooleanField(
+         default=False, verbose_name='Is Delivered'
+============
+[job-id] f33c03c55162416b8be7beee4b04e597
+store\models.py core/NumberReplacer 23
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/store\models.py
++++ b/store\models.py
+@@ -111,7 +111,7 @@
+     )
+     customer_name = models.CharField(max_length=30, blank=True, null=True)
+     phone_number = PhoneNumberField(blank=True, null=True)
+-    location = models.CharField(max_length=20, blank=True, null=True)
++    location = models.CharField(max_length= 19, blank=True, null=True)
+     date = models.DateTimeField()
+     is_delivered = models.BooleanField(
+         default=False, verbose_name='Is Delivered'
+============
+[job-id] 5a00e06ca34a4b5e88a5643652a1c375
+accounts\permissions.py core/ReplaceBinaryOperator_BitOr_BitXor 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/accounts\permissions.py
++++ b/accounts\permissions.py
+@@ -29,7 +29,7 @@
+     'categories.view', 'invoices.view', 'profile.self.view',
+     'profile.self.update',
+ })
+-EXECUTIVE_CAPABILITIES = OPERATIVE_CAPABILITIES | frozenset({
++EXECUTIVE_CAPABILITIES = OPERATIVE_CAPABILITIES ^ frozenset({
+     'inventory.manage', 'categories.manage', 'purchases.manage',
+     'vendors.manage', 'finance.manage', 'sales.void', 'exports.run',
+     'customers.delete', 'customers.loyalty.adjust', 'invoices.manage',
+============
+[job-id] f11b3395ae1d460b8499fc4a2e33386f
+accounts\permissions.py core/ReplaceBinaryOperator_BitOr_BitXor 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/accounts\permissions.py
++++ b/accounts\permissions.py
+@@ -34,7 +34,7 @@
+     'vendors.manage', 'finance.manage', 'sales.void', 'exports.run',
+     'customers.delete', 'customers.loyalty.adjust', 'invoices.manage',
+ })
+-ADMIN_CAPABILITIES = EXECUTIVE_CAPABILITIES | frozenset({
++ADMIN_CAPABILITIES = EXECUTIVE_CAPABILITIES ^ frozenset({
+     'staff.view', 'staff.create', 'staff.update', 'staff.delete',
+     'staff.approve',
+ })
+============
+[job-id] 1af448a1aa57435185c58341adbe7600
+accounts\permissions.py core/ReplaceComparisonOperator_Eq_LtE 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/accounts\permissions.py
++++ b/accounts\permissions.py
+@@ -59,7 +59,7 @@
+     if user.is_superuser:
+         return True
+     profile = get_profile(user)
+-    return profile is not None and profile.status == 'A'
++    return profile is not None and profile.status <= 'A'
+ 
+ 
+ def role_level(user):
+============
+[job-id] 8eaa3cf187314e2aaf3829ef04e7b45a
+accounts\permissions.py core/ReplaceComparisonOperator_Eq_Is 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/accounts\permissions.py
++++ b/accounts\permissions.py
+@@ -59,7 +59,7 @@
+     if user.is_superuser:
+         return True
+     profile = get_profile(user)
+-    return profile is not None and profile.status == 'A'
++    return profile is not None and profile.status is 'A'
+ 
+ 
+ def role_level(user):
+============
+[job-id] 5ec71cb8e9d64fdbbe35c75339a3e981
+accounts\permissions.py core/RemoveDecorator 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/accounts\permissions.py
++++ b/accounts\permissions.py
+@@ -117,7 +117,6 @@
+     """Function view guard: login first, then 403 if the role is too low."""
+ 
+     def decorator(view_func):
+-        @wraps(view_func)
+         def wrapper(request, *args, **kwargs):
+             if not request.user.is_authenticated:
+                 return redirect_to_login(request.get_full_path())
+============
+[job-id] e22bc3f2df2643a1bfdbc90a524e5de6
+accounts\permissions.py core/RemoveDecorator 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/accounts\permissions.py
++++ b/accounts\permissions.py
+@@ -131,7 +131,6 @@
+ def capability_required(capability):
+     """Function view guard for an explicit application capability."""
+     def decorator(view_func):
+-        @wraps(view_func)
+         def wrapper(request, *args, **kwargs):
+             if not request.user.is_authenticated:
+                 return redirect_to_login(request.get_full_path())
+============
+[job-id] 4cb179dc5db54db2ab274547e6151874
+accounts\permissions.py sqe/break-stock-rule 4
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/accounts\permissions.py
++++ b/accounts\permissions.py
+@@ -84,7 +84,7 @@
+     if user.is_superuser:
+         return True
+     profile = get_profile(user)
+-    role = profile.role if profile and profile.role in ROLE_CAPABILITIES else OPERATIVE
++    role = profile.role if profile.role in ROLE_CAPABILITIES else OPERATIVE
+     return capability in ROLE_CAPABILITIES[role]
+ 
+ 
+============
+[job-id] f0ea8259c8324275a45e7cb9e0703b54
+transactions\services.py core/ReplaceBinaryOperator_Add_Sub 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -125,7 +125,7 @@
+         discount = loyalty.value_of_points(redeem) if redeem else Decimal('0.00')
+         taxable = sub_total - discount
+         tax_amount = _money(taxable * tax_pct / Decimal('100'))
+-        grand_total = _money(taxable + tax_amount)
++        grand_total = _money(taxable - tax_amount)
+ 
+         if paid < grand_total:
+             raise ValidationError(
+============
+[job-id] 8765db1967b74e2abcf38aded1f21ad9
+transactions\services.py core/ReplaceBinaryOperator_Sub_Add 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -131,7 +131,7 @@
+             raise ValidationError(
+                 f'Amount paid ({_money(paid)}) is less than the total ({grand_total}).'
+             )
+-        change = _money(paid - grand_total)
++        change = _money(paid + grand_total)
+         earned = loyalty.points_for_amount(taxable)
+ 
+         sale = Sale.objects.create(
+============
+[job-id] 834b3d719ae24ddb9f905e9743600c70
+transactions\services.py core/ReplaceBinaryOperator_Sub_Mul 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -131,7 +131,7 @@
+             raise ValidationError(
+                 f'Amount paid ({_money(paid)}) is less than the total ({grand_total}).'
+             )
+-        change = _money(paid - grand_total)
++        change = _money(paid * grand_total)
+         earned = loyalty.points_for_amount(taxable)
+ 
+         sale = Sale.objects.create(
+============
+[job-id] 4fcb7a9962464370a34e69b25dd7b020
+transactions\services.py core/ReplaceBinaryOperator_Sub_RShift 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -181,7 +181,7 @@
+             Item.adjust_stock(detail.item_id, detail.quantity)
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+-        net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
++        net_points = sale.loyalty_points_redeemed >> sale.loyalty_points_earned
+         if net_points < 0 and customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+============
+[job-id] 83ca33594cea4f9a984274092351d5dd
+transactions\services.py core/ReplaceBinaryOperator_Sub_LShift 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -181,7 +181,7 @@
+             Item.adjust_stock(detail.item_id, detail.quantity)
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+-        net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
++        net_points = sale.loyalty_points_redeemed << sale.loyalty_points_earned
+         if net_points < 0 and customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+============
+[job-id] f2074b846bdf414abef226fcba4874dd
+transactions\services.py core/ReplaceBinaryOperator_Mul_Div 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -167,7 +167,7 @@
+     return sale
+ 
+ 
+-def void_sale(sale, *, user, reason=''):
++def void_sale(sale, /, user, reason=''):
+     """
+     Void a completed sale: restore stock, give back redeemed points and take
+     back earned points. The sale row is kept for the audit trail.
+============
+[job-id] fa25183fea4d4dc49447ee2a6c14187e
+transactions\services.py core/ReplaceBinaryOperator_Div_FloorDiv 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -124,7 +124,7 @@
+                 raise ValidationError('Points redeemed cannot exceed the bill.')
+         discount = loyalty.value_of_points(redeem) if redeem else Decimal('0.00')
+         taxable = sub_total - discount
+-        tax_amount = _money(taxable * tax_pct / Decimal('100'))
++        tax_amount = _money(taxable * tax_pct // Decimal('100'))
+         grand_total = _money(taxable + tax_amount)
+ 
+         if paid < grand_total:
+============
+[job-id] 3b5a2a32f0d444c2b6ce026fd71ec215
+transactions\services.py core/ReplaceBinaryOperator_Div_Mod 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -124,7 +124,7 @@
+                 raise ValidationError('Points redeemed cannot exceed the bill.')
+         discount = loyalty.value_of_points(redeem) if redeem else Decimal('0.00')
+         taxable = sub_total - discount
+-        tax_amount = _money(taxable * tax_pct / Decimal('100'))
++        tax_amount = _money(taxable * tax_pct % Decimal('100'))
+         grand_total = _money(taxable + tax_amount)
+ 
+         if paid < grand_total:
+============
+[job-id] 7825e5aa245b40bfb80880d44e47cbe9
+transactions\services.py core/ReplaceComparisonOperator_Lt_Eq 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -75,7 +75,7 @@
+     if tax_pct < 0 or tax_pct > 100:
+         raise ValidationError('Tax must be between 0 and 100 percent.')
+     paid = _decimal(amount_paid or 0, 'Amount paid')
+-    if paid < 0:
++    if paid == 0:
+         raise ValidationError('Amount paid cannot be negative.')
+     redeem = _int(redeem_points or 0, 'Points to redeem')
+     if redeem < 0:
+============
+[job-id] 4a1c4f7164024538913ac2e5494bb9c3
+transactions\services.py core/ReplaceComparisonOperator_Lt_NotEq 7
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -182,7 +182,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points != 0 and customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] 3d04309695814b48b112945e631147f0
+transactions\services.py core/ReplaceComparisonOperator_Lt_NotEq 8
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -182,7 +182,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points < 0 and customer.loyalty_points != -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] f557318488a74cf78840d14b0606055d
+transactions\services.py core/ReplaceComparisonOperator_Lt_LtE 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -75,7 +75,7 @@
+     if tax_pct < 0 or tax_pct > 100:
+         raise ValidationError('Tax must be between 0 and 100 percent.')
+     paid = _decimal(amount_paid or 0, 'Amount paid')
+-    if paid < 0:
++    if paid <= 0:
+         raise ValidationError('Amount paid cannot be negative.')
+     redeem = _int(redeem_points or 0, 'Points to redeem')
+     if redeem < 0:
+============
+[job-id] 7fd66c7437c84e22b38e50125154b156
+transactions\services.py core/ReplaceComparisonOperator_Lt_LtE 5
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -114,7 +114,7 @@
+         if redeem:
+             if not cfg['enabled']:
+                 raise ValidationError('Loyalty points are not enabled.')
+-            if redeem < cfg['min_redeem']:
++            if redeem <= cfg['min_redeem']:
+                 raise ValidationError(f'Redeem at least {cfg["min_redeem"]} points.')
+             if redeem > customer.loyalty_points:
+                 raise ValidationError(
+============
+[job-id] fb19605de96948dc8afe3082614a9856
+transactions\services.py core/ReplaceComparisonOperator_Lt_LtE 7
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -182,7 +182,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points <= 0 and customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] f18233618f3b4aa5a96b633efca95df6
+transactions\services.py core/ReplaceComparisonOperator_Lt_LtE 8
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -182,7 +182,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points < 0 and customer.loyalty_points <= -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] 60f9aaa5ddf5411189e4b654810f2116
+transactions\services.py core/ReplaceComparisonOperator_Lt_IsNot 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -182,7 +182,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points < 0 and customer.loyalty_points is not -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] 89cd8804fd9f4bca9a2ce77bf3cc73f8
+transactions\services.py core/ReplaceUnaryOperator_USub_UAdd 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -185,7 +185,7 @@
+         if net_points < 0 and customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+-            net_points = -customer.loyalty_points
++            net_points = +customer.loyalty_points
+         if net_points:
+             loyalty.apply_points(
+                 customer.pk, net_points, LoyaltyTransaction.REVERSAL,
+============
+[job-id] be250c29fec84233bc4debaf0605a6bb
+transactions\services.py core/ReplaceUnaryOperator_USub_Invert 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -182,7 +182,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points < 0 and customer.loyalty_points < ~net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] 739aa8ce5bc04cc084d48629e0924939
+transactions\services.py core/ReplaceUnaryOperator_Delete_USub 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -185,7 +185,7 @@
+         if net_points < 0 and customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+-            net_points = -customer.loyalty_points
++            net_points = customer.loyalty_points
+         if net_points:
+             loyalty.apply_points(
+                 customer.pk, net_points, LoyaltyTransaction.REVERSAL,
+============
+[job-id] cc2bd94b49af4e21bbdb4f831b3c9297
+transactions\services.py core/ReplaceUnaryOperator_Delete_Not 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -39,7 +39,7 @@
+ 
+ def _int(value, field):
+     try:
+-        if isinstance(value, float) and not value.is_integer():
++        if isinstance(value, float) and  value.is_integer():
+             raise ValueError
+         return int(str(value))
+     except (TypeError, ValueError):
+============
+[job-id] 00c2bb57bdd444be94d37ce44cdf8f37
+transactions\services.py core/AddNot 20
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -159,7 +159,7 @@
+                 customer.pk, -redeem, LoyaltyTransaction.REDEEM,
+                 sale=sale, user=user, note=f'Redeemed on {sale.receipt_number}',
+             )
+-        if earned:
++        if not earned:
+             loyalty.apply_points(
+                 customer.pk, earned, LoyaltyTransaction.EARN,
+                 sale=sale, user=user, note=f'Earned on {sale.receipt_number}',
+============
+[job-id] d58b6617425249cabcdd9017683580f8
+transactions\services.py core/ReplaceAndWithOr 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -182,7 +182,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points < 0 or customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] a0df0559e24d4b48a2da63f53292ca04
+transactions\services.py core/ReplaceOrWithAnd 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+         raise ValidationError('Too many lines in one sale.')
+     lines = OrderedDict()
+     for raw in raw_items:
+-        if not isinstance(raw, dict) or 'id' not in raw or 'quantity' not in raw:
++        if not isinstance(raw, dict) and 'id' not in raw or 'quantity' not in raw:
+             raise ValidationError('Each item needs an id and a quantity.')
+         item_id = _int(raw['id'], 'Item id')
+         qty = _int(raw['quantity'], 'Quantity')
+============
+[job-id] 4892448cb6294a309b4d75674616d7ae
+transactions\services.py core/ReplaceOrWithAnd 8
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -195,7 +195,7 @@
+         sale.status = Sale.STATUS_VOIDED
+         sale.voided_at = timezone.now()
+         sale.voided_by = user if user is not None and user.is_authenticated else None
+-        sale.void_reason = (reason or '')[:200]
++        sale.void_reason = (reason and '')[:200]
+         sale.save(update_fields=['status', 'voided_at', 'voided_by', 'void_reason'])
+     return sale
+ 
+============
+[job-id] c136e7569b2643f78a3d307970fd2b08
+transactions\services.py core/NumberReplacer 10
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -64,7 +64,7 @@
+     return lines
+ 
+ 
+-def create_sale(*, user, customer_id, items, tax_percentage=0, amount_paid=0,
++def create_sale(*, user, customer_id, items, tax_percentage=0, amount_paid= 1,
+                 redeem_points=0):
+     """
+     Create a completed sale. Raises ValidationError with a cashier friendly
+============
+[job-id] fe8f43c209514635b8fa176e18be2160
+transactions\services.py core/NumberReplacer 11
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -64,7 +64,7 @@
+     return lines
+ 
+ 
+-def create_sale(*, user, customer_id, items, tax_percentage=0, amount_paid=0,
++def create_sale(*, user, customer_id, items, tax_percentage=0, amount_paid= -1,
+                 redeem_points=0):
+     """
+     Create a completed sale. Raises ValidationError with a cashier friendly
+============
+[job-id] 72698305d77d4f0f97ba6988c63fd435
+transactions\services.py core/NumberReplacer 20
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -74,7 +74,7 @@
+     tax_pct = _decimal(tax_percentage or 0, 'Tax')
+     if tax_pct < 0 or tax_pct > 100:
+         raise ValidationError('Tax must be between 0 and 100 percent.')
+-    paid = _decimal(amount_paid or 0, 'Amount paid')
++    paid = _decimal(amount_paid or 1, 'Amount paid')
+     if paid < 0:
+         raise ValidationError('Amount paid cannot be negative.')
+     redeem = _int(redeem_points or 0, 'Points to redeem')
+============
+[job-id] 0e56e69ceaa1484aa08e026cba9ce066
+transactions\services.py core/NumberReplacer 21
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -74,7 +74,7 @@
+     tax_pct = _decimal(tax_percentage or 0, 'Tax')
+     if tax_pct < 0 or tax_pct > 100:
+         raise ValidationError('Tax must be between 0 and 100 percent.')
+-    paid = _decimal(amount_paid or 0, 'Amount paid')
++    paid = _decimal(amount_paid or -1, 'Amount paid')
+     if paid < 0:
+         raise ValidationError('Amount paid cannot be negative.')
+     redeem = _int(redeem_points or 0, 'Points to redeem')
+============
+[job-id] 71279cf62bbc495a9ddc42303203911c
+transactions\services.py core/NumberReplacer 22
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -75,7 +75,7 @@
+     if tax_pct < 0 or tax_pct > 100:
+         raise ValidationError('Tax must be between 0 and 100 percent.')
+     paid = _decimal(amount_paid or 0, 'Amount paid')
+-    if paid < 0:
++    if paid < 1:
+         raise ValidationError('Amount paid cannot be negative.')
+     redeem = _int(redeem_points or 0, 'Points to redeem')
+     if redeem < 0:
+============
+[job-id] e865fb420297418692203390361fb630
+transactions\services.py core/NumberReplacer 23
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -75,7 +75,7 @@
+     if tax_pct < 0 or tax_pct > 100:
+         raise ValidationError('Tax must be between 0 and 100 percent.')
+     paid = _decimal(amount_paid or 0, 'Amount paid')
+-    if paid < 0:
++    if paid < -1:
+         raise ValidationError('Amount paid cannot be negative.')
+     redeem = _int(redeem_points or 0, 'Points to redeem')
+     if redeem < 0:
+============
+[job-id] 448ed97ebce546f5bb53f01fbd9e1ab7
+transactions\services.py core/NumberReplacer 27
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -78,7 +78,7 @@
+     if paid < 0:
+         raise ValidationError('Amount paid cannot be negative.')
+     redeem = _int(redeem_points or 0, 'Points to redeem')
+-    if redeem < 0:
++    if redeem < -1:
+         raise ValidationError('Points to redeem cannot be negative.')
+ 
+     with transaction.atomic():
+============
+[job-id] 5a0bf193bbcb470b9bbb1227401212c3
+transactions\services.py core/NumberReplacer 28
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -182,7 +182,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points < 1 and customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] f45e85b3a1354009b3314bd77c9ffd1f
+transactions\services.py core/NumberReplacer 29
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -182,7 +182,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points < -1 and customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] 9ad78804477e4ecba090d932c6894a33
+transactions\services.py core/NumberReplacer 30
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -195,7 +195,7 @@
+         sale.status = Sale.STATUS_VOIDED
+         sale.voided_at = timezone.now()
+         sale.voided_by = user if user is not None and user.is_authenticated else None
+-        sale.void_reason = (reason or '')[:200]
++        sale.void_reason = (reason or '')[: 201]
+         sale.save(update_fields=['status', 'voided_at', 'voided_by', 'void_reason'])
+     return sale
+ 
+============
+[job-id] 15b7feb3f11443fc8d7ccb94ba5799ed
+transactions\services.py core/NumberReplacer 31
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -195,7 +195,7 @@
+         sale.status = Sale.STATUS_VOIDED
+         sale.voided_at = timezone.now()
+         sale.voided_by = user if user is not None and user.is_authenticated else None
+-        sale.void_reason = (reason or '')[:200]
++        sale.void_reason = (reason or '')[: 199]
+         sale.save(update_fields=['status', 'voided_at', 'voided_by', 'void_reason'])
+     return sale
+ 
+============
+[job-id] 8a12c4590e7d40109f78c20ec4f6a2f8
+transactions\services.py sqe/shift-business-limit 8
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -114,7 +114,7 @@
+         if redeem:
+             if not cfg['enabled']:
+                 raise ValidationError('Loyalty points are not enabled.')
+-            if redeem < cfg['min_redeem']:
++            if redeem < (cfg['min_redeem'] + 1):
+                 raise ValidationError(f'Redeem at least {cfg["min_redeem"]} points.')
+             if redeem > customer.loyalty_points:
+                 raise ValidationError(
+============
+[job-id] 1482f2f8a5324615b5b391f8cd89ea64
+transactions\services.py sqe/shift-business-limit 9
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -114,7 +114,7 @@
+         if redeem:
+             if not cfg['enabled']:
+                 raise ValidationError('Loyalty points are not enabled.')
+-            if redeem < cfg['min_redeem']:
++            if redeem < (cfg['min_redeem'] - 1):
+                 raise ValidationError(f'Redeem at least {cfg["min_redeem"]} points.')
+             if redeem > customer.loyalty_points:
+                 raise ValidationError(
+============
+[job-id] d87ecd49a80947658a81822c6c745411
+transactions\services.py sqe/break-stock-rule 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -39,7 +39,7 @@
+ 
+ def _int(value, field):
+     try:
+-        if isinstance(value, float) and not value.is_integer():
++        if isinstance(value, float):
+             raise ValueError
+         return int(str(value))
+     except (TypeError, ValueError):
+============
+[job-id] c459d6d85364431299ade038cdf186e5
+transactions\services.py sqe/break-stock-rule 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -136,7 +136,7 @@
+ 
+         sale = Sale.objects.create(
+             customer=customer,
+-            served_by=user if user is not None and user.is_authenticated else None,
++            served_by=user if user is not None else None,
+             sub_total=sub_total,
+             discount_amount=discount,
+             tax_percentage=tax_pct,
+============
+[job-id] e501744946334e768f290d9f629d62b9
+transactions\services.py sqe/break-stock-rule 6
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -182,7 +182,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] 2289c96866df4a249666b524b470b423
+transactions\services.py sqe/break-stock-rule 7
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -182,7 +182,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points < 0:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] d6bd32c65a7247658d11c5fa7e4fbde5
+transactions\services.py sqe/break-stock-rule 9
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -194,7 +194,7 @@
+ 
+         sale.status = Sale.STATUS_VOIDED
+         sale.voided_at = timezone.now()
+-        sale.voided_by = user if user is not None and user.is_authenticated else None
++        sale.voided_by = user if user is not None else None
+         sale.void_reason = (reason or '')[:200]
+         sale.save(update_fields=['status', 'voided_at', 'voided_by', 'void_reason'])
+     return sale
+============
+total jobs: 608
+complete: 608 (100.00%)
+surviving mutants: 114 (18.75%)

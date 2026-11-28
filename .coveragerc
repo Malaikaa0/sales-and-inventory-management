@@ -1,0 +1,69 @@
+# Coverage settings for the team unit tests. Reasons are explained in docs/scope.md.
+
+[run]
+branch = True
+# Relative paths, so SonarQube can read the report from inside its container.
+relative_files = True
+# Measure from the repository root, including files no test imports.
+source = .
+# Never measured, in scope or whole project.
+omit =
+    # Third party packages in the virtual environment.
+    .venv/*
+    # Our own tests.
+    tests/*
+    # Django command line entry point.
+    manage.py
+    # Our own test data, mutation and CI scripts.
+    tools/*
+    # Generated schema and data migrations.
+    */migrations/*
+    # Upstream tests.
+    */tests.py
+    # Upstream test helper.
+    InventoryMS/test_utils.py
+
+[report]
+show_missing = True
+# Left out of the in-scope figure. The scope is transactions (with loyalty),
+# store, accounts/permissions.py and accounts/models.py (Customer holds the
+# points balance that both workflows change; Vendor is used by purchasing).
+omit =
+    # accounts: staff, customer and vendor management is outside both workflows.
+    accounts/__init__.py
+    # accounts: Django admin configuration.
+    accounts/admin.py
+    # accounts: app configuration.
+    accounts/apps.py
+    # accounts: template context for the signed-in user.
+    accounts/context_processors.py
+    # accounts: list filter declarations.
+    accounts/filters.py
+    # accounts: staff, customer and vendor forms.
+    accounts/forms.py
+    # accounts: signs out inactive staff. Both workflows pass through it.
+    accounts/middleware.py
+    # accounts: creates a profile for each new user.
+    accounts/signals.py
+    # accounts: table declarations.
+    accounts/tables.py
+    # accounts: route declarations.
+    accounts/urls.py
+    # accounts: staff, customer, vendor and sign-in pages.
+    accounts/views.py
+    # bills: separate module, not part of either workflow.
+    bills/*
+    # invoice: separate module, not part of either workflow.
+    invoice/*
+    # InventoryMS: project settings, middleware, PDF rendering and entry points.
+    InventoryMS/*
+    # Demo data loader, a setup tool and not business logic.
+    store/management/*
+    # Display formatting for templates, not business logic.
+    store/templatetags/*
+    # Filter declaration that nothing imports.
+    store/filters.py
+    # Filter declarations that nothing imports.
+    transactions/filters.py
+    # Table declarations that nothing imports.
+    transactions/tables.py

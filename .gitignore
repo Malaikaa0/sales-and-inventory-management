@@ -131,3 +131,6 @@ staticfiles/
 tfplan
 backend_override.tf
 
+
+.venv/
+.venv-1/

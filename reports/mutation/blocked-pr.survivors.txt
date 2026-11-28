@@ -1,0 +1,1635 @@
+[job-id] 6da616c6db7243efa611de3504f20a0f
+transactions\services.py core/ReplaceBinaryOperator_Mul_Add 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -53,7 +53,7 @@
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+-        return _money(sub_total * BULK_RATE)
++        return _money(sub_total + BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+============
+[job-id] 19154c344a3b450fa4a23d36e0302870
+transactions\services.py core/ReplaceBinaryOperator_Mul_Add 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS + 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] e0b8d561723c495ab4d2ac1d57f442ba
+transactions\services.py core/ReplaceBinaryOperator_Mul_Add 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL + 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] a21058bdaf8442be90468f1ad40280bc
+transactions\services.py core/ReplaceBinaryOperator_Mul_Add 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total + BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 214286fdc289471180b3629aae132723
+transactions\services.py core/ReplaceBinaryOperator_Mul_Sub 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -53,7 +53,7 @@
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+-        return _money(sub_total * BULK_RATE)
++        return _money(sub_total - BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+============
+[job-id] e9e5c44ca1cc4f769fcfd515f86b904f
+transactions\services.py core/ReplaceBinaryOperator_Mul_Sub 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS - 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] 7e0218eacfb44d65a01c19bbc722f671
+transactions\services.py core/ReplaceBinaryOperator_Mul_Sub 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL - 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] bdc611a650cc4ea1986f77330fcfdac4
+transactions\services.py core/ReplaceBinaryOperator_Mul_Sub 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total - BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 78cca0f7a4d44eb3a8bf230bc097c883
+transactions\services.py core/ReplaceBinaryOperator_Mul_Div 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -53,7 +53,7 @@
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+-        return _money(sub_total * BULK_RATE)
++        return _money(sub_total / BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+============
+[job-id] e6d868105e7f4e47ab818d8a2e57b265
+transactions\services.py core/ReplaceBinaryOperator_Mul_Div 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS / 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] 77b24116d8674136a3f6eca193795dad
+transactions\services.py core/ReplaceBinaryOperator_Mul_Div 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL / 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] aa4fabb73f524e0384a5a15b0f12679c
+transactions\services.py core/ReplaceBinaryOperator_Mul_Div 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total / BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] c7b7bc0c042f475ab1451d626cd0061e
+transactions\services.py core/ReplaceBinaryOperator_Mul_FloorDiv 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -53,7 +53,7 @@
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+-        return _money(sub_total * BULK_RATE)
++        return _money(sub_total // BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+============
+[job-id] 2cd5a807fc62481993ecaa898a0fc388
+transactions\services.py core/ReplaceBinaryOperator_Mul_FloorDiv 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS // 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] f39e4da9898a41f8b44b44079cfcfaf5
+transactions\services.py core/ReplaceBinaryOperator_Mul_FloorDiv 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL // 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] 2317e5a448454a76a8bdd04cb3240b67
+transactions\services.py core/ReplaceBinaryOperator_Mul_FloorDiv 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total // BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 654f67f96b664e69877e84f6e0a896c0
+transactions\services.py core/ReplaceBinaryOperator_Mul_Mod 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -53,7 +53,7 @@
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+-        return _money(sub_total * BULK_RATE)
++        return _money(sub_total % BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+============
+[job-id] 73e37afc540149ae8c4155550bc0ced8
+transactions\services.py core/ReplaceBinaryOperator_Mul_Mod 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total % BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 7ca5ea58652a489c8156f1025e13c388
+transactions\services.py core/ReplaceBinaryOperator_Mul_Pow 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -53,7 +53,7 @@
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+-        return _money(sub_total * BULK_RATE)
++        return _money(sub_total ** BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+============
+[job-id] 957640c6c480420bb07508091ef7ae93
+transactions\services.py core/ReplaceBinaryOperator_Mul_Pow 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS ** 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] b8ea46e2cec2408b81307ee0fafe4d28
+transactions\services.py core/ReplaceBinaryOperator_Mul_Pow 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL ** 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] b6d13df0acdd4a78ba68da29a94bfc8c
+transactions\services.py core/ReplaceBinaryOperator_Mul_Pow 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total ** BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] b86a2206a99a4f15b68243966401c010
+transactions\services.py core/ReplaceBinaryOperator_Mul_RShift 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -53,7 +53,7 @@
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+-        return _money(sub_total * BULK_RATE)
++        return _money(sub_total >> BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+============
+[job-id] f308eff164ae41f9bdbf2fb2248384c5
+transactions\services.py core/ReplaceBinaryOperator_Mul_RShift 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS >> 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] 8bd9575b9c7b4f7fa0a2bb42d68af05b
+transactions\services.py core/ReplaceBinaryOperator_Mul_RShift 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total >> BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 894e7cf325264b5180631d2e5d5d0dd5
+transactions\services.py core/ReplaceBinaryOperator_Mul_LShift 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -53,7 +53,7 @@
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+-        return _money(sub_total * BULK_RATE)
++        return _money(sub_total << BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+============
+[job-id] ec51b64eb8f44cc8835d18c8e6d13bfc
+transactions\services.py core/ReplaceBinaryOperator_Mul_LShift 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS << 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] 75efe38a63484aeaabb25582bbde42cc
+transactions\services.py core/ReplaceBinaryOperator_Mul_LShift 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total << BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 7af42cd854834eb580fac6f7e9115b7a
+transactions\services.py core/ReplaceBinaryOperator_Mul_BitOr 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -53,7 +53,7 @@
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+-        return _money(sub_total * BULK_RATE)
++        return _money(sub_total | BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+============
+[job-id] aed8be58d07c4988a9c391939b52afe5
+transactions\services.py core/ReplaceBinaryOperator_Mul_BitOr 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS | 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] 79fcf28a9f504feb96c6bdcfc8e492b1
+transactions\services.py core/ReplaceBinaryOperator_Mul_BitOr 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total | BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] b663085ff5e945e0b7ca9be93f18c026
+transactions\services.py core/ReplaceBinaryOperator_Mul_BitAnd 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -53,7 +53,7 @@
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+-        return _money(sub_total * BULK_RATE)
++        return _money(sub_total & BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+============
+[job-id] dbab4f6ccd2a4f5aa2d68fd6ddbb6953
+transactions\services.py core/ReplaceBinaryOperator_Mul_BitAnd 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total & BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 19431b953627414382808aae004a5b30
+transactions\services.py core/ReplaceBinaryOperator_Mul_BitXor 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -53,7 +53,7 @@
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+-        return _money(sub_total * BULK_RATE)
++        return _money(sub_total ^ BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+============
+[job-id] 303db92d38304156b6c242b2c18c1d43
+transactions\services.py core/ReplaceBinaryOperator_Mul_BitXor 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS ^ 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] cfadddd894bd49d7962201fad56c95c6
+transactions\services.py core/ReplaceBinaryOperator_Mul_BitXor 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total ^ BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] cdb0c95623a74209afc4412a41d95884
+transactions\services.py core/ReplaceBinaryOperator_Div_Add 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total * BULK_RATE + 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 121bce3f7a2f4911916995b4eb9e7fd7
+transactions\services.py core/ReplaceBinaryOperator_Div_Sub 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total * BULK_RATE - 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] be93931d17bc4af09e6f8ada37aa1c12
+transactions\services.py core/ReplaceBinaryOperator_Div_Mul 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total * BULK_RATE * 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 6c4549a75c53428f9fefca9a1f7f0e7a
+transactions\services.py core/ReplaceBinaryOperator_Div_FloorDiv 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total * BULK_RATE // 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 8ffa73ebfe254f9dba604d1ae4a194c9
+transactions\services.py core/ReplaceBinaryOperator_Div_Mod 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total * BULK_RATE % 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 0c3568aacbe142fe808f870f37ded0a6
+transactions\services.py core/ReplaceBinaryOperator_Div_Pow 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total * BULK_RATE ** 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 3f9130ad4be045cc805acc6dc4631ddb
+transactions\services.py core/ReplaceBinaryOperator_Div_RShift 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total * BULK_RATE >> 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] aa801fd468284893961976449db4ec43
+transactions\services.py core/ReplaceBinaryOperator_Div_LShift 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total * BULK_RATE << 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] bb8d6e8fdaf84212bbf34dd9400fe54d
+transactions\services.py core/ReplaceBinaryOperator_Div_BitOr 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total * BULK_RATE | 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 70b49c4999444eaabcc465d09c341e7f
+transactions\services.py core/ReplaceBinaryOperator_Div_BitAnd 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total * BULK_RATE & 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] f09acdf7cdd24467bd59256b8f5896a9
+transactions\services.py core/ReplaceBinaryOperator_Div_BitXor 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total * BULK_RATE ^ 2)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 4bea7d7d2c464bb59bcda935803949b5
+transactions\services.py core/ReplaceComparisonOperator_Lt_NotEq 7
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -196,7 +196,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points != 0 and customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] fe042b7cdf3c4380b1480e5578ad7d44
+transactions\services.py core/ReplaceComparisonOperator_Lt_LtE 7
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -196,7 +196,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points <= 0 and customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] efdb05e419a5499698614e2b2833f3ee
+transactions\services.py core/ReplaceComparisonOperator_Lt_LtE 8
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -196,7 +196,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points < 0 and customer.loyalty_points <= -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] 60b96037911a4888908621f8bf203998
+transactions\services.py core/ReplaceComparisonOperator_Gt_Eq 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count == 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 143a414cb9d94e51ac6b517ba543e69f
+transactions\services.py core/ReplaceComparisonOperator_Gt_NotEq 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count != 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 12f82409f9324daf801d5094007aa708
+transactions\services.py core/ReplaceComparisonOperator_Gt_Lt 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count < 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] cb0fc293309d4dfaab536ef782fe006e
+transactions\services.py core/ReplaceComparisonOperator_Gt_LtE 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count <= 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] a35d29fba55d4d84a470d3d0fe7b995d
+transactions\services.py core/ReplaceComparisonOperator_Gt_GtE 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count >= 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] f9586b21c1f14925bdcf7f3fde772981
+transactions\services.py core/ReplaceComparisonOperator_GtE_Eq 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units == BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 526dd8546dd54776b8bd98a4f2a9b9f7
+transactions\services.py core/ReplaceComparisonOperator_GtE_Eq 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total == BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] db1091f5df804e0ba0c209ffd21101fe
+transactions\services.py core/ReplaceComparisonOperator_GtE_Eq 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units == BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] 66a67872e4b0423cab24d6327fede240
+transactions\services.py core/ReplaceComparisonOperator_GtE_Eq 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS * 2 or sub_total == BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] 77881560597c4b3b85e148df8e9ce905
+transactions\services.py core/ReplaceComparisonOperator_GtE_NotEq 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units != BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 644dcc8476f041ebb9578289f8ad9db0
+transactions\services.py core/ReplaceComparisonOperator_GtE_NotEq 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total != BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] a332d2f33a5b4599b9f7a9ecbb81d9b0
+transactions\services.py core/ReplaceComparisonOperator_GtE_Lt 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units < BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 63ea1799982c4fe8a7f98c49847b885f
+transactions\services.py core/ReplaceComparisonOperator_GtE_Lt 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total < BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 2cb6e40d74ef4e2a9f1c1a3459cbbc03
+transactions\services.py core/ReplaceComparisonOperator_GtE_LtE 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units <= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 3ab42cb1ccf04a72a7432a86078d3b01
+transactions\services.py core/ReplaceComparisonOperator_GtE_LtE 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total <= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 07b8a51e58f0448a82b6810e8e4e2968
+transactions\services.py core/ReplaceComparisonOperator_GtE_Gt 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units > BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] df9548eff47a432280fde6c7f75c0e8a
+transactions\services.py core/ReplaceComparisonOperator_GtE_Gt 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total > BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 6dbe438f049648b1a64ab45844dc1f16
+transactions\services.py core/ReplaceComparisonOperator_GtE_Gt 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units > BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] 6bd104e1c83348f8848e8fc351708278
+transactions\services.py core/ReplaceComparisonOperator_GtE_Gt 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS * 2 or sub_total > BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] 10e3d9a67fbb42f0865ecdba39216feb
+transactions\services.py core/ReplaceComparisonOperator_GtE_Is 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units is BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 3a46e62aa1974dacbf1b675e77ff7046
+transactions\services.py core/ReplaceComparisonOperator_GtE_Is 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total is BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 56e237bd4a0e4e97ae8e25c6c5724482
+transactions\services.py core/ReplaceComparisonOperator_GtE_Is 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units is BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] 49233a83b6ac4de692b6213c3e3c1911
+transactions\services.py core/ReplaceComparisonOperator_GtE_Is 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS * 2 or sub_total is BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] 674e6162250f4a0d8b984170f322a679
+transactions\services.py core/ReplaceComparisonOperator_GtE_IsNot 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units is not BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 072aa5c91d7345fc88619c443cc57963
+transactions\services.py core/ReplaceComparisonOperator_GtE_IsNot 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total is not BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 3eebbc9acd014f669168713e3f082fff
+transactions\services.py core/ReplaceUnaryOperator_Delete_Not 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -43,7 +43,7 @@
+ 
+ def _int(value, field):
+     try:
+-        if isinstance(value, float) and not value.is_integer():
++        if isinstance(value, float) and  value.is_integer():
+             raise ValueError
+         return int(str(value))
+     except (TypeError, ValueError):
+============
+[job-id] 5c7ff8937b3f4bff953481ac8e9d95f2
+transactions\services.py core/AddNot 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if not units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] f284947ab8094b11918bc7fd6bcd8d74
+transactions\services.py core/ReplaceAndWithOr 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS or sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] b20f61f3b66c4961bb2e86d5a13d78d3
+transactions\services.py core/ReplaceAndWithOr 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total >= BULK_TOTAL or line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 327acde570ce47db9d7a4b35176fbdcb
+transactions\services.py core/ReplaceOrWithAnd 0
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS * 2 and sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] b530bea7eae24c99ba91415c0dc0234c
+transactions\services.py core/NumberReplacer 4
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -22,7 +22,7 @@
+ MAX_LINES = 200
+ MAX_QTY_PER_LINE = 100000
+ # Bulk discount: 5% off a large mixed basket, 2.5% off a very large one.
+-BULK_UNITS = 50
++BULK_UNITS = 51
+ BULK_TOTAL = Decimal('10000.00')
+ BULK_RATE = Decimal('0.05')
+ 
+============
+[job-id] b798dee7613045b78c19db9c89eb49ec
+transactions\services.py core/NumberReplacer 5
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -22,7 +22,7 @@
+ MAX_LINES = 200
+ MAX_QTY_PER_LINE = 100000
+ # Bulk discount: 5% off a large mixed basket, 2.5% off a very large one.
+-BULK_UNITS = 50
++BULK_UNITS = 49
+ BULK_TOTAL = Decimal('10000.00')
+ BULK_RATE = Decimal('0.05')
+ 
+============
+[job-id] f3bea171bfae4a98be6c38fe1a547f14
+transactions\services.py core/NumberReplacer 6
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 2:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] c4dbb2619e624b54aa2e9dccb799015a
+transactions\services.py core/NumberReplacer 7
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 0:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] b36b23727764465d818224503eaf318c
+transactions\services.py core/NumberReplacer 8
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS * 3 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] e8973779ff2c454683e5c5f89588a67c
+transactions\services.py core/NumberReplacer 9
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS * 1 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] ad2c4aaa9ffc4366aaf2a35362dba00e
+transactions\services.py core/NumberReplacer 10
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 6:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] 186c7e01c45440d397925e1af251ba36
+transactions\services.py core/NumberReplacer 11
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -54,7 +54,7 @@
+     """Discount for large baskets."""
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+-    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
++    if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 4:
+         return _money(sub_total * BULK_RATE / 2)
+     return Decimal('0.00')
+ 
+============
+[job-id] 1b01b9260ad544dca60b780eafe85e08
+transactions\services.py core/NumberReplacer 12
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total * BULK_RATE / 3)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 8b8c1f75f53c4c30b5bbae08e84dbd0f
+transactions\services.py core/NumberReplacer 13
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -55,7 +55,7 @@
+     if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+-        return _money(sub_total * BULK_RATE / 2)
++        return _money(sub_total * BULK_RATE / 1)
+     return Decimal('0.00')
+ 
+ 
+============
+[job-id] 36a30b2ad07a4c3c8c9aa3feaa470fca
+transactions\services.py core/NumberReplacer 38
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -196,7 +196,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points < 1 and customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] 6f2c011dd0914d7f97c979a7172f0022
+transactions\services.py sqe/break-stock-rule 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -43,7 +43,7 @@
+ 
+ def _int(value, field):
+     try:
+-        if isinstance(value, float) and not value.is_integer():
++        if isinstance(value, float):
+             raise ValueError
+         return int(str(value))
+     except (TypeError, ValueError):
+============
+[job-id] 1ef361415b914c09848b6b6397fc3b80
+transactions\services.py sqe/break-stock-rule 2
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if sub_total >= BULK_TOTAL and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 07c4588b8b3642cbab4acfe3d39a6fbc
+transactions\services.py sqe/break-stock-rule 3
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and line_count > 1:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 853f0da7739f4e5da450f5d466a45ae7
+transactions\services.py sqe/break-stock-rule 4
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -52,7 +52,7 @@
+ 
+ def bulk_discount(line_count, units, sub_total):
+     """Discount for large baskets."""
+-    if units >= BULK_UNITS and sub_total >= BULK_TOTAL and line_count > 1:
++    if units >= BULK_UNITS and sub_total >= BULK_TOTAL:
+         return _money(sub_total * BULK_RATE)
+     if units >= BULK_UNITS * 2 or sub_total >= BULK_TOTAL * 5:
+         return _money(sub_total * BULK_RATE / 2)
+============
+[job-id] 91eeecfdba8747e498b5b26dc93f3022
+transactions\services.py sqe/break-stock-rule 9
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -196,7 +196,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+total jobs: 426
+complete: 426 (100.00%)
+surviving mutants: 96 (22.54%)

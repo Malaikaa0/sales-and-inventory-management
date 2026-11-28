@@ -1,13 +1,25 @@
 name: CI
 
+# Quality gate. See docs/ci.md.
+# No job depends on another: a required check that is skipped counts as passed on GitHub.
+
 on:
   push:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+  schedule:
+    - cron: '30 1 * * 1'  # Mondays, full mutation run
+  workflow_dispatch:
 
 permissions:
   contents: read
+
+env:
+  PYTHON_VERSION: '3.12'
+  DEBUG: 'True'
+  MUTATION_MIN_KILL_PR: '95'    # lowest measured per-file rate, rounded down
+  MUTATION_MIN_KILL_FULL: '97'  # measured overall rate, rounded down
 
 jobs:
   lint:
@@ -17,29 +29,150 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
         with:
-          python-version: '3.12'
+          python-version: ${{ env.PYTHON_VERSION }}
       - run: pip install flake8
       # Settings live in .flake8
       - run: flake8 . --count --show-source --statistics
 
   test:
-    name: Tests
+    name: Tests and coverage
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     env:
-      SECRET_KEY: ci-only-not-secret
-      DEBUG: 'False'
+      API_BASE_URL: http://127.0.0.1:8000
+      LOGIN_MAX_ATTEMPTS: '1000'
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
         with:
-          python-version: '3.12'
+          python-version: ${{ env.PYTHON_VERSION }}
           cache: 'pip'
 
-      # System libraries WeasyPrint needs, so the PDF tests run too.
+      # System libraries WeasyPrint needs to render PDFs.
       - name: Install PDF libraries
         run: sudo apt-get update && sudo apt-get install -y libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz-subset0
 
-      - run: pip install -r requirements.txt
+      - run: pip install -r requirements.txt -r requirements-dev.txt
+      # Present once the API tests are merged.
+      - name: Install API test tools
+        if: hashFiles('tools/generator/requirements.txt') != ''
+        run: pip install -r tools/generator/requirements.txt
+      # Browser and system libraries for the end to end tests.
+      - name: Install Chromium for Playwright
+        run: playwright install --with-deps chromium
+
       - run: python manage.py check
       - run: python manage.py makemigrations --check --dry-run
-      - run: python manage.py test
+
+      # The API tests talk to this running application over HTTP. The end to end
+      # and recovery tests start their own servers on temporary databases.
+      - name: Seed a fresh database and start the application
+        shell: bash
+        run: |
+          python manage.py migrate
+          python manage.py seed_demo
+          python manage.py runserver 127.0.0.1:8000 --noreload > server.log 2>&1 &
+          for attempt in $(seq 1 60); do
+            curl --silent --fail --output /dev/null "$API_BASE_URL/accounts/login/" && exit 0
+            sleep 1
+          done
+          cat server.log
+          exit 1
+
+      # GitHub sets CI=true, which makes tests/team/conftest.py fail on any skipped test.
+      - name: Run the team tests with branch coverage
+        run: coverage run -m pytest tests/team -q
+
+      - name: Check in-scope coverage
+        run: |
+          coverage report
+          coverage json -o coverage.json
+          python tools/ci/check_coverage.py coverage.json --statements 100 --branches 99
+
+      - name: Upload coverage and server log
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: |
+            coverage.json
+            server.log
+
+  sonar:
+    name: SonarQube quality gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      sonarqube:
+        image: sonarqube:community
+        env:
+          SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: 'true'
+        ports:
+          - 9000:9000
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      - run: pip install -r requirements.txt -r requirements-dev.txt
+
+      # Coverage for SonarQube. Test failures are reported by the Tests job, and also stop this one.
+      - name: Measure unit test coverage
+        run: |
+          coverage run -m pytest tests/team/unit -q
+          coverage xml
+
+      # Creates the password, token, project and gate through the API. The token stays in memory.
+      - name: Analyse and check the quality gate
+        run: python tools/ci/sonar_gate.py
+
+      - name: Upload SonarQube results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: sonar-results
+          path: reports/ci-sonar/
+
+  mutation:
+    name: Mutation testing
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0  # needed to compare with the base branch
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      - run: pip install -r requirements.txt -r requirements-dev.txt ./tools/mutation
+
+      - name: Mutate the files changed by the pull request
+        if: github.event_name == 'pull_request'
+        shell: bash
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          changed=$(git diff --name-only --diff-filter=d "origin/$BASE_REF...HEAD" -- \
+            transactions/services.py transactions/loyalty.py store/models.py accounts/permissions.py)
+          if [ -z "$changed" ]; then
+            echo "This pull request changes none of the mutated files. No mutants to run."
+            exit 0
+          fi
+          echo "Mutating:" $changed
+          MODULES="$(echo $changed)" MIN_KILL="$MUTATION_MIN_KILL_PR" \
+            bash tools/mutation/run.sh pr "$RUNNER_TEMP/mutation"
+
+      - name: Full mutation session
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: MIN_KILL="$MUTATION_MIN_KILL_FULL" bash tools/mutation/run.sh full "$RUNNER_TEMP/mutation"
+
+      - name: Upload raw mutation results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: mutation-results
+          path: reports/mutation/
+          if-no-files-found: ignore
