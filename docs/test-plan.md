@@ -15,21 +15,21 @@ coverage report                              # in scope
 coverage report --omit="*/migrations/*"      # whole project
 ```
 
-Measured on 2026-11-28 with 147 tests passing:
+Measured on 2026-11-28 with 162 tests passing:
 
 | | In scope | Whole project |
 | --- | --- | --- |
-| Statements | 929 of 929 (100%) | 1554 of 2080 (74.7%) |
-| Branches | 117 of 118 (99.2%) | 138 of 304 (45.4%) |
-| Combined, as `coverage.py` reports it | 99.9% | 71.0% |
+| Statements | 1031 of 1031 (100%) | 1566 of 2080 (75.3%) |
+| Branches | 120 of 120 (100%) | 140 of 304 (46.1%) |
+| Combined, as `coverage.py` reports it | 100% | 71.6% |
 
 Whole project means `accounts`, `bills`, `invoice`, `store`, `transactions` and `InventoryMS`, without migrations and upstream tests. It includes files that no test imports.
 
 ### Uncovered code in scope
 
-| File and branch | Justification |
-| --- | --- |
-| `transactions/forms.py` 14->exit | `BootstrapMixin` skips item setup only for a form without an `item` field, and its only subclass, `PurchaseForm`, has one. |
+None. The last uncovered branch, `transactions/forms.py` 14->exit (a form with no `item` field), is covered by `test_bootstrap_mixin_without_item_field`.
+
+Static analysis results are in [sonar-triage.md](sonar-triage.md).
 
 ## Candidate defects
 
