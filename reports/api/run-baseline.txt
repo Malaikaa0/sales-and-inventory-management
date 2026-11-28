@@ -4,21 +4,22 @@ django: version: 5.2.19, settings: InventoryMS.settings (from ini)
 rootdir: /home/mbappe/SQE_Project
 configfile: pytest.ini
 plugins: django-4.14.0
-collected 130 items
+collected 143 items
 
 tests/team/api/test_access_api.py .                                      [  0%]
-tests/team/api/test_flow.py .                                            [  1%]
-tests/team/api/test_purchase.py .F.                                      [  3%]
-tests/team/api/test_repeats.py F                                         [  4%]
-tests/team/api/test_sale_generated.py .............F.................... [ 30%]
-..................F.......................F................F..           [ 78%]
-tests/team/api/test_sale_rules.py .........                              [ 85%]
+tests/team/api/test_api_coverage.py .............                        [  9%]
+tests/team/api/test_flow.py .                                            [ 10%]
+tests/team/api/test_purchase.py .F.                                      [ 12%]
+tests/team/api/test_repeats.py F                                         [ 13%]
+tests/team/api/test_sale_generated.py .............F.................... [ 37%]
+..................F.......................F................F..           [ 80%]
+tests/team/api/test_sale_rules.py .........                              [ 86%]
 tests/team/api/test_void.py ...................                          [100%]
 
 =================================== FAILURES ===================================
 ____________________ test_purchase_above_int32_rejected_N2 _____________________
 
-manager = <requests.sessions.Session object at 0x721a597c6d50>
+manager = <requests.sessions.Session object at 0x788c455b20d0>
 
     def test_purchase_above_int32_rejected_N2(manager):
         item = create_item(manager, quantity=46)
@@ -34,10 +35,10 @@ E        +  where 302 = <Response [302]>.status_code
 tests/team/api/test_purchase.py:35: AssertionError
 _________________ test_same_sale_posted_twice_records_one_sale _________________
 
-manager = <requests.sessions.Session object at 0x721a597c6d50>
-cashier = <requests.sessions.Session object at 0x721a59773950>
-item = {'name': 'api-item-a82c3-8', 'slug': 'api-item-a82c3-8', 'price': '1.00', 'id': 27}
-customer = {'id': 11, 'name': 'apicust-a82c3-9'}
+manager = <requests.sessions.Session object at 0x788c455b20d0>
+cashier = <requests.sessions.Session object at 0x788c4555f950>
+item = {'name': 'api-item-a891c-27', 'slug': 'api-item-a891c-27', 'price': '1.00', 'id': 38}
+customer = {'id': 19, 'name': 'apicust-a891c-28'}
 
     def test_same_sale_posted_twice_records_one_sale(manager, cashier, item, customer):
         body = sale_body(item, customer, 2)
@@ -51,18 +52,18 @@ customer = {'id': 11, 'name': 'apicust-a82c3-9'}
         if second.status_code == 200:
             sale_ids.add(second.json()['sale_id'])
 >       assert len(sale_ids) == 1, f'duplicate sale recorded: {sorted(sale_ids)}'
-E       AssertionError: duplicate sale recorded: [117, 118]
+E       AssertionError: duplicate sale recorded: [122, 123]
 E       assert 2 == 1
-E        +  where 2 = len({117, 118})
+E        +  where 2 = len({122, 123})
 
 tests/team/api/test_repeats.py:20: AssertionError
 _____ test_generated_sale_case[SALE-amount_paid-EP-wrong-type-bool-false] ______
 
 case = {'body': {'amount_paid': False, 'customer': '<customer_id>', 'items': [{'id': '<item_id>', 'quantity': 1}], 'redeem_po...ransactions/new-sale/', 'expected_message': 'Amount paid must be a number.', 'expected_outcome': 'rejected:field', ...}
-cashier = <requests.sessions.Session object at 0x721a59773950>
-manager = <requests.sessions.Session object at 0x721a597c6d50>
-item = {'name': 'api-item-a82c3-36', 'slug': 'api-item-a82c3-36', 'price': '1.00', 'id': 41}
-customer = {'id': 25, 'name': 'apicust-a82c3-37'}
+cashier = <requests.sessions.Session object at 0x788c4555f950>
+manager = <requests.sessions.Session object at 0x788c455b20d0>
+item = {'name': 'api-item-a891c-55', 'slug': 'api-item-a891c-55', 'price': '1.00', 'id': 52}
+customer = {'id': 33, 'name': 'apicust-a891c-56'}
 
     @pytest.mark.parametrize('case', SALE_CASES, ids=[c['id'] for c in SALE_CASES])
     def test_generated_sale_case(case, cashier, manager, item, customer):
@@ -94,10 +95,10 @@ tests/team/api/test_sale_generated.py:47: AssertionError
 __________ test_generated_sale_case[SALE-items[].quantity-BVA-max+d] ___________
 
 case = {'body': {'amount_paid': 1000000, 'customer': '<customer_id>', 'items': [{'id': '<item_id>', 'quantity': 100001}], 're...}, 'endpoint': 'POST /transactions/new-sale/', 'expected_message': '100000', 'expected_outcome': 'rejected:field', ...}
-cashier = <requests.sessions.Session object at 0x721a59773950>
-manager = <requests.sessions.Session object at 0x721a597c6d50>
-item = {'name': 'api-item-a82c3-114', 'slug': 'api-item-a82c3-114', 'price': '1.00', 'id': 80}
-customer = {'id': 64, 'name': 'apicust-a82c3-115'}
+cashier = <requests.sessions.Session object at 0x788c4555f950>
+manager = <requests.sessions.Session object at 0x788c455b20d0>
+item = {'name': 'api-item-a891c-133', 'slug': 'api-item-a891c-133', 'price': '1.00', 'id': 91}
+customer = {'id': 72, 'name': 'apicust-a891c-134'}
 
     @pytest.mark.parametrize('case', SALE_CASES, ids=[c['id'] for c in SALE_CASES])
     def test_generated_sale_case(case, cashier, manager, item, customer):
@@ -129,10 +130,10 @@ tests/team/api/test_sale_generated.py:47: AssertionError
 ____ test_generated_sale_case[SALE-redeem_points-EP-wrong-type-bool-false] _____
 
 case = {'body': {'amount_paid': 1000000, 'customer': '<customer_id>', 'items': [{'id': '<item_id>', 'quantity': 1}], 'redeem_.../new-sale/', 'expected_message': 'Points to redeem must be a whole number.', 'expected_outcome': 'rejected:field', ...}
-cashier = <requests.sessions.Session object at 0x721a59773950>
-manager = <requests.sessions.Session object at 0x721a597c6d50>
-item = {'name': 'api-item-a82c3-162', 'slug': 'api-item-a82c3-162', 'price': '1.00', 'id': 104}
-customer = {'id': 88, 'name': 'apicust-a82c3-163'}
+cashier = <requests.sessions.Session object at 0x788c4555f950>
+manager = <requests.sessions.Session object at 0x788c455b20d0>
+item = {'name': 'api-item-a891c-181', 'slug': 'api-item-a891c-181', 'price': '1.00', 'id': 115}
+customer = {'id': 96, 'name': 'apicust-a891c-182'}
 
     @pytest.mark.parametrize('case', SALE_CASES, ids=[c['id'] for c in SALE_CASES])
     def test_generated_sale_case(case, cashier, manager, item, customer):
@@ -146,7 +147,7 @@ customer = {'id': 88, 'name': 'apicust-a82c3-163'}
             f'{case["id"]}: expected {case["expected_status"]}, got {response.status_code}: '
             f'{response.text[:300]}'
         )
-E       AssertionError: SALE-redeem_points-EP-wrong-type-bool-false: expected 400, got 200: {"status": "success", "message": "Sale IMS000144 completed.", "sale_id": 144, "receipt_number": "IMS000144", "grand_total": "1.00", "change": "999999.00", "points_earned": 0, "redirect": "/transactions/sale/144/", "receipt_url": "/transactions/sale/144/receipt.pdf"}
+E       AssertionError: SALE-redeem_points-EP-wrong-type-bool-false: expected 400, got 200: {"status": "success", "message": "Sale IMS000149 completed.", "sale_id": 149, "receipt_number": "IMS000149", "grand_total": "1.00", "change": "999999.00", "points_earned": 0, "redirect": "/transactions/sale/149/", "receipt_url": "/transactions/sale/149/receipt.pdf"}
 E       assert 200 == 400
 E        +  where 200 = <Response [200]>.status_code
 
@@ -154,10 +155,10 @@ tests/team/api/test_sale_generated.py:33: AssertionError
 ____ test_generated_sale_case[SALE-tax_percentage-EP-wrong-type-bool-false] ____
 
 case = {'body': {'amount_paid': 1000000, 'customer': '<customer_id>', 'items': [{'id': '<item_id>', 'quantity': 1}], 'redeem_...'POST /transactions/new-sale/', 'expected_message': 'Tax must be a number.', 'expected_outcome': 'rejected:field', ...}
-cashier = <requests.sessions.Session object at 0x721a59773950>
-manager = <requests.sessions.Session object at 0x721a597c6d50>
-item = {'name': 'api-item-a82c3-196', 'slug': 'api-item-a82c3-196', 'price': '1.00', 'id': 121}
-customer = {'id': 105, 'name': 'apicust-a82c3-197'}
+cashier = <requests.sessions.Session object at 0x788c4555f950>
+manager = <requests.sessions.Session object at 0x788c455b20d0>
+item = {'name': 'api-item-a891c-215', 'slug': 'api-item-a891c-215', 'price': '1.00', 'id': 132}
+customer = {'id': 113, 'name': 'apicust-a891c-216'}
 
     @pytest.mark.parametrize('case', SALE_CASES, ids=[c['id'] for c in SALE_CASES])
     def test_generated_sale_case(case, cashier, manager, item, customer):
@@ -171,7 +172,7 @@ customer = {'id': 105, 'name': 'apicust-a82c3-197'}
             f'{case["id"]}: expected {case["expected_status"]}, got {response.status_code}: '
             f'{response.text[:300]}'
         )
-E       AssertionError: SALE-tax_percentage-EP-wrong-type-bool-false: expected 400, got 200: {"status": "success", "message": "Sale IMS000156 completed.", "sale_id": 156, "receipt_number": "IMS000156", "grand_total": "1.00", "change": "999999.00", "points_earned": 0, "redirect": "/transactions/sale/156/", "receipt_url": "/transactions/sale/156/receipt.pdf"}
+E       AssertionError: SALE-tax_percentage-EP-wrong-type-bool-false: expected 400, got 200: {"status": "success", "message": "Sale IMS000161 completed.", "sale_id": 161, "receipt_number": "IMS000161", "grand_total": "1.00", "change": "999999.00", "points_earned": 0, "redirect": "/transactions/sale/161/", "receipt_url": "/transactions/sale/161/receipt.pdf"}
 E       assert 200 == 400
 E        +  where 200 = <Response [200]>.status_code
 
@@ -184,4 +185,4 @@ FAILED tests/team/api/test_sale_generated.py::test_generated_sale_case[SALE-amou
 FAILED tests/team/api/test_sale_generated.py::test_generated_sale_case[SALE-items[].quantity-BVA-max+d]
 FAILED tests/team/api/test_sale_generated.py::test_generated_sale_case[SALE-redeem_points-EP-wrong-type-bool-false]
 FAILED tests/team/api/test_sale_generated.py::test_generated_sale_case[SALE-tax_percentage-EP-wrong-type-bool-false]
-=================== 6 failed, 124 passed in 83.79s (0:01:23) ===================
+=================== 6 failed, 137 passed in 92.46s (0:01:32) ===================
