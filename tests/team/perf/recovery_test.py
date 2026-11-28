@@ -172,7 +172,6 @@ def main():
         time.sleep(2.5)
 
         # Simulate sudden server crash mid-load
-        crash_time = time.time()
         proc.kill()
         proc.wait(timeout=5)
         stop_flag.set()

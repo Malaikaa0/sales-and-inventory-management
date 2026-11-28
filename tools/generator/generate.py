@@ -135,7 +135,7 @@ class Builder:
 
     def total_for(self, body):
         price = Decimal(CONTEXT['item_price'])
-        qty = sum(int(l['quantity']) for l in body['items'])
+        qty = sum(int(line['quantity']) for line in body['items'])
         tax = Decimal(str(body.get('tax_percentage') or 0))
         sub = price * qty
         return (sub + (sub * tax / 100).quantize(Decimal('0.01'))).quantize(Decimal('0.01'))
@@ -216,7 +216,9 @@ class Builder:
     def build_sale(self):
         for name in ('customer', 'tax_percentage', 'amount_paid', 'redeem_points'):
             schema = self.req['properties'][name]
-            emit = lambda t, p, v, n=name: self.top_field(n, t, p, v)
+
+            def emit(t, p, v, n=name):
+                self.top_field(n, t, p, v)
             self.scalar_bva(schema, emit)
             if name == 'customer':
                 emit('EP', 'valid', '<customer_id>')
@@ -231,7 +233,9 @@ class Builder:
 
         for name in ('id', 'quantity'):
             schema = self.line['properties'][name]
-            emit = lambda t, p, v, n=name: self.line_field(n, t, p, v)
+
+            def emit(t, p, v, n=name):
+                self.line_field(n, t, p, v)
             self.scalar_bva(schema, emit)
             if name == 'id':
                 emit('EP', 'valid', '<item_id>')

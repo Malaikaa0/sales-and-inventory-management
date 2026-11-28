@@ -146,7 +146,7 @@ Our tests go in `tests/team/`. Upstream tests earn no marks.
 | `baseline-v0` tag and `upstream` remote | Done |
 | Folder structure and `pytest.ini` | Done |
 | Setup, seed and reset instructions | Done, checked on a fresh clone |
-| Unit tests | 222 pass |
+| Unit tests | 222 pass (`tests/team/unit`) |
 | In-scope coverage ([scope](scope.md#unit-coverage-scope)) | Statements 100%, branches 100% |
 | Whole-project coverage | 71.6% combined |
 | SonarQube | [sonar-triage.md](sonar-triage.md); screenshots not taken |
