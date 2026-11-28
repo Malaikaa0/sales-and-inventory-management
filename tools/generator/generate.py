@@ -9,7 +9,8 @@ Everything comes from the spec, including its x- extensions:
   minItems / maxItems                -> array lengths
   minLength / maxLength              -> string lengths
   required, nullable                 -> EP missing / null
-  x-defaults-when-missing            -> missing, null, "", false count as the default
+  x-defaults-when-missing            -> missing, null, "" take the default; booleans are rejected (A5)
+  x-error-message-min / -max         -> text the message must contain at each bound (requirement)
   x-accepts-numeric-strings          -> "3" accepted; on integers every float (2.0 too) rejected
   x-rejects-non-finite               -> "NaN" rejected
   x-must-cover-total                 -> extra BVA around the baseline grand total
@@ -63,7 +64,8 @@ def resolve(spec, node):
 
 
 def falsy(value):
-    return value is MISSING or value is None or value == '' or value is False or value == 0
+    """Missing, null and "" take the default; booleans do not (A5)."""
+    return value is MISSING or value is None or value == ''
 
 
 # ------------------------------------------------- the code's acceptance model
@@ -103,9 +105,9 @@ def check_scalar(schema, value):
             return False, None, type_msg
     range_msg = schema.get('x-error-message')
     if 'minimum' in schema and d < Decimal(str(schema['minimum'])):
-        return False, None, range_msg
+        return False, None, schema.get('x-error-message-min', range_msg)
     if 'maximum' in schema and d > Decimal(str(schema['maximum'])):
-        return False, None, range_msg
+        return False, None, schema.get('x-error-message-max', range_msg)
     return True, d, None
 
 
