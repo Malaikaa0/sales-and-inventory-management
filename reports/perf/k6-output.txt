@@ -1,0 +1,144 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: D:\Assignments\SQE_Project\sales-and-inventory-management\tests\team\perf\load_test.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 10 max VUs, 55s max duration (incl. graceful stop):
+              * default: Up to 10 looping VUs for 25s over 3 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+
+running (01.0s), 01/10 VUs, 2 complete and 0 interrupted iterations
+default   [   2% ] 01/10 VUs  00.6s/25.0s
+
+running (02.0s), 02/10 VUs, 6 complete and 0 interrupted iterations
+default   [   6% ] 02/10 VUs  01.6s/25.0s
+
+running (03.0s), 03/10 VUs, 15 complete and 0 interrupted iterations
+default   [  10% ] 03/10 VUs  02.6s/25.0s
+
+running (04.0s), 03/10 VUs, 26 complete and 0 interrupted iterations
+default   [  14% ] 03/10 VUs  03.6s/25.0s
+
+running (05.0s), 04/10 VUs, 39 complete and 0 interrupted iterations
+default   [  18% ] 04/10 VUs  04.6s/25.0s
+
+running (06.0s), 05/10 VUs, 50 complete and 0 interrupted iterations
+default   [  22% ] 05/10 VUs  05.6s/25.0s
+
+running (07.0s), 05/10 VUs, 61 complete and 0 interrupted iterations
+default   [  26% ] 05/10 VUs  06.6s/25.0s
+
+running (08.0s), 05/10 VUs, 67 complete and 0 interrupted iterations
+default   [  30% ] 05/10 VUs  07.6s/25.0s
+
+running (09.0s), 06/10 VUs, 67 complete and 0 interrupted iterations
+default   [  34% ] 06/10 VUs  08.6s/25.0s
+
+running (10.0s), 06/10 VUs, 69 complete and 0 interrupted iterations
+default   [  38% ] 06/10 VUs  09.6s/25.0s
+
+running (11.0s), 06/10 VUs, 69 complete and 0 interrupted iterations
+default   [  42% ] 06/10 VUs  10.6s/25.0s
+
+running (12.0s), 07/10 VUs, 71 complete and 0 interrupted iterations
+default   [  46% ] 07/10 VUs  11.6s/25.0s
+
+running (13.0s), 07/10 VUs, 71 complete and 0 interrupted iterations
+default   [  50% ] 07/10 VUs  12.6s/25.0s
+
+running (14.0s), 07/10 VUs, 71 complete and 0 interrupted iterations
+default   [  54% ] 07/10 VUs  13.6s/25.0s
+
+running (15.0s), 08/10 VUs, 78 complete and 0 interrupted iterations
+default   [  58% ] 08/10 VUs  14.6s/25.0s
+
+running (16.0s), 08/10 VUs, 97 complete and 0 interrupted iterations
+default   [  62% ] 08/10 VUs  15.6s/25.0s
+
+running (17.0s), 08/10 VUs, 114 complete and 0 interrupted iterations
+default   [  66% ] 08/10 VUs  16.6s/25.0s
+
+running (18.0s), 09/10 VUs, 125 complete and 0 interrupted iterations
+default   [  70% ] 09/10 VUs  17.6s/25.0s
+
+running (19.0s), 09/10 VUs, 145 complete and 0 interrupted iterations
+default   [  74% ] 09/10 VUs  18.6s/25.0s
+
+running (20.0s), 09/10 VUs, 157 complete and 0 interrupted iterations
+default   [  78% ] 09/10 VUs  19.6s/25.0s
+
+running (21.0s), 10/10 VUs, 177 complete and 0 interrupted iterations
+default   [  82% ] 10/10 VUs  20.6s/25.0s
+
+running (22.0s), 08/10 VUs, 198 complete and 0 interrupted iterations
+default   [  86% ] 08/10 VUs  21.6s/25.0s
+
+running (23.0s), 06/10 VUs, 222 complete and 0 interrupted iterations
+default   [  90% ] 06/10 VUs  22.6s/25.0s
+
+running (24.0s), 04/10 VUs, 240 complete and 0 interrupted iterations
+default   [  94% ] 04/10 VUs  23.6s/25.0s
+
+running (25.0s), 01/10 VUs, 250 complete and 0 interrupted iterations
+default   [  98% ] 01/10 VUs  24.6s/25.0s
+
+
+  █ THRESHOLDS 
+
+    errors
+    ✓ 'rate<0.02' rate=1.08%
+
+    http_req_duration
+    ✓ 'p(95)<1500' p(95)=228.6ms
+
+    http_req_failed
+    ✓ 'rate<0.02' rate=1.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 893    35.060677/s
+    checks_succeeded...: 97.98% 875 out of 893
+    checks_failed......: 2.01%  18 out of 893
+
+    ✓ dashboard 200
+    ✓ item search 200
+    ✓ customer search 200
+    ✗ sale POST 200
+      ↳  86% — ✓ 58 / ✗ 9
+    ✗ sale status success
+      ↳  86% — ✓ 58 / ✗ 9
+
+    CUSTOM
+    errors.........................: 1.08%  9 out of 826
+    sale_post_duration.............: avg=211.942755 min=12.9207  med=53.0355  max=2816.7759 p(90)=177.72244 p(95)=1157.5998
+
+    HTTP
+    http_req_duration..............: avg=107.35ms   min=2.51ms   med=32.85ms  max=5.48s     p(90)=171.28ms  p(95)=228.6ms  
+      { expected_response:true }...: avg=107.81ms   min=2.51ms   med=32.6ms   max=5.48s     p(90)=171.23ms  p(95)=229.6ms  
+    http_req_failed................: 1.00%  9 out of 898
+    http_reqs......................: 898    35.256985/s
+
+    EXECUTION
+    iteration_duration.............: avg=580.76ms   min=224.02ms med=379.73ms max=7.08s     p(90)=687.05ms  p(95)=1.16s    
+    iterations.....................: 253    9.933204/s
+    vus............................: 1      min=1        max=10
+    vus_max........................: 10     min=10       max=10
+
+    NETWORK
+    data_received..................: 4.8 MB 189 kB/s
+    data_sent......................: 174 kB 6.8 kB/s
+
+
+
+
+running (25.5s), 00/10 VUs, 253 complete and 0 interrupted iterations
+default ✓ [ 100% ] 00/10 VUs  25s
+

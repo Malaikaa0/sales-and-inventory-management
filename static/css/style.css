@@ -760,7 +760,7 @@ body { font-size: .9rem; line-height: 1.5; letter-spacing: -.006em; }
 .table-hover tbody tr:hover > * { background: #f0f7f2; }
 .table tbody td a:not(.btn) { color: #176b45; font-weight: 600; text-decoration-thickness: 1px; text-underline-offset: 2px; }
 .table tbody td a:not(.btn):hover { color: #104d31; }
-.table .text-muted, .table small.text-muted { color: #77867d !important; }
+.table .text-muted, .table small.text-muted { color: #59665e !important; }
 .table .status { font-size: .76rem; }
 .table-card .card-header { position: relative; color: #26392e; }
 .table-card .table-responsive { margin: 0; }

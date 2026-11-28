@@ -98,7 +98,7 @@ def test_sale_oversell_rejected_and_stock_unchanged(client, cashier, item, custo
 ])
 def test_sale_bad_requests(client, cashier, body, ctype, text):
     client.force_login(cashier)
-    r = client.post(reverse("sale-create"), data=body, content_type=ctype)
+    r = client.post(reverse("sale-create"), data=body, content_type=ctype, CONTENT_TYPE=ctype)  # client drops content type on empty body
     assert r.status_code == 400 and text in r.json()["message"]
 
 @pytest.mark.django_db
@@ -259,3 +259,4 @@ def test_exports_for_manager(client, manager, item, customer, vendor):
     for name in ("sales-export", "purchases-export"):
         r = client.get(reverse(name))
         assert r.status_code == 200 and "spreadsheetml" in r["Content-Type"]
+

@@ -11,7 +11,7 @@ SE3002 Software Quality Engineering final project. Test plan lead: Member 2 (Reh
 | Sale | `POST /transactions/new-sale/` | Operative (cashier) or higher | FR1–FR5, BR1, BR2, BR4 |
 | Void sale | `POST /transactions/sale/{pk}/void/` | Executive (manager) or higher | FR6–FR8, BR3, BR4 |
 
-Requirement and rule IDs come from the draft scope in [member-2.md](member-2.md) §7 until `docs/scope.md` is written by Member 1. Agreed assumptions:
+Requirement and rule IDs come from the draft scope in [member-2.md](member-2.md) §7 until [scope.md](scope.md) (draft by Member 1) is agreed. Agreed assumptions:
 
 - **A1:** a purchase quantity is at most 100000.
 - **A3:** a repeated identical sale request records one sale.
@@ -55,7 +55,7 @@ Everyone writes and automates two use cases, logs defects in the agreed format, 
 - Tools:
   - pytest 9.2.0, pytest-django 4.14.0 and coverage 7.17.5.
   - `requests`, PyYAML and openapi-spec-validator, pinned in `tools/generator/requirements.txt`.
-  - Playwright, k6, OWASP ZAP and SonarQube for the other areas.
+  - Playwright, Lighthouse, axe-core, k6, pip-audit, OWASP ZAP and SonarQube for the other areas.
 - PostgreSQL is not used in tests. Production behaviour on PostgreSQL is reasoned from the code, as in N2.
 
 ## 5. Test data
@@ -70,8 +70,8 @@ Everyone writes and automates two use cases, logs defects in the agreed format, 
 | Date | Work |
 | --- | --- |
 | Fri 27 Nov | Baseline, folder structure, setup guide, unit tests for services, models and permissions (M1); defects N1–N3 first seen |
-| Sat 28 Nov | OpenAPI spec, generator, API tests, baseline run, N1–N5, regeneration demo, API coverage, this plan (M2). Scope document and risk register (M1, M3) |
-| Sun 29 Nov | Traceability matrix, RCA for N2 and N4, Pareto chart, E2E and security runs, exit decision, final package |
+| Sat 28 Nov | OpenAPI spec, generator, API tests, baseline run, N1–N5, regeneration demo, API coverage, this plan (M2). Scope document, risk register, E2E, accessibility, security, and performance runs (M1, M3) |
+| Sun 29 Nov | Traceability matrix, RCA for N2 and N4, Pareto chart, exit decision, final package |
 
 ## 7. Criteria
 
@@ -81,7 +81,7 @@ Everyone writes and automates two use cases, logs defects in the agreed format, 
 - The workflows and requirement IDs are agreed.
 
 **Exit**
-- Owned by Member 3; see the exit criteria in the [risk register](risk-register.md) and the test completion report.
+- Owned by Member 3; see the exit criteria in the [risk register](risk-register.md) and the [test completion report](test-completion-report.md).
 - This plan expects at least these:
   - All planned API tests are run.
   - Every High risk has at least one passing or defect-linked test.
@@ -104,14 +104,14 @@ Everyone writes and automates two use cases, logs defects in the agreed format, 
 | --- | --- |
 | Short timeline (deadline Sun 29 Nov) | Risk-based depth, generated test data, and a daily check of these estimates |
 | Environment differences between members (Windows and Linux, Python versions) | Pinned tool versions, setup steps checked on a fresh clone, server URL set by environment variable |
-| `scope.md` not yet written | Use the draft IDs; rename in the traceability matrix when scope is agreed |
+| `scope.md` not yet agreed | Use the draft IDs; map in the traceability matrix when scope is agreed |
 | Tests passing because expectations copy the code | Expectations come from the requirements, and every difference is recorded as an assumption or defect |
 
 Product risks are in the [risk register](risk-register.md) (Member 3).
 
 ## 9. Three-point estimates (Member 2)
 
-Hours. E = (O + 4M + P) / 6. Actual is filled in on Sunday.
+Hours. E = (O + 4M + P) / 6. Actual is filled in on Sunday. (Member 3 estimates and actuals are in [weekly-progress.md](weekly-progress.md).)
 
 | Task | O | M | P | E | Actual |
 | --- | --- | --- | --- | --- | --- |
@@ -126,3 +126,43 @@ Hours. E = (O + 4M + P) / 6. Actual is filled in on Sunday.
 | Traceability matrix | 1 | 2 | 4 | 2.17 | |
 | Two use cases + Playwright automation | 3 | 5 | 9 | 5.33 | |
 | **Total** | **16** | **30.5** | **54.5** | **32.08** | |
+
+## 10. Unit coverage (Member 1)
+
+Settings are in [.coveragerc](../.coveragerc). The reason for the scope is in [scope.md](scope.md#unit-coverage-scope).
+
+```powershell
+$env:DEBUG="True"
+coverage run -m pytest tests/team/unit -q
+coverage report                              # in scope
+coverage report --omit="*/migrations/*"      # whole project
+```
+
+Measured on 2026-11-28 with 162 tests passing:
+
+| | In scope | Whole project |
+| --- | --- | --- |
+| Statements | 1031 of 1031 (100%) | 1566 of 2080 (75.3%) |
+| Branches | 120 of 120 (100%) | 140 of 304 (46.1%) |
+| Combined, as `coverage.py` reports it | 100% | 71.6% |
+
+Whole project means `accounts`, `bills`, `invoice`, `store`, `transactions` and `InventoryMS`, without migrations and upstream tests. It includes files that no test imports.
+
+### Uncovered code in scope
+
+None. The last uncovered branch, `transactions/forms.py` 14->exit (a form with no `item` field), is covered by `test_bootstrap_mixin_without_item_field`.
+
+Static analysis results are in [sonar-triage.md](sonar-triage.md).
+
+## 11. Candidate defects (Member 1)
+
+Found by reading the code and confirmed by running it. No test failed. See also `N1`–`N6` in [docs/defects](defects) and `DEF-01`–`DEF-07` in [defects.md](defects.md).
+
+| ID | Input | Expected | Actual |
+| --- | --- | --- | --- |
+| D1 | A cart line with quantity 100001 | A message that states the maximum of 100,000 | "Quantities must be at least 1." |
+| D2 | Two lines for the same item, 100000 each, stock 300000 | Rejected, if the limit applies per item | Accepted: 200000 units sold |
+| D3 | Sales list search `0712345678`, the phone of a customer with one sale (also `345`) | That customer's sale | No sales. A search of only digits is treated as a receipt number |
+| D4 | A cart line with quantity `2.0` | Accepted as 2, since the code allows whole floats | Rejected: "Quantity must be a whole number." |
+
+D4 is currently asserted as present behaviour by `test_whole_number_float_is_rejected_current_behaviour`. If it is accepted as a defect and fixed, that test must change.

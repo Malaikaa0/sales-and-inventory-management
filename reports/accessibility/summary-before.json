@@ -1,0 +1,333 @@
+{
+  "phase": "before",
+  "axe": {
+    "login": {
+      "url": "/accounts/login/",
+      "violations_count": 2,
+      "passes_count": 26,
+      "incomplete_count": 1,
+      "violations": [
+        {
+          "id": "landmark-one-main",
+          "impact": "moderate",
+          "description": "Ensure the document has a main landmark",
+          "help": "Document should have one main landmark",
+          "nodes": [
+            {
+              "target": [
+                "html"
+              ],
+              "html": "<html lang=\"en\">",
+              "failureSummary": "Fix all of the following:\n  Document does not have a main landmark"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "description": "Ensure all page content is contained by landmarks",
+          "help": "All page content should be contained by landmarks",
+          "nodes": [
+            {
+              "target": [
+                ".auth-brandline"
+              ],
+              "html": "<div class=\"auth-brandline\">\n      <div class=\"brand\"><span class=\"brand-mark\"><i class=\"fa-solid fa-boxes-stacked\"></i></span><span>InventoryMS</span></div>\n      <span class=\"auth-brand-caption\">STAFF PORTAL</span>\n    </div>",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            },
+            {
+              "target": [
+                ".auth-intro"
+              ],
+              "html": "<div class=\"auth-intro\">\n          <span class=\"auth-intro-icon\"><i class=\"fa-solid fa-arrow-right-to-bracket\"></i></span>\n          <div class=\"auth-overline\">Welcome back</div>\n          <h1>Sign in</h1>\n          <p>Use your staff account to continue.</p>\n        </div>",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            },
+            {
+              "target": [
+                ".mb-3"
+              ],
+              "html": "<div class=\"mb-3 auth-field\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            },
+            {
+              "target": [
+                "label[for=\"id_password\"]"
+              ],
+              "html": "<label class=\"form-label\" for=\"id_password\">Password</label>",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            },
+            {
+              "target": [
+                "#id_password"
+              ],
+              "html": "<input class=\"form-control\" id=\"id_password\" name=\"password\" type=\"password\" autocomplete=\"current-password\" required=\"\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            },
+            {
+              "target": [
+                ".auth-registration"
+              ],
+              "html": "<div class=\"auth-registration\"><span>New staff member?</span><a href=\"/accounts/register/\">Request an account <i class=\"fa-solid fa-arrow-right\" aria-hidden=\"true\"></i></a></div>",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            },
+            {
+              "target": [
+                ".auth-footer"
+              ],
+              "html": "<p class=\"auth-footer\"><i class=\"fa-solid fa-shield-halved\"></i> Secure access for authorized staff</p>",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ]
+    },
+    "dashboard": {
+      "url": "/",
+      "violations_count": 1,
+      "passes_count": 28,
+      "incomplete_count": 1,
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": [
+            {
+              "target": [
+                ".col-lg-6:nth-child(1) > .table-card.h-100.card > table > tbody > tr:nth-child(1) > td:nth-child(1) > .small.text-muted"
+              ],
+              "html": "<div class=\"small text-muted\">Electronics</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 8.8pt (11.76px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".col-lg-6:nth-child(1) > .table-card.h-100.card > table > tbody > tr:nth-child(2) > td:nth-child(1) > .small.text-muted"
+              ],
+              "html": "<div class=\"small text-muted\">Electronics</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 8.8pt (11.76px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".col-lg-6:nth-child(1) > .table-card.h-100.card > table > tbody > tr:nth-child(3) > td:nth-child(1) > .small.text-muted"
+              ],
+              "html": "<div class=\"small text-muted\">Stationery</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 8.8pt (11.76px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".col-lg-6:nth-child(1) > .table-card.h-100.card > table > tbody > tr:nth-child(4) > td:nth-child(1) > .small.text-muted"
+              ],
+              "html": "<div class=\"small text-muted\">Household</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 8.8pt (11.76px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".col-lg-6:nth-child(1) > .table-card.h-100.card > table > tbody > tr:nth-child(5) > td:nth-child(1) > .small.text-muted"
+              ],
+              "html": "<div class=\"small text-muted\">Groceries</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 8.8pt (11.76px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".col-lg-6:nth-child(1) > .table-card.h-100.card > table > tbody > tr:nth-child(6) > td:nth-child(1) > .small.text-muted"
+              ],
+              "html": "<div class=\"small text-muted\">Electronics</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 8.8pt (11.76px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(7) > td:nth-child(1) > .small.text-muted"
+              ],
+              "html": "<div class=\"small text-muted\">Beverages</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 8.8pt (11.76px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(8) > td:nth-child(1) > .small.text-muted"
+              ],
+              "html": "<div class=\"small text-muted\">Beverages</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 8.8pt (11.76px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".col-lg-6:nth-child(2) > .table-card.h-100.card > table > tbody > tr:nth-child(1) > td:nth-child(1) > .small.text-muted"
+              ],
+              "html": "<div class=\"small text-muted\">Peter Otieno</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 8.8pt (11.76px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(1) > .text-muted.small"
+              ],
+              "html": "<td class=\"text-muted small\">an hour ago</td>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 10.1pt (13.44px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".col-lg-6:nth-child(2) > .table-card.h-100.card > table > tbody > tr:nth-child(2) > td:nth-child(1) > .small.text-muted"
+              ],
+              "html": "<div class=\"small text-muted\">Amina Hassan</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 8.8pt (11.76px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > .text-muted.small"
+              ],
+              "html": "<td class=\"text-muted small\">3&nbsp;hours ago</td>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 10.1pt (13.44px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".col-lg-6:nth-child(2) > .table-card.h-100.card > table > tbody > tr:nth-child(3) > td:nth-child(1) > .small.text-muted"
+              ],
+              "html": "<div class=\"small text-muted\">Brian Kiptoo</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 8.8pt (11.76px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(3) > .text-muted.small"
+              ],
+              "html": "<td class=\"text-muted small\">1&nbsp;day, 2&nbsp;hours ago</td>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 10.1pt (13.44px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".col-lg-6:nth-child(2) > .table-card.h-100.card > table > tbody > tr:nth-child(4) > td:nth-child(1) > .small.text-muted"
+              ],
+              "html": "<div class=\"small text-muted\">Fatuma Ali</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 8.8pt (11.76px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > .text-muted.small"
+              ],
+              "html": "<td class=\"text-muted small\">2&nbsp;days, 5&nbsp;hours ago</td>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 10.1pt (13.44px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".col-lg-6:nth-child(2) > .table-card.h-100.card > table > tbody > tr:nth-child(5) > td:nth-child(1) > .small.text-muted"
+              ],
+              "html": "<div class=\"small text-muted\">Walk-in Customer</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 8.8pt (11.76px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(5) > .text-muted.small"
+              ],
+              "html": "<td class=\"text-muted small\">2&nbsp;days, 7&nbsp;hours ago</td>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 10.1pt (13.44px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".col-lg-6:nth-child(2) > .table-card.h-100.card > table > tbody > tr:nth-child(6) > td:nth-child(1) > .small.text-muted"
+              ],
+              "html": "<div class=\"small text-muted\">Amina Hassan</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 8.8pt (11.76px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(6) > .text-muted.small"
+              ],
+              "html": "<td class=\"text-muted small\">3&nbsp;days, 2&nbsp;hours ago</td>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.82 (foreground color: #77867d, background color: #ffffff, font size: 10.1pt (13.44px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        }
+      ]
+    },
+    "new-sale": {
+      "url": "/transactions/new-sale/",
+      "violations_count": 1,
+      "passes_count": 39,
+      "incomplete_count": 1,
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": [
+            {
+              "target": [
+                "#select2-item-search-container > .select2-selection__placeholder"
+              ],
+              "html": "<span class=\"select2-selection__placeholder\">Type a product name</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.16 (foreground color: #87948c, background color: #ffffff, font size: 10.8pt (14.4px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "#select2-customer-container > .select2-selection__placeholder"
+              ],
+              "html": "<span class=\"select2-selection__placeholder\">Search by name or phone</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.16 (foreground color: #87948c, background color: #ffffff, font size: 10.8pt (14.4px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".pos-secure-note"
+              ],
+              "html": "<div class=\"pos-secure-note\"><i class=\"fa-solid fa-shield-halved\"></i> Prices and totals are verified securely.</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.28 (foreground color: #849188, background color: #ffffff, font size: 8.3pt (11.04px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        }
+      ]
+    },
+    "sales-list": {
+      "url": "/transactions/sales/",
+      "violations_count": 1,
+      "passes_count": 38,
+      "incomplete_count": 1,
+      "violations": [
+        {
+          "id": "empty-table-header",
+          "impact": "minor",
+          "description": "Ensure table headers have discernible text",
+          "help": "Table header text should not be empty",
+          "nodes": [
+            {
+              "target": [
+                "th:nth-child(8)"
+              ],
+              "html": "<th></th>",
+              "failureSummary": "Fix any of the following:\n  Element does not have text that is visible to screen readers"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "lighthouse": {
+    "scores": {
+      "performance": {
+        "title": "Performance",
+        "score": 99
+      },
+      "accessibility": {
+        "title": "Accessibility",
+        "score": 95
+      },
+      "best-practices": {
+        "title": "Best Practices",
+        "score": 100
+      },
+      "seo": {
+        "title": "SEO",
+        "score": 90
+      }
+    },
+    "failing_accessibility_audits": [
+      {
+        "id": "color-contrast",
+        "title": "Background and foreground colors do not have a sufficient contrast ratio.",
+        "score": 0
+      },
+      {
+        "id": "td-has-header",
+        "title": "`<td>` elements in a large `<table>` do not have table headers.",
+        "score": 0
+      }
+    ]
+  }
+}

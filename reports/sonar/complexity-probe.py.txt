@@ -1,0 +1,22 @@
+def only_try_except(a):
+    try:
+        a()
+    except ValueError:
+        pass
+
+
+def only_comprehension_if(a):
+    return [x for x in a if x]
+
+
+def only_boolean_or(a, b):
+    return a or b
+
+
+def only_ternary(a):
+    return 1 if a else 0
+
+
+def only_with(a):
+    with a:
+        pass
