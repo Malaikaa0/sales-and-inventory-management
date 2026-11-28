@@ -23,5 +23,8 @@ Tool: Claude Code (Anthropic), model Claude Sonnet 5.5.
 | 2026-11-28 | Account model and form branch tests | `test_account_models.py` | 162 tests passed; in-scope coverage 100% | |
 | 2026-11-28 | SonarQube analysis and triage | `sonar-project.properties`, `reports/sonar/`, [sonar-triage.md](sonar-triage.md) | Values read from the saved JSON; flagged lines read in the source | |
 | 2026-11-28 | Control flow graphs and complexity | [cfg-complexity.md](cfg-complexity.md) | Script checked counts and path independence; Sonar counting tested with a probe; diagrams not rendered | |
+| 2026-11-28 | Removing personal fields | Author and email fields removed from `reports/sonar/`, including from unpushed commits | Searched the saved JSON for email addresses | |
+| 2026-11-28 | Quality gate and two scans | `SQE-gate` on the server, scoped and whole repository results in `reports/sonar/`, [sonar-triage.md](sonar-triage.md) | Read gate conditions and results back from the API | |
+| 2026-11-28 | Accepted issue reasons and defect drafts | [sonar-triage.md](sonar-triage.md), [defects.md](defects.md) (DEF-01, DEF-02) | Read the flagged templates and styles; rendered the dashboard to confirm both defects; no screen reader check | |
 
-This record covers help from this tool in one working session. Add any other AI use, including any used for the earlier unit tests and view tests.
+This record covers help from this tool in our working sessions. Add any other AI use, including any used for the earlier unit tests and view tests.
