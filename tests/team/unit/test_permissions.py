@@ -15,6 +15,7 @@ def make_user(username, role="OP", status="A", is_active=True):
     Profile.objects.filter(user=u).update(role=role, status=status)
     return User.objects.get(pk=u.pk)          # reload so the cached profile is fresh
 
+
 def request_for(user):
     r = rf.get("/x")
     r.user = user
@@ -29,6 +30,7 @@ def test_anonymous_has_no_access():
     assert perm.has_role(anon, perm.OPERATIVE) is False
     assert perm.has_capability(anon, "sales.create") is False
 
+
 @pytest.mark.django_db
 @pytest.mark.parametrize("status", ["PEN", "INA", "OL"])
 def test_non_active_status_blocked(status):
@@ -37,10 +39,12 @@ def test_non_active_status_blocked(status):
     assert perm.role_level(u) == 0
     assert perm.has_capability(u, "sales.create") is False
 
+
 @pytest.mark.django_db
 def test_disabled_django_account_blocked():
     u = make_user("disabled", is_active=False)
     assert perm.is_active_member(u) is False
+
 
 @pytest.mark.django_db
 def test_user_without_profile_blocked():
@@ -50,6 +54,7 @@ def test_user_without_profile_blocked():
     assert perm.get_profile(u) is None
     assert perm.is_active_member(u) is False
     assert perm.has_capability(u, "sales.create") is False
+
 
 @pytest.mark.django_db
 def test_superuser_is_always_admin():
@@ -67,6 +72,7 @@ def test_superuser_is_always_admin():
 def test_role_levels(role, level):
     assert perm.role_level(make_user(f"r_{role}", role=role)) == level
 
+
 @pytest.mark.django_db
 @pytest.mark.parametrize("role,min_role,expected", [
     ("OP", "OP", True), ("OP", "EX", False), ("OP", "AD", False),
@@ -77,11 +83,13 @@ def test_role_levels(role, level):
 def test_has_role_matrix(role, min_role, expected):
     assert perm.has_role(make_user(f"m_{role}_{min_role}", role=role), min_role) is expected
 
+
 @pytest.mark.django_db
 def test_is_manager_and_is_admin():
     op, ex, ad = make_user("o"), make_user("e", "EX"), make_user("a", "AD")
     assert (perm.is_manager(op), perm.is_manager(ex), perm.is_manager(ad)) == (False, True, True)
     assert (perm.is_admin(op), perm.is_admin(ex), perm.is_admin(ad)) == (False, False, True)
+
 
 @pytest.mark.django_db
 def test_blank_or_unknown_role_falls_back_to_operative():
@@ -118,9 +126,11 @@ def test_capability_matrix(role, capability, expected):
 def exec_view(request):
     return HttpResponse("ok")
 
+
 @perm.capability_required("sales.void")
 def void_view(request):
     return HttpResponse("ok")
+
 
 @pytest.mark.django_db
 def test_role_required_decorator():
@@ -130,6 +140,7 @@ def test_role_required_decorator():
         exec_view(request_for(make_user("d_op", "OP")))
     assert exec_view(request_for(make_user("d_ex", "EX"))).status_code == 200
     assert exec_view(request_for(make_user("d_ad", "AD"))).status_code == 200
+
 
 @pytest.mark.django_db
 def test_capability_required_decorator():
@@ -148,6 +159,7 @@ def guard(mixin, user, **attrs):
         setattr(g, k, v)
     return g.test_func()
 
+
 @pytest.mark.django_db
 def test_role_mixins():
     op, ex, ad = make_user("k_op"), make_user("k_ex", "EX"), make_user("k_ad", "AD")
@@ -156,6 +168,7 @@ def test_role_mixins():
     assert guard(perm.ManagerRequiredMixin, ex) is True
     assert guard(perm.AdminRequiredMixin, ex) is False
     assert guard(perm.AdminRequiredMixin, ad) is True
+
 
 @pytest.mark.django_db
 def test_capability_mixins():
