@@ -4,7 +4,7 @@ SonarQube Community Build 26.11.0.134175, latest scoped analysis 2026-11-28T10:3
 
 The metric, rating and issue sections describe the **scoped** analysis of `accounts`, `store` and `transactions`, with tests in `tests/team`. A whole repository analysis is compared under [Two scopes](#two-scopes).
 
-The triage below is a proposal for the team to confirm.
+The triage below is a proposal for the team to confirm. These results were taken before the fixes and exclusions listed in [ci.md](ci.md#findings-fixed-or-suppressed).
 
 The latest `analysis.json` files record revision `5d3fa34`. Before pushing, that commit was rewritten as `484cd2a` to remove author emails from saved results; the application code is the same.
 

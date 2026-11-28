@@ -1,0 +1,23 @@
+# Cosmic Ray session for the business rules. See docs/mutation.md.
+# Cosmic Ray edits these files in place: run it on a copy of the repository.
+[cosmic-ray]
+module-path = [
+    "transactions/services.py",
+    "transactions/loyalty.py",
+    "store/models.py",
+    "accounts/permissions.py",
+]
+timeout = 120.0
+excluded-modules = []
+test-command = "python -m pytest tests/team/unit -q -x --tb=no -p no:cacheprovider -W ignore --nomigrations"
+
+[cosmic-ray.distributor]
+name = "http"
+
+[cosmic-ray.distributor.http]
+worker-urls = [
+    "http://localhost:9801",
+    "http://localhost:9802",
+    "http://localhost:9803",
+    "http://localhost:9804",
+]

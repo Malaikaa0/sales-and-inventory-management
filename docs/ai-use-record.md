@@ -30,6 +30,22 @@ Tool: Claude Code (Anthropic), model Claude Sonnet 5.5.
 | 2026-11-28 | Removing personal fields | Author and email fields removed from `reports/sonar/`, including from unpushed commits | Searched the saved JSON for email addresses | |
 | 2026-11-28 | Quality gate and two scans | `SQE-gate` on the server, scoped and whole repository results in `reports/sonar/`, [sonar-triage.md](sonar-triage.md) | Read gate conditions and results back from the API | |
 | 2026-11-28 | Accepted issue reasons and defect drafts | [sonar-triage.md](sonar-triage.md), [defects.md](defects.md) (DEF-01, DEF-02) | Read the flagged templates and styles; rendered the dashboard to confirm both defects; no screen reader check | |
+| 2026-11-28 | Mutation setup and custom operators | `tools/mutation/` | Operators checked against examples and compiled on the target files | |
+| 2026-11-28 | Mutation sessions | Raw results in `reports/mutation/` | Three full sessions; two earlier attempts failed on errors in the run script and produced no results | |
+| 2026-11-28 | Tests for surviving mutants | `test_mutation_gaps.py`, `tests/team/conftest.py`, lint formatting of older unit tests | Unit tests pass; flake8 passes; confirmed by the final session | |
+| 2026-11-28 | Survivor analysis | [mutation.md](mutation.md) | Final survivors match the listed equivalent mutants; equivalence arguments not independently reviewed | |
+| 2026-11-28 | CI quality gate | `ci.yml`, `tools/ci/`, `requirements-dev.txt`, [ci.md](ci.md) | Test and mutation steps run in a Linux container; the workflow has not run on GitHub | |
+| 2026-11-28 | Sonar gate on overall code | `SQE-gate`, `reports/sonar/gate-proof/` | Probe passed clean and failed with an added bug; run on the current code | |
+| 2026-11-28 | Fix branch for DEF-01 | Failing test, then the template fix | Test failed then passed; SonarQube bugs on the template went from 2 to 1; not viewed in a browser | |
+| 2026-11-28 | Blocked branch | Untested bulk discount rule | Coverage and mutation checks failed locally | |
+| 2026-11-28 | Pull request descriptions | `docs/pull-requests/` | Figures taken from the local runs | |
+| 2026-11-28 | Sonar exclusions and dashboard headers | `sonar-project.properties`, `dashboard.html` (same change as Member 3's) | Gate passed on a new SonarQube server from a clean clone | |
+| 2026-11-28 | Playwright in CI | `ci.yml`, `requirements-dev.txt` | Test job run on Linux with `area2-Rehan` merged in a throwaway clone | |
+| 2026-11-28 | Fix branch changed to D1 | Failing test, then the fix in `parse_lines`; replaces the unused DEF-01 branch | Test failed then passed; in-scope coverage 100%; mutation run on `services.py` | |
+| 2026-11-28 | Member 1 use cases and browser tests | `docs/use-cases/UC-M1-*.md`, `test_m1_use_cases.py` | 11 browser tests passed locally | |
+| 2026-11-28 | SonarQube screenshots and pushing branches | `reports/sonar/screenshots/`; branches pushed at the user's request | Overview, gate and complexity images viewed | |
+| 2026-11-28 | Opening the CI pull request | Pull request #10, `reports/ci/` screenshots; opened at the user's request | All four checks passed on GitHub | |
+| 2026-11-28 | Fix, blocked and use case pull requests | Pull requests #11, #17, #18 and screenshots in `reports/ci/`; opened at the user's request | Check results and logs read from GitHub; nothing merged | |
 
 ## Member 2 (Rehan)
 

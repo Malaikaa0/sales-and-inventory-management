@@ -1,0 +1,122 @@
+[job-id] c5757951155c4b369d0e1ec3a9a9d47a
+transactions\services.py core/ReplaceComparisonOperator_Lt_NotEq 7
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -184,7 +184,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points != 0 and customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] 57e15768546c45778abf95321677101e
+transactions\services.py core/ReplaceComparisonOperator_Lt_LtE 7
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -184,7 +184,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points <= 0 and customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] 686044d5fff0475aa8002258896e45b7
+transactions\services.py core/ReplaceComparisonOperator_Lt_LtE 8
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -184,7 +184,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points < 0 and customer.loyalty_points <= -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] 8613e50c0340417bb7b80efd36d2b538
+transactions\services.py core/ReplaceUnaryOperator_Delete_Not 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -39,7 +39,7 @@
+ 
+ def _int(value, field):
+     try:
+-        if isinstance(value, float) and not value.is_integer():
++        if isinstance(value, float) and  value.is_integer():
+             raise ValueError
+         return int(str(value))
+     except (TypeError, ValueError):
+============
+[job-id] e35b2b8a33fd4439990b05899d885d2f
+transactions\services.py core/NumberReplacer 28
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -184,7 +184,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if net_points < 1 and customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+[job-id] 49504394222b44798481d5372e674dc9
+transactions\services.py sqe/break-stock-rule 1
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -39,7 +39,7 @@
+ 
+ def _int(value, field):
+     try:
+-        if isinstance(value, float) and not value.is_integer():
++        if isinstance(value, float):
+             raise ValueError
+         return int(str(value))
+     except (TypeError, ValueError):
+============
+[job-id] 1109b62c2a1543a59a0942b6cb6bb02e
+transactions\services.py sqe/break-stock-rule 6
+worker outcome: WorkerOutcome.NORMAL, test outcome: TestOutcome.SURVIVED
+=== DIFF ===
+--- mutation diff ---
+--- a/transactions\services.py
++++ b/transactions\services.py
+@@ -184,7 +184,7 @@
+ 
+         customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+         net_points = sale.loyalty_points_redeemed - sale.loyalty_points_earned
+-        if net_points < 0 and customer.loyalty_points < -net_points:
++        if customer.loyalty_points < -net_points:
+             # Customer already spent the points earned on this sale; take what
+             # is left rather than blocking the void.
+             net_points = -customer.loyalty_points
+============
+total jobs: 320
+complete: 320 (100.00%)
+surviving mutants: 7 (2.19%)

@@ -1,0 +1,60 @@
+[
+  {
+    "key": "fd100bec-49f6-4deb-8bae-98ea42593469",
+    "rule": "python:S1764",
+    "severity": "MAJOR",
+    "component": "sqe-gate-probe:app/maths.py",
+    "project": "sqe-gate-probe",
+    "line": 6,
+    "hash": "c0c987168bccca7b83a984c076c17944",
+    "textRange": {
+      "startLine": 6,
+      "endLine": 6,
+      "startOffset": 19,
+      "endOffset": 24
+    },
+    "flows": [
+      {
+        "locations": [
+          {
+            "component": "sqe-gate-probe:app/maths.py",
+            "textRange": {
+              "startLine": 6,
+              "endLine": 6,
+              "startOffset": 11,
+              "endOffset": 16
+            },
+            "msgFormattings": []
+          }
+        ]
+      }
+    ],
+    "status": "OPEN",
+    "message": "Correct one of the identical sub-expressions on both sides of operator \"-\".",
+    "effort": "2min",
+    "debt": "2min",
+    "tags": [
+      "suspicious"
+    ],
+    "creationDate": "2026-11-28T12:57:14+0000",
+    "updateDate": "2026-11-28T12:57:14+0000",
+    "type": "BUG",
+    "scope": "MAIN",
+    "quickFixAvailable": false,
+    "messageFormattings": [],
+    "codeVariants": [],
+    "cleanCodeAttribute": "LOGICAL",
+    "cleanCodeAttributeCategory": "INTENTIONAL",
+    "impacts": [
+      {
+        "softwareQuality": "RELIABILITY",
+        "severity": "MEDIUM"
+      }
+    ],
+    "issueStatus": "OPEN",
+    "prioritizedRule": false,
+    "fromSonarQubeUpdate": false,
+    "internalTags": [],
+    "linkedTicketStatus": "NOT_LINKED"
+  }
+]
