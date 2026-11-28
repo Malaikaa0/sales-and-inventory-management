@@ -53,6 +53,15 @@ After `area2-Rehan` merges, `Tests and coverage` also runs the API tests against
 - 6 API tests currently fail on real behaviour;
 - `tools/generator/generate.py` has 3 `flake8` findings, which turn `Lint` red.
 
+## Member 3 tests
+
+Commits up to `e625373` on `origin/area1-malaika` add browser, security and performance tests. A trial merge with this branch had no conflicts, but CI would fail:
+
+- `tests/team/e2e` imports Playwright, which the workflow does not install, so collection stops with an error;
+- `flake8` reports 4 findings in `tests/team/perf/recovery_test.py`, `tools/run_accessibility_audit.py` and `tools/run_zap_passive.py`.
+
+Those commits also add column headers to both dashboard tables (DEF-01 and DEF-02).
+
 ## How the gate blocks a merge
 
 A red check only informs. The merge is blocked by branch protection on `main`, which must require the four checks.
