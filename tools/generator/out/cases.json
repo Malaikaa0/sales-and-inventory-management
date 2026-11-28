@@ -3720,7 +3720,7 @@
         "items": [
           {
             "id": "<item_id>",
-            "quantity": 100000
+            "quantity": 500
           }
         ],
         "redeem_points": 0,
@@ -3736,7 +3736,7 @@
       "rule": "BR1",
       "technique": "BVA",
       "valid": true,
-      "value": 100000,
+      "value": 500,
       "value_missing": false
     },
     {
@@ -3746,14 +3746,14 @@
         "items": [
           {
             "id": "<item_id>",
-            "quantity": 100001
+            "quantity": 501
           }
         ],
         "redeem_points": 0,
         "tax_percentage": 0
       },
       "endpoint": "POST /transactions/new-sale/",
-      "expected_message": "100000",
+      "expected_message": "500",
       "expected_outcome": "rejected:field",
       "expected_status": 400,
       "field": "items[].quantity",
@@ -3762,7 +3762,7 @@
       "rule": "BR1",
       "technique": "BVA",
       "valid": false,
-      "value": 100001,
+      "value": 501,
       "value_missing": false
     },
     {
@@ -3772,7 +3772,7 @@
         "items": [
           {
             "id": "<item_id>",
-            "quantity": 99999
+            "quantity": 499
           }
         ],
         "redeem_points": 0,
@@ -3788,7 +3788,7 @@
       "rule": "BR1",
       "technique": "BVA",
       "valid": true,
-      "value": 99999,
+      "value": 499,
       "value_missing": false
     },
     {
@@ -3876,7 +3876,7 @@
         "items": [
           {
             "id": "<item_id>",
-            "quantity": 50000
+            "quantity": 250
           }
         ],
         "redeem_points": 0,
@@ -3892,7 +3892,7 @@
       "rule": "BR1",
       "technique": "BVA",
       "valid": true,
-      "value": 50000,
+      "value": 250,
       "value_missing": false
     },
     {
@@ -4450,7 +4450,7 @@
           }
         ],
         "redeem_points": 0,
-        "tax_percentage": 100.0
+        "tax_percentage": 50.0
       },
       "endpoint": "POST /transactions/new-sale/",
       "expected_message": null,
@@ -4462,7 +4462,7 @@
       "rule": "BR1",
       "technique": "BVA",
       "valid": true,
-      "value": 100.0,
+      "value": 50.0,
       "value_missing": false
     },
     {
@@ -4476,7 +4476,7 @@
           }
         ],
         "redeem_points": 0,
-        "tax_percentage": 100.01
+        "tax_percentage": 50.01
       },
       "endpoint": "POST /transactions/new-sale/",
       "expected_message": "Tax must be between 0 and 100 percent.",
@@ -4488,7 +4488,7 @@
       "rule": "BR1",
       "technique": "BVA",
       "valid": false,
-      "value": 100.01,
+      "value": 50.01,
       "value_missing": false
     },
     {
@@ -4502,7 +4502,7 @@
           }
         ],
         "redeem_points": 0,
-        "tax_percentage": 99.99
+        "tax_percentage": 49.99
       },
       "endpoint": "POST /transactions/new-sale/",
       "expected_message": null,
@@ -4514,7 +4514,7 @@
       "rule": "BR1",
       "technique": "BVA",
       "valid": true,
-      "value": 99.99,
+      "value": 49.99,
       "value_missing": false
     },
     {
@@ -4606,7 +4606,7 @@
           }
         ],
         "redeem_points": 0,
-        "tax_percentage": 50.0
+        "tax_percentage": 25.0
       },
       "endpoint": "POST /transactions/new-sale/",
       "expected_message": null,
@@ -4618,7 +4618,7 @@
       "rule": "BR1",
       "technique": "BVA",
       "valid": true,
-      "value": 50.0,
+      "value": 25.0,
       "value_missing": false
     },
     {

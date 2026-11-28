@@ -366,10 +366,10 @@ components:
         tax_percentage:
           type: number
           minimum: 0
-          maximum: 100
+          maximum: 50
           default: 0
           nullable: true
-          description: Inclusive 0..100. Model stores 2 decimal places (max_digits 5).
+          description: Inclusive 0..50. Model stores 2 decimal places (max_digits 5).
           x-defaults-when-missing: 0
           x-code-also-defaults: [false]
           x-accepts-numeric-strings: true
@@ -428,11 +428,11 @@ components:
         quantity:
           type: integer
           minimum: 1
-          maximum: 100000
+          maximum: 500
           x-accepts-numeric-strings: true
           x-error-message: Quantities must be at least 1.
           x-error-message-min: at least 1
-          x-error-message-max: '100000'
+          x-error-message-max: '500'
           x-requirement: A4 - a quantity above the maximum gets a message naming the limit
           x-error-message-type: Quantity must be a whole number.
           x-known-defect: N1 (code returns "Quantities must be at least 1." for the upper bound)

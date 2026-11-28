@@ -1,0 +1,154 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.4, pytest-9.2.0, pluggy-1.7.0
+django: version: 5.2.19, settings: InventoryMS.settings (from ini)
+rootdir: /home/mbappe/SQE_Project
+configfile: pytest.ini
+plugins: django-4.14.0
+collected 96 items
+
+tests/team/api/test_sale_generated.py .............F.................... [ 35%]
+..................F.......................F...F............F..           [100%]
+
+=================================== FAILURES ===================================
+_____ test_generated_sale_case[SALE-amount_paid-EP-wrong-type-bool-false] ______
+
+case = {'body': {'amount_paid': False, 'customer': '<customer_id>', 'items': [{'id': '<item_id>', 'quantity': 1}], 'redeem_po...ransactions/new-sale/', 'expected_message': 'Amount paid must be a number.', 'expected_outcome': 'rejected:field', ...}
+cashier = <requests.sessions.Session object at 0x791e11fd2710>
+manager = <requests.sessions.Session object at 0x791e11324550>
+item = {'name': 'api-item-a832f-27', 'slug': 'api-item-a832f-27', 'price': '1.00', 'id': 164}
+customer = {'id': 148, 'name': 'apicust-a832f-28'}
+
+    @pytest.mark.parametrize('case', SALE_CASES, ids=[c['id'] for c in SALE_CASES])
+    def test_generated_sale_case(case, cashier, manager, item, customer):
+        body = fill(case['body'], {'item_id': item['id'], 'customer_id': customer['id']})
+        before = stock(manager, item)
+        assert before == DATA['context']['item_stock']
+    
+        response = post_sale(cashier, body)
+    
+        assert response.status_code == case['expected_status'], (
+            f'{case["id"]}: expected {case["expected_status"]}, got {response.status_code}: '
+            f'{response.text[:300]}'
+        )
+        payload = response.json()
+        after = stock(manager, item)
+    
+        if case['expected_outcome'] == 'accepted':
+            assert payload['status'] == 'success'
+            assert isinstance(payload['sale_id'], int)
+            assert after == before - sold_quantity(body), 'stock not reduced by the sold quantity'
+        else:
+            assert payload['status'] == 'error'
+            if case['expected_message']:
+>               assert case['expected_message'] in payload['message'], payload['message']
+E               AssertionError: Amount paid (0.00) is less than the total (1.00).
+E               assert 'Amount paid must be a number.' in 'Amount paid (0.00) is less than the total (1.00).'
+
+tests/team/api/test_sale_generated.py:47: AssertionError
+__________ test_generated_sale_case[SALE-items[].quantity-BVA-max+d] ___________
+
+case = {'body': {'amount_paid': 1000000, 'customer': '<customer_id>', 'items': [{'id': '<item_id>', 'quantity': 501}], 'redee......}, 'endpoint': 'POST /transactions/new-sale/', 'expected_message': '500', 'expected_outcome': 'rejected:field', ...}
+cashier = <requests.sessions.Session object at 0x791e11fd2710>
+manager = <requests.sessions.Session object at 0x791e11324550>
+item = {'name': 'api-item-a832f-105', 'slug': 'api-item-a832f-105', 'price': '1.00', 'id': 203}
+customer = {'id': 187, 'name': 'apicust-a832f-106'}
+
+    @pytest.mark.parametrize('case', SALE_CASES, ids=[c['id'] for c in SALE_CASES])
+    def test_generated_sale_case(case, cashier, manager, item, customer):
+        body = fill(case['body'], {'item_id': item['id'], 'customer_id': customer['id']})
+        before = stock(manager, item)
+        assert before == DATA['context']['item_stock']
+    
+        response = post_sale(cashier, body)
+    
+>       assert response.status_code == case['expected_status'], (
+            f'{case["id"]}: expected {case["expected_status"]}, got {response.status_code}: '
+            f'{response.text[:300]}'
+        )
+E       AssertionError: SALE-items[].quantity-BVA-max+d: expected 400, got 200: {"status": "success", "message": "Sale IMS000199 completed.", "sale_id": 199, "receipt_number": "IMS000199", "grand_total": "501.00", "change": "999499.00", "points_earned": 5, "redirect": "/transactions/sale/199/", "receipt_url": "/transactions/sale/199/receipt.pdf"}
+E       assert 200 == 400
+E        +  where 200 = <Response [200]>.status_code
+
+tests/team/api/test_sale_generated.py:33: AssertionError
+____ test_generated_sale_case[SALE-redeem_points-EP-wrong-type-bool-false] _____
+
+case = {'body': {'amount_paid': 1000000, 'customer': '<customer_id>', 'items': [{'id': '<item_id>', 'quantity': 1}], 'redeem_.../new-sale/', 'expected_message': 'Points to redeem must be a whole number.', 'expected_outcome': 'rejected:field', ...}
+cashier = <requests.sessions.Session object at 0x791e11fd2710>
+manager = <requests.sessions.Session object at 0x791e11324550>
+item = {'name': 'api-item-a832f-153', 'slug': 'api-item-a832f-153', 'price': '1.00', 'id': 227}
+customer = {'id': 211, 'name': 'apicust-a832f-154'}
+
+    @pytest.mark.parametrize('case', SALE_CASES, ids=[c['id'] for c in SALE_CASES])
+    def test_generated_sale_case(case, cashier, manager, item, customer):
+        body = fill(case['body'], {'item_id': item['id'], 'customer_id': customer['id']})
+        before = stock(manager, item)
+        assert before == DATA['context']['item_stock']
+    
+        response = post_sale(cashier, body)
+    
+>       assert response.status_code == case['expected_status'], (
+            f'{case["id"]}: expected {case["expected_status"]}, got {response.status_code}: '
+            f'{response.text[:300]}'
+        )
+E       AssertionError: SALE-redeem_points-EP-wrong-type-bool-false: expected 400, got 200: {"status": "success", "message": "Sale IMS000210 completed.", "sale_id": 210, "receipt_number": "IMS000210", "grand_total": "1.00", "change": "999999.00", "points_earned": 0, "redirect": "/transactions/sale/210/", "receipt_url": "/transactions/sale/210/receipt.pdf"}
+E       assert 200 == 400
+E        +  where 200 = <Response [200]>.status_code
+
+tests/team/api/test_sale_generated.py:33: AssertionError
+___________ test_generated_sale_case[SALE-tax_percentage-BVA-max+d] ____________
+
+case = {'body': {'amount_paid': 1000000, 'customer': '<customer_id>', 'items': [{'id': '<item_id>', 'quantity': 1}], 'redeem_...ns/new-sale/', 'expected_message': 'Tax must be between 0 and 100 percent.', 'expected_outcome': 'rejected:field', ...}
+cashier = <requests.sessions.Session object at 0x791e11fd2710>
+manager = <requests.sessions.Session object at 0x791e11324550>
+item = {'name': 'api-item-a832f-161', 'slug': 'api-item-a832f-161', 'price': '1.00', 'id': 231}
+customer = {'id': 215, 'name': 'apicust-a832f-162'}
+
+    @pytest.mark.parametrize('case', SALE_CASES, ids=[c['id'] for c in SALE_CASES])
+    def test_generated_sale_case(case, cashier, manager, item, customer):
+        body = fill(case['body'], {'item_id': item['id'], 'customer_id': customer['id']})
+        before = stock(manager, item)
+        assert before == DATA['context']['item_stock']
+    
+        response = post_sale(cashier, body)
+    
+>       assert response.status_code == case['expected_status'], (
+            f'{case["id"]}: expected {case["expected_status"]}, got {response.status_code}: '
+            f'{response.text[:300]}'
+        )
+E       AssertionError: SALE-tax_percentage-BVA-max+d: expected 400, got 200: {"status": "success", "message": "Sale IMS000212 completed.", "sale_id": 212, "receipt_number": "IMS000212", "grand_total": "1.50", "change": "999998.50", "points_earned": 0, "redirect": "/transactions/sale/212/", "receipt_url": "/transactions/sale/212/receipt.pdf"}
+E       assert 200 == 400
+E        +  where 200 = <Response [200]>.status_code
+
+tests/team/api/test_sale_generated.py:33: AssertionError
+____ test_generated_sale_case[SALE-tax_percentage-EP-wrong-type-bool-false] ____
+
+case = {'body': {'amount_paid': 1000000, 'customer': '<customer_id>', 'items': [{'id': '<item_id>', 'quantity': 1}], 'redeem_...'POST /transactions/new-sale/', 'expected_message': 'Tax must be a number.', 'expected_outcome': 'rejected:field', ...}
+cashier = <requests.sessions.Session object at 0x791e11fd2710>
+manager = <requests.sessions.Session object at 0x791e11324550>
+item = {'name': 'api-item-a832f-187', 'slug': 'api-item-a832f-187', 'price': '1.00', 'id': 244}
+customer = {'id': 228, 'name': 'apicust-a832f-188'}
+
+    @pytest.mark.parametrize('case', SALE_CASES, ids=[c['id'] for c in SALE_CASES])
+    def test_generated_sale_case(case, cashier, manager, item, customer):
+        body = fill(case['body'], {'item_id': item['id'], 'customer_id': customer['id']})
+        before = stock(manager, item)
+        assert before == DATA['context']['item_stock']
+    
+        response = post_sale(cashier, body)
+    
+>       assert response.status_code == case['expected_status'], (
+            f'{case["id"]}: expected {case["expected_status"]}, got {response.status_code}: '
+            f'{response.text[:300]}'
+        )
+E       AssertionError: SALE-tax_percentage-EP-wrong-type-bool-false: expected 400, got 200: {"status": "success", "message": "Sale IMS000223 completed.", "sale_id": 223, "receipt_number": "IMS000223", "grand_total": "1.00", "change": "999999.00", "points_earned": 0, "redirect": "/transactions/sale/223/", "receipt_url": "/transactions/sale/223/receipt.pdf"}
+E       assert 200 == 400
+E        +  where 200 = <Response [200]>.status_code
+
+tests/team/api/test_sale_generated.py:33: AssertionError
+=========================== short test summary info ============================
+FAILED tests/team/api/test_sale_generated.py::test_generated_sale_case[SALE-amount_paid-EP-wrong-type-bool-false]
+FAILED tests/team/api/test_sale_generated.py::test_generated_sale_case[SALE-items[].quantity-BVA-max+d]
+FAILED tests/team/api/test_sale_generated.py::test_generated_sale_case[SALE-redeem_points-EP-wrong-type-bool-false]
+FAILED tests/team/api/test_sale_generated.py::test_generated_sale_case[SALE-tax_percentage-BVA-max+d]
+FAILED tests/team/api/test_sale_generated.py::test_generated_sale_case[SALE-tax_percentage-EP-wrong-type-bool-false]
+=================== 5 failed, 91 passed in 61.76s (0:01:01) ====================

@@ -1,0 +1,35 @@
+Regeneration demo: items[].quantity.maximum 100000 -> 500, tax_percentage.maximum 100 -> 50
+Branch area2-Rehan-regen, 2026-11-28T07:29Z. Baseline = area2-Rehan working tree.
+
+== git diff --stat (baseline -> regen) ==
+ .../scratchpad/{base => regen}/openapi.yaml                       | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../scratchpad/{base => regen}/cases.json          | 34 +++++++++++-----------
+ 1 file changed, 17 insertions(+), 17 deletions(-)
+
+== spec diff ==
+-          maximum: 100
++          maximum: 50
+-          description: Inclusive 0..100. Model stores 2 decimal places (max_digits 5).
++          description: Inclusive 0..50. Model stores 2 decimal places (max_digits 5).
+-          maximum: 100000
++          maximum: 500
+-          x-error-message-max: '100000'
++          x-error-message-max: '500'
+
+== case summary: baseline 111, regen 111; ids added 0, removed 0 ==
+changed (same id, new value or expectation): 8
+  SALE-items[].quantity-BVA-max: value 100000 -> 500; expected 200 accepted -> 200 accepted
+  SALE-items[].quantity-BVA-max+d: value 100001 -> 501; expected 400 rejected:field -> 400 rejected:field
+  SALE-items[].quantity-BVA-max-d: value 99999 -> 499; expected 200 accepted -> 200 accepted
+  SALE-items[].quantity-BVA-nominal: value 50000 -> 250; expected 200 accepted -> 200 accepted
+  SALE-tax_percentage-BVA-max: value 100.0 -> 50.0; expected 200 accepted -> 200 accepted
+  SALE-tax_percentage-BVA-max+d: value 100.01 -> 50.01; expected 400 rejected:field -> 400 rejected:field
+  SALE-tax_percentage-BVA-max-d: value 99.99 -> 49.99; expected 200 accepted -> 200 accepted
+  SALE-tax_percentage-BVA-nominal: value 50.0 -> 25.0; expected 200 accepted -> 200 accepted
+Predicted failures against the unchanged app (limits still 100000 / 100):
+  SALE-items[].quantity-BVA-max+d (value 501): regen expects 400, app limit allows it -> 200
+  SALE-tax_percentage-BVA-max+d (value 50.01): regen expects 400, app limit allows it -> 200
+
+Actual run (reports/api/run-regen.txt): 5 failed, 91 passed in 61.76s (0:01:01)
+Failures new versus baseline: SALE-items[].quantity-BVA-max+d now fails on status (501 accepted) instead of message; SALE-tax_percentage-BVA-max+d (50.01 accepted). The 3 boolean failures are N5, unchanged.
