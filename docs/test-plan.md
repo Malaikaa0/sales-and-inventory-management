@@ -166,3 +166,27 @@ Found by reading the code and confirmed by running it. No test failed. See also 
 | D4 | A cart line with quantity `2.0` | Accepted as 2, since the code allows whole floats | Rejected: "Quantity must be a whole number." |
 
 D4 is currently asserted as present behaviour by `test_whole_number_float_is_rejected_current_behaviour`. If it is accepted as a defect and fixed, that test must change.
+
+## 12. Known defects in CI (Member 2)
+
+Agreed on 28 Nov 2026. Tests that fail because of an **open, logged** defect are marked `@pytest.mark.xfail(strict=True, reason="Known defect N# — issue #n, open")`:
+
+| Test | Defect | Issue |
+| --- | --- | --- |
+| `tests/team/api/test_purchase.py::test_purchase_above_int32_rejected_N2` | N2 | [#2](https://github.com/Malaikaa0/sales-and-inventory-management/issues/2) |
+| `tests/team/api/test_repeats.py::test_same_sale_posted_twice_records_one_sale` | N4 | [#4](https://github.com/Malaikaa0/sales-and-inventory-management/issues/4) |
+| `tests/team/api/test_sale_generated.py::test_generated_sale_case[SALE-amount_paid-EP-wrong-type-bool-false]` | N5 | [#5](https://github.com/Malaikaa0/sales-and-inventory-management/issues/5) |
+| `…[SALE-redeem_points-EP-wrong-type-bool-false]` | N5 | [#5](https://github.com/Malaikaa0/sales-and-inventory-management/issues/5) |
+| `…[SALE-tax_percentage-EP-wrong-type-bool-false]` | N5 | [#5](https://github.com/Malaikaa0/sales-and-inventory-management/issues/5) |
+| `tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_exc3_tax_out_of_range_rejected` | N7 | [#8](https://github.com/Malaikaa0/sales-and-inventory-management/issues/8) |
+| `tests/team/e2e/test_e2e_m2_use_cases.py::test_uc_m2_2_exc5_session_expired` | N8 | [#9](https://github.com/Malaikaa0/sales-and-inventory-management/issues/9) |
+
+N1 is **not** marked: its fix (PR #11) is merged before these tests reach `main`.
+
+Why we use `xfail(strict=True)`:
+
+- **The gate stays meaningful.** Any new failure still fails the pipeline. Known failures are visible in every run as `xfailed`, with the issue number, instead of hiding behind a red build that everyone ignores.
+- **A fix forces the marker's removal.** With `strict=True`, a test that starts passing is reported as XPASS and fails the run. Whoever fixes the defect must remove the marker, so the test then guards the fix.
+- **Expected results do not change.** The tests still assert the requirement (scope.md IDs and agreed assumptions), not the current behaviour.
+
+The raw failing baseline, without markers, is [reports/api/run-baseline.txt](../reports/api/run-baseline.txt) for the API tests and [reports/e2e/run-m2.txt](../reports/e2e/run-m2.txt) for the E2E tests.
