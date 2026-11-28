@@ -20,7 +20,7 @@ The chart is [`reports/api/pareto.png`](../../reports/api/pareto.png). To regene
 | N1 | Error reporting | Minor / P3 | Correct rejection, wrong message |
 | N3 | Error reporting | Minor / P3 | Correct rejection, but 200 instead of 4xx |
 | N8 | Error reporting | Minor / P3 | Ended session shown as "Unexpected server response." |
-| N4 | Idempotency / repeats | Major / P1 (P2 proposed) | Repeated request creates a second sale |
+| N4 | Idempotency / repeats | Major / P2 (lowered from P1) | Repeated request creates a second sale |
 
 ## Counts, sorted
 
@@ -40,7 +40,7 @@ The chart is [`reports/api/pareto.png`](../../reports/api/pareto.png). To regene
   - This is preventive action 1 in [rca-N2.md](rca-N2.md), widened to the UI.
 - **Error reporting** defects do not corrupt data. Each one gives the user the wrong message or status (N1, N3, N8), so one review of error paths and messages would fix all three.
 - **Fix order** is set by priority, not by count:
-  1. N4 (double charge, stock wrong).
+  1. N4 (double charge, stock wrong; Major, P2 since the UI blocks the double click).
   2. The input validation rule (N2 and N7 are Major).
   3. The error-reporting review.
 - **Not counted:** W1 (void never returns 4xx) is an accepted endpoint weakness. Defects in other members' areas, such as the dashboard accessibility defects, are tracked by their owners.

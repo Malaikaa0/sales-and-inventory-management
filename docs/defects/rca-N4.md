@@ -1,6 +1,6 @@
 # Root cause analysis — N4: the same sale sent twice is recorded twice
 
-Defect: [N4](N4.md), Major / P1. Sending the identical sale request twice records two sales (ids 122 and 123 in the latest run) and reduces stock twice. A double click, a browser retry or a client retry after a timeout charges the customer twice and makes stock wrong.
+Defect: [N4](N4.md), Major / P2 (lowered from P1 after the UI evidence in N4.md). Sending the identical sale request twice records two sales (ids 122 and 123 in the latest run) and reduces stock twice. A double click, a browser retry or a client retry after a timeout charges the customer twice and makes stock wrong.
 
 ## 5 Whys
 
