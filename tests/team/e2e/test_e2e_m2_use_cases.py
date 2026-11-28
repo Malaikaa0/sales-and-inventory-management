@@ -21,7 +21,13 @@ import time
 import pytest
 from playwright.sync_api import expect
 
-from test_e2e_workflows import _login, browser_ctx, e2e_server  # noqa: F401  (Member 3's fixtures)
+import test_e2e_workflows as _m3
+
+# Member 3's fixtures and login helper, reused unchanged. Assigned (not imported by
+# name) so flake8 does not report the fixture parameters below as redefinitions.
+_login = _m3._login
+browser_ctx = _m3.browser_ctx
+e2e_server = _m3.e2e_server
 
 PASSWORD = 'demo-pass-123'
 _counter = itertools.count(1)
