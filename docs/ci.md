@@ -91,7 +91,7 @@ A check name appears in the list only after it has run once. Also enable workflo
 
 Turn protection on after the first pull request has run, so that the check names can be selected.
 
-## Evidence from before the first run on GitHub
+## Evidence
 
 | What | Result | Where |
 | --- | --- | --- |
@@ -101,6 +101,7 @@ Turn protection on after the first pull request has run, so that the check names
 | Test and mutation steps on Linux | Passed; `loyalty.py` 114 of 119 killed, as on Windows | Run in a `python:3.12` container |
 | Mutation gate on the blocked change | Failed: 77.5% against 95% | [blocked-pr.summary.txt](../reports/mutation/blocked-pr.summary.txt) |
 | Mutation gate on the D1 fix | Passed: 97.8% (313 of 320) | [fix-D1.summary.txt](../reports/mutation/fix-D1.summary.txt) |
+| First run on GitHub, [pull request #10](https://github.com/Malaikaa0/sales-and-inventory-management/pull/10), commit `3694124` | All four checks passed | [reports/ci/](../reports/ci/) |
 
 Pull request descriptions are in [pull-requests/](pull-requests/).
 
